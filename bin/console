@@ -11,4 +11,6 @@ require "pry"
 
 include Inkblot # :nodoc:
 
+@pins = [5, 6, 13, 19].map { |pn| GPIO::Pin.new(pn)}
+
 Pry.start

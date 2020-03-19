@@ -17,7 +17,7 @@ module Inkblot
 				end
 
 				%x(#{pyscript("display", img_pth)})
-				@current = img_pth
+				@current = img
 			end
 
 			# Clears screen on device
