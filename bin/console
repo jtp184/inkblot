@@ -11,6 +11,44 @@ require "pry"
 
 include Inkblot # :nodoc:
 
-@pins = [5, 6, 13, 19].map { |pn| GPIO::Pin.new(pn)}
+def Inkblot.vendor_path(*paths)
+  @vendor_path ||= String.new(Dir.pwd).tap do |str|
+    str << "/vendor"
+  end
+
+  return @vendor_path if paths.empty?
+
+  [String.new(@vendor_path)].concat(paths).join('/')
+end
+
+@s = Components::SimpleText.new do |st|
+  st.div_height = st.div_width = :full
+  st.text = "56%"
+  st.size = 80
+  st.border_size = 10
+end
+
+@i = Components::IconMenu.new do |mn|
+  mn.div_height = mn.div_width = :full
+  mn.frame = Components::SimpleText.new(
+    text: "56.38 GB => 10 Targets",
+    size: :large
+  ).to_html_frag
+end
+
+@b = Components::IconMenu.new do |mn|
+  mn.div_height = mn.div_width = :full
+  
+  mn.frame_contents = []
+  mn.icons = :arrows
+  
+  mn.frame_contents << Components::ButtonMenu.new(
+    buttons: ["Clone", "Append", "Info", "Poweroff"],
+    div_height: (Inkblot::Display.size[:height].to_f * 0.95).floor.to_s + "px"
+  )
+
+end
+
+
 
 Pry.start

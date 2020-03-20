@@ -1,0 +1,14 @@
+<div style="height: <%= data[:div_height] %>; width: <%= data[:div_width] %>;">
+	<table style="width:100%; height: 96%; border: <%= data[:border_size] %>px solid black; font-family: monospace; justify-content: center; align-items: center;">
+		<% data[:buttons].each_with_index do |btn, ix| %>
+		<tr>
+			<td style="border: 1px solid black;  font-size: 14px; padding-left: 5%"><%= btn %></td>
+		</tr>
+		<% end %>
+		<% (4 - data[:buttons].count).times do %>
+		<tr>
+			<td style="border: 1px solid black;  font-size: 14px; padding-left: 5%">-</td>
+		</tr>
+		<% end %>
+	</table>
+</div>

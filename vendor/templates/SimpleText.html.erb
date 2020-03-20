@@ -1,0 +1,3 @@
+<div style="border: <%= data[:border_size] %>px solid black; box-sizing: border-box; height: <%= data[:div_height] %>; width: <%= data[:div_width] %>; display: flex; flex-flow: column; align-items: center; justify-content: center; text-align: <%= data[:text_align] %>">
+<<%= data[:tag] %> style="font-family: <%= data[:font] %>; <%= data[:font_size] ? "font-size: #{data[:font_size]};" : "" %>"><%= data[:text] %></<%= data[:tag] %>>
+</div>

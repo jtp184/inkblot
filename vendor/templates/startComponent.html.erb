@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% if data[:gfonts] %>
+	<% gf = data[:gfonts].map { |f| f.gsub(' ', '+') }.join('|') %>
+	<link href="https://fonts.googleapis.com/css?family=<%= gf %>&display=swap" rel="stylesheet">
+	<% end %>
+</head>
+<body style="<%= Inkblot::Display.size_css %>">
