@@ -21,13 +21,29 @@ module Inkblot
         @pins ||= Inkblot.button_pinout.map { |pn| GPIO::Pin.new(pn) }
       end
 
-      # True if all the pins are exported
+      # Sets the pull and direction for each pin, and exports them
+      def init
+        pins.each do |pn|
+          pn.pull = :up
+          pn.direction = :in
+          pn.open
+        end
+      end
+
+      # Unexports the pins
+      def release
+        pins.map(&:close)
+      end
+
+      # True if all the pins are exported, set as input, and pulled up
       def ready?
-        pins.all?(&:exported)
+        pins.all?(&:exported) && 
+        pins.all? { |n| n.direction == :in } &&
+        pins.all? { |n| n.pull == :up }
       end
 
       # Uses the on_press procs to respond to input, passing +timeout+
-      def respond(timeout=nil)
+      def get_press(timeout=nil)
         ky = wait_for_press(timeout)
         on_press[ky].call
       end

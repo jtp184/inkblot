@@ -11,7 +11,7 @@ require "pry"
 
 include Inkblot # :nodoc:
 
-# :nodoc:
+# Overrides this in development
 def Inkblot.vendor_path(*paths)
   @vendor_path ||= String.new(Dir.pwd).tap do |str|
     str << "/vendor"
@@ -22,7 +22,7 @@ def Inkblot.vendor_path(*paths)
   [String.new(@vendor_path)].concat(paths).join('/')
 end
 
-@s = Components::SimpleText.new do |st|
+@t = Components::SimpleText.new do |st|
   st.div_height = st.div_width = :full
   st.text = "56%"
   st.size = 80
@@ -31,8 +31,9 @@ end
 
 @i = Components::IconMenu.new do |mn|
   mn.div_height = mn.div_width = :full
+
   mn.frame = Components::SimpleText.new(
-    text: "56.38 GB => 10 Targets",
+    text: "Buttons!",
     size: :large
   ).to_html_frag
 end
@@ -40,16 +41,18 @@ end
 @b = Components::IconMenu.new do |mn|
   mn.div_height = mn.div_width = :full
   
-  mn.frame_contents = []
   mn.icons = :arrows
   
-  mn.frame_contents << Components::ButtonMenu.new(
-    buttons: ["Clone", "Append", "Info", "Poweroff"],
+  mn.frame_contents = Components::ButtonMenu.new(
+    buttons: ["One", "Two", "Three", "Four"],
     div_height: (Inkblot::Display.size[:height].to_f * 0.95).floor.to_s + "px"
   )
-
 end
 
+@s = Components::ScrollMenu.new do |sc|
+  sc.div_height = sc.div_width = :full
+  sc.items = (1..10).map { |x| "Option #{x}" }
+end
 
 
 Pry.start

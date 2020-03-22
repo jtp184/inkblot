@@ -25,7 +25,10 @@ module Inkblot
         get_width(dta)
 
         fr = options.fetch(:frame_contents, [])
-        Array(fr) unless fr.is_a?(Array)
+        
+        unless fr.is_a?(Array)
+          fr = Array(fr)
+        end
 
         dta.frame = fr.map(&:to_html_frag).join("\n")
         
@@ -33,7 +36,8 @@ module Inkblot
       end
 
       # Some default options for icons
-      # * :arrows => Arrows which point offscreen to the keys
+      # * :arrows, :arrows_out => Arrows which point offscreen to the keys
+      # * :arrows_in => Right arrows pointing to the frame
       # * :select => Shows a check, cancel, up arrow, and down arrow
       # * :confirm => 2 button, check and cancel
       # * :agree => 1 button check
@@ -42,8 +46,10 @@ module Inkblot
         case options[:icons]
         when nil
           (10112..10115).to_a.map { |n| :"##{n}" }
-        when :arrows
+        when :arrows, :arrows_out
           %i[nwarr larr swarr swarr]
+        when :arrows_in
+          Array.new(4) { :rarr }
         when :select
           %i[check times uarr darr]
         when :confirm

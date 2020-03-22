@@ -3,17 +3,53 @@ require 'pathname'
 module Inkblot
 	# Handles reading pin data from the board for button input
 	module GPIO
+
+		# Uses the raspi-gpio tool to get pin state for one or more pins +pn+
+		def self.gpio_state(*pn)
+			cmd = `raspi-gpio get #{pn.join(",")}`
+			pt = /GPIO (?<pin>\d*): level=(?<level>\w*) fsel=(?<fsel>\w*) func=(?<func>\w*) pull=(?<pull>\w*)/
+			st = cmd.lines.map { |x| x.match(pt) }
+							 		  .map(&:named_captures)
+										.map { |x| x.transform_keys(&:to_sym) }
+
+			st.each do |nt|
+				%i[pin level fsel].each { |d| nt[d] = nt[d].to_i }
+				nt[:direction] = case nt.delete(:func)
+												 when "INPUT"
+												 	:in
+												 when "OUTPUT"
+												 	:out
+												 end
+
+				nt[:pull] = case nt[:pull]
+									  when "UP"
+									  	:up
+									  when "DOWN"
+									  	:down
+									  end
+			end
+
+			st.one? ? st.first : st
+		end
+
 		# Individual pins are controlled by instances of this class
 		class Pin
 			# Which pin is in question
 			attr_reader :id
 			# Whether we have exported the value of this pin to a synthetic file
 			attr_reader :exported
+			# Whether this pin is for input or output
+			attr_reader :direction
+			# Whether this pin pulls up or down
+			attr_reader :pull
 
 			# Takes in an integer +pn+ for which GPIO pin we are monitoring
 			def initialize(pn)
 				@id = pn
 				@exported = File.exist?(gpio_pin_value_path)
+				st = GPIO.gpio_state(pn)
+				@direction = st[:direction]
+				@pull = st[:pull]
 			end
 
 			# Returns true if the pin is exported and reading low
@@ -52,6 +88,35 @@ module Inkblot
 				echo(id, gpio_base_path, 'unexport')
 				@exported = Dir.exist?(gpio_pin_path)
 
+				self
+			end
+
+			# Sets the direction using the pin path direction file
+			def direction=(dir)
+				raise ArgumentError unless %i[in out].include?(dir)
+				return self if direction == dir
+				echo(id, gpio_pin_path, 'direction')
+				@direction =  GPIO.gpio_state(id)[:direction]
+				self
+			end
+
+			# Sets the pull using the raspi-gpio tool
+			def pull=(pl)
+				raise ArgumentError unless %i[up down].include?(pl)
+				return self if pull == pl
+				
+				cmd = "raspi-gpio set "
+				cmd << id.to_s
+				cmd << " p"
+				cmd << case pl
+							 when :up
+							 	'u'
+				       when :down
+							 	'd'
+				       end
+
+        system(cmd)
+				@pull =  GPIO.gpio_state(id)[:pull]
 				self
 			end
 
