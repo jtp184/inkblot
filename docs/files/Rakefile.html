@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+<head>
+<title>Rakefile</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<link href='../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<script type='text/javascript'>
+  function popupCode(url) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+  
+  function toggleCode(id) {
+    var code = document.getElementById(id)
+  
+    code.style.display = code.style.display != 'block' ? 'block' : 'none'
+    return true
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+</script>
+</head>
+<body class='page'>
+<div class='file' id='wrapper'>
+<div class='header'>
+<h1 class='name'>Rakefile
+</h1>
+<div class='paths'>
+Rakefile
+</div>
+<div class='last-update'>
+Last Update:
+<span class='datetime'>2020-03-22 12:17:14 -0700</span>
+</div>
+</div>
+<div id='content'>
+<div id='text'>
+<div id='description'>
+<p>require “bundler/gem_tasks” require “rspec/core/rake_task”</p>
+
+<p>RSpec::Core::RakeTask.new(:spec)</p>
+
+<p>task :default =&gt; :spec</p>
+
+<p>task :docs do</p>
+
+<pre class="ruby"><span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;rm -rf ./docs&quot;</span>&#x000A;<span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;rdoc --format=hanna --all --main=README.md --exclude=tmp&quot;</span>&#x000A;<span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;mv doc docs&quot;</span></pre>
+
+<p>end</p>
+
+<p>task :reinstall do</p>
+
+<pre class="ruby"><span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;gem uninstall inkblot&quot;</span>&#x000A;<span class="ruby-constant">Rake</span><span class="ruby-operator">::</span><span class="ruby-constant">Task</span>[<span class="ruby-string">&quot;install&quot;</span>].<span class="ruby-identifier">invoke</span></pre>
+
+<p>end</p>
+
+<p>task :bump do</p>
+
+<pre class="ruby"><span class="ruby-identifier">repo</span> = <span class="ruby-constant">Git</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&quot;.&quot;</span>)&#x000A;<span class="ruby-identifier">version_file</span> = <span class="ruby-string">&quot;./lib/inkbot/version.rb&quot;</span>&#x000A;<span class="ruby-identifier">matcher</span> = <span class="ruby-regexp">/VERSION = &quot;(.*)&quot;\.freeze/</span>&#x000A;&#x000A;<span class="ruby-identifier">file_contents</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">version_file</span>)&#x000A;&#x000A;<span class="ruby-identifier">updated</span> = <span class="ruby-identifier">file_contents</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-identifier">matcher</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>&#x000A;  <span class="ruby-identifier">v</span>.<span class="ruby-identifier">gsub</span> <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">last_match</span>(<span class="ruby-value">1</span>), <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">last_match</span>(<span class="ruby-value">1</span>).<span class="ruby-identifier">succ</span>&#x000A;<span class="ruby-keyword">end</span>&#x000A;&#x000A;<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">version_file</span>, <span class="ruby-string">&quot;w+&quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">updated</span> }&#x000A;&#x000A;<span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;bundle&quot;</span>&#x000A;&#x000A;<span class="ruby-identifier">repo</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">version_file</span>)&#x000A;<span class="ruby-identifier">repo</span>.<span class="ruby-identifier">add</span>(<span class="ruby-string">&quot;Gemfile.lock&quot;</span>)</pre>
+
+<p>end</p>
+</div>
+<div id='context'>
+</div>
+
+</div>
+</div>
+
+<div id='footer-push'></div>
+</div>
+<div id='footer'>
+<a href="https://github.com/rdoc/hanna-nouveau"><strong>Hanna Nouveau</strong> RDoc template</a>
+</div>
+</body>
+</html>

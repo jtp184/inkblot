@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+<head>
+<title>Inkblot::ImageConverter</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<link href='../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<script type='text/javascript'>
+  function popupCode(url) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+  
+  function toggleCode(id) {
+    var code = document.getElementById(id)
+  
+    code.style.display = code.style.display != 'block' ? 'block' : 'none'
+    return true
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+</script>
+</head>
+<body class='page'>
+<div class='class' id='wrapper'>
+<div class='header'>
+<h1 class='name'><span class='type'>class</span>
+Inkblot::ImageConverter
+</h1>
+<ol class='paths'>
+<li>
+<a href="../../files/lib/inkblot/converter_rb.html">lib/inkblot/converter.rb</a>
+</li>
+</ol>
+<div class='parent'>
+Superclass:
+<strong><a href="Converter.html">Converter</a></strong>
+</div>
+</div>
+<div id='content'>
+<div id='text'>
+<div id='description'>
+<p>Converts images from other formats into grayscale bmps</p>
+</div>
+<div id='method-list'>
+<h2>Methods</h2>
+<h3>Public Class</h3>
+<ol>
+<li><a href="#method-c-new">new</a></li>
+</ol>
+<h3>Public Instance</h3>
+<ol>
+<li><a href="#method-i-convert">convert</a></li>
+</ol>
+<h3>Private Instance</h3>
+<ol>
+<li><a href="#method-i-mono2">mono2</a></li>
+<li><a href="#method-i-resize">resize</a></li>
+</ol>
+</div>
+<div id='context'>
+</div>
+<div id='section'>
+<div id='methods'>
+<h2>Public Class methods</h2>
+<div class='method public-class' id='method-method-c-new'>
+<a name='method-c-new'></a>
+<div class='synopsis'>
+<span class='name'>new</span>
+<span class='arguments'>(opts={})</span>
+
+</div>
+<div class='description'>
+
+<p>Detects a :path option to read from, or calls super</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-new-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-new-source'><span class="ruby-comment"># File lib/inkblot/converter.rb, line 34</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">opts</span>={})&#x000A;        <span class="ruby-identifier">pth</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:path</span>, <span class="ruby-keyword">nil</span>)&#x000A;        <span class="ruby-identifier">pth</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">input</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">pth</span>) <span class="ruby-operator">:</span> <span class="ruby-keyword">super</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<h2>Public Instance methods</h2>
+<div class='method public-instance' id='method-method-i-convert'>
+<a name='method-i-convert'></a>
+<div class='synopsis'>
+<span class='name'>convert</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Reads input, and uses MiniMagick to modify. Modifies Tempfiles in place, creates tempfiles for strings or regular files</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-convert-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-convert-source'><span class="ruby-comment"># File lib/inkblot/converter.rb, line 41</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">convert</span>&#x000A;        <span class="ruby-keyword">if</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">File</span>)&#x000A;                <span class="ruby-identifier">img_file</span> = <span class="ruby-constant">Tempfile</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;inkblot-convertimage&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>&#x000A;                        <span class="ruby-identifier">f</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">input</span>.<span class="ruby-identifier">path</span>)&#x000A;                <span class="ruby-keyword">end</span>&#x000A;        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Tempfile</span>)&#x000A;                <span class="ruby-identifier">img_file</span> = <span class="ruby-identifier">input</span>&#x000A;        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)&#x000A;                <span class="ruby-identifier">img_file</span> = <span class="ruby-constant">Tempfile</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;inkblot-convertimage&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>&#x000A;                        <span class="ruby-identifier">f</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">input</span>&#x000A;                <span class="ruby-keyword">end</span>&#x000A;        <span class="ruby-keyword">end</span>&#x000A;&#x000A;        <span class="ruby-identifier">resize</span>(<span class="ruby-identifier">img_file</span>)&#x000A;        <span class="ruby-identifier">mono2</span>(<span class="ruby-identifier">img_file</span>)&#x000A;        <span class="ruby-identifier">img_file</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<h2>Private Instance methods</h2>
+<div class='method private-instance' id='method-method-i-mono2'>
+<a name='method-i-mono2'></a>
+<div class='synopsis'>
+<span class='name'>mono2</span>
+<span class='arguments'>(img)</span>
+
+</div>
+<div class='description'>
+
+<p>2Channel monochrome conversion of image</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-mono2-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-mono2-source'><span class="ruby-comment"># File lib/inkblot/converter.rb, line 62</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">mono2</span>(<span class="ruby-identifier">img</span>)&#x000A;        <span class="ruby-constant">MiniMagick</span><span class="ruby-operator">::</span><span class="ruby-constant">Tool</span><span class="ruby-operator">::</span><span class="ruby-constant">Convert</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>&#x000A;                <span class="ruby-identifier">m</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">img</span>.<span class="ruby-identifier">path</span>&#x000A;                <span class="ruby-identifier">m</span>.<span class="ruby-identifier">depth</span>(<span class="ruby-value">1</span>)&#x000A;                <span class="ruby-identifier">m</span>.<span class="ruby-identifier">monochrome</span>&#x000A;                <span class="ruby-identifier">m</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-string">&quot;bmp3:&quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">img</span>.<span class="ruby-identifier">path</span>)&#x000A;        <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method private-instance' id='method-method-i-resize'>
+<a name='method-i-resize'></a>
+<div class='synopsis'>
+<span class='name'>resize</span>
+<span class='arguments'>(img)</span>
+
+</div>
+<div class='description'>
+
+<p>Resizes and extents image</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-resize-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-resize-source'><span class="ruby-comment"># File lib/inkblot/converter.rb, line 72</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">resize</span>(<span class="ruby-identifier">img</span>)&#x000A;        <span class="ruby-identifier">convert</span> = <span class="ruby-constant">MiniMagick</span><span class="ruby-operator">::</span><span class="ruby-constant">Tool</span><span class="ruby-operator">::</span><span class="ruby-constant">Convert</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>&#x000A;                <span class="ruby-identifier">m</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">img</span>.<span class="ruby-identifier">path</span>&#x000A;                <span class="ruby-identifier">m</span>.<span class="ruby-identifier">gravity</span>(<span class="ruby-string">&#39;center&#39;</span>)&#x000A;                <span class="ruby-identifier">m</span>.<span class="ruby-identifier">resize</span>(<span class="ruby-constant">Display</span>.<span class="ruby-identifier">size</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;x&#39;</span>))&#x000A;                <span class="ruby-identifier">m</span>.<span class="ruby-identifier">extent</span>(<span class="ruby-constant">Display</span>.<span class="ruby-identifier">size</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;x&#39;</span>))&#x000A;                <span class="ruby-identifier">m</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-string">&quot;bmp3:&quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">img</span>.<span class="ruby-identifier">path</span>)&#x000A;        <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div id='footer-push'></div>
+</div>
+<div id='footer'>
+<a href="https://github.com/rdoc/hanna-nouveau"><strong>Hanna Nouveau</strong> RDoc template</a>
+</div>
+</body>
+</html>

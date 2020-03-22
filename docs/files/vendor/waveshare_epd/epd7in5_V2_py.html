@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+<head>
+<title>epd7in5_V2.py</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<link href='../../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<script type='text/javascript'>
+  function popupCode(url) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+  
+  function toggleCode(id) {
+    var code = document.getElementById(id)
+  
+    code.style.display = code.style.display != 'block' ? 'block' : 'none'
+    return true
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+</script>
+</head>
+<body class='page'>
+<div class='file' id='wrapper'>
+<div class='header'>
+<h1 class='name'>epd7in5_V2.py
+</h1>
+<div class='paths'>
+vendor/waveshare_epd/epd7in5_V2.py
+</div>
+<div class='last-update'>
+Last Update:
+<span class='datetime'>2020-03-03 21:32:22 -0800</span>
+</div>
+</div>
+<div id='content'>
+<div id='text'>
+<div id='description'>
+<p># ***************************************************************************** # * | File        :       epd7in5.py # * | Author      :   Waveshare team # * | Function    :   Electronic paper driver # * | Info        : # *—————- # * | This version:   V4.0 # * | Date        :   2019-06-20 # # | Info        :   python demo # —————————————————————————– # Permission is hereby granted, free of charge, to any person obtaining a copy # of this software and associated documnetation files (the “Software”), to deal # in the Software without restriction, including without limitation the rights # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell # copies of the Software, and to permit persons to  whom the Software is # furished to do so, subject to the following conditions: # # The above copyright notice and this permission notice shall be included in # all copies or substantial portions of the Software. # # THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, # FITNESS OR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER # LIABILITY WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN # THE SOFTWARE. #</p>
+
+<p>import logging from . import epdconfig</p>
+
+<p># Display resolution EPD_WIDTH       = 800 EPD_HEIGHT      = 480</p>
+
+<p>class EPD:</p>
+
+<pre>def __init__(self):&#x000A;    self.reset_pin = epdconfig.RST_PIN&#x000A;    self.dc_pin = epdconfig.DC_PIN&#x000A;    self.busy_pin = epdconfig.BUSY_PIN&#x000A;    self.cs_pin = epdconfig.CS_PIN&#x000A;    self.width = EPD_WIDTH&#x000A;    self.height = EPD_HEIGHT&#x000A;# Hardware reset&#x000A;def reset(self):&#x000A;    epdconfig.digital_write(self.reset_pin, 1)&#x000A;    epdconfig.delay_ms(200) &#x000A;    epdconfig.digital_write(self.reset_pin, 0)&#x000A;    epdconfig.delay_ms(2)&#x000A;    epdconfig.digital_write(self.reset_pin, 1)&#x000A;    epdconfig.delay_ms(200)   &#x000A;&#x000A;def send_command(self, command):&#x000A;    epdconfig.digital_write(self.dc_pin, 0)&#x000A;    epdconfig.digital_write(self.cs_pin, 0)&#x000A;    epdconfig.spi_writebyte([command])&#x000A;    epdconfig.digital_write(self.cs_pin, 1)&#x000A;&#x000A;def send_data(self, data):&#x000A;    epdconfig.digital_write(self.dc_pin, 1)&#x000A;    epdconfig.digital_write(self.cs_pin, 0)&#x000A;    epdconfig.spi_writebyte([data])&#x000A;    epdconfig.digital_write(self.cs_pin, 1)&#x000A;&#x000A;def ReadBusy(self):&#x000A;    logging.debug(&quot;e-Paper busy&quot;)&#x000A;    self.send_command(0x71)&#x000A;    busy = epdconfig.digital_read(self.busy_pin)&#x000A;    while(busy == 0):&#x000A;        self.send_command(0x71)&#x000A;        busy = epdconfig.digital_read(self.busy_pin)&#x000A;    epdconfig.delay_ms(200)&#x000A;&#x000A;def init(self):&#x000A;    if (epdconfig.module_init() != 0):&#x000A;        return -1&#x000A;    # EPD hardware init start&#x000A;    self.reset()&#x000A;&#x000A;    self.send_command(0x01)                 #POWER SETTING&#x000A;    self.send_data(0x07)&#x000A;    self.send_data(0x07)    #VGH=20V,VGL=-20V&#x000A;    self.send_data(0x3f)            #VDH=15V&#x000A;    self.send_data(0x3f)            #VDL=-15V&#x000A;&#x000A;    self.send_command(0x04) #POWER ON&#x000A;    epdconfig.delay_ms(100)&#x000A;    self.ReadBusy()&#x000A;&#x000A;    self.send_command(0X00)                 #PANNEL SETTING&#x000A;    self.send_data(0x1F)   #KW-3f   KWR-2F  BWROTP 0f       BWOTP 1f&#x000A;&#x000A;    self.send_command(0x61)         #tres&#x000A;    self.send_data(0x03)            #source 800&#x000A;    self.send_data(0x20)&#x000A;    self.send_data(0x01)            #gate 480&#x000A;    self.send_data(0xE0)&#x000A;&#x000A;    self.send_command(0X15)&#x000A;    self.send_data(0x00)&#x000A;&#x000A;    self.send_command(0X50)                 #VCOM AND DATA INTERVAL SETTING&#x000A;    self.send_data(0x10)&#x000A;    self.send_data(0x07)&#x000A;&#x000A;    self.send_command(0X60)                 #TCON SETTING&#x000A;    self.send_data(0x22)&#x000A;&#x000A;    # EPD hardware init end&#x000A;    return 0&#x000A;&#x000A;def getbuffer(self, image):&#x000A;    # logging.debug(&quot;bufsiz = &quot;,int(self.width/8) * self.height)&#x000A;    buf = [0xFF] * (int(self.width/8) * self.height)&#x000A;    image_monocolor = image.convert(&#39;1&#39;)&#x000A;    imwidth, imheight = image_monocolor.size&#x000A;    pixels = image_monocolor.load()&#x000A;    # logging.debug(&quot;imwidth = %d, imheight = %d&quot;,imwidth,imheight)&#x000A;    if(imwidth == self.width and imheight == self.height):&#x000A;        logging.debug(&quot;Vertical&quot;)&#x000A;        for y in range(imheight):&#x000A;            for x in range(imwidth):&#x000A;                # Set the bits for the column of pixels at the current position.&#x000A;                if pixels[x, y] == 0:&#x000A;                    buf[int((x + y * self.width) / 8)] &amp;= ~(0x80 &gt;&gt; (x % 8))&#x000A;    elif(imwidth == self.height and imheight == self.width):&#x000A;        logging.debug(&quot;Horizontal&quot;)&#x000A;        for y in range(imheight):&#x000A;            for x in range(imwidth):&#x000A;                newx = y&#x000A;                newy = self.height - x - 1&#x000A;                if pixels[x, y] == 0:&#x000A;                    buf[int((newx + newy*self.width) / 8)] &amp;= ~(0x80 &gt;&gt; (y % 8))&#x000A;    return buf&#x000A;&#x000A;def display(self, image):&#x000A;    self.send_command(0x13)&#x000A;    for i in range(0, int(self.width * self.height / 8)):&#x000A;        self.send_data(~image[i]);&#x000A;&#x000A;    self.send_command(0x12)&#x000A;    epdconfig.delay_ms(100)&#x000A;    self.ReadBusy()&#x000A;&#x000A;def Clear(self):&#x000A;    self.send_command(0x10)&#x000A;    for i in range(0, int(self.width * self.height / 8)):&#x000A;        self.send_data(0x00)&#x000A;&#x000A;    self.send_command(0x13)&#x000A;    for i in range(0, int(self.width * self.height / 8)):&#x000A;        self.send_data(0x00)&#x000A;&#x000A;    self.send_command(0x12)&#x000A;    epdconfig.delay_ms(100)&#x000A;    self.ReadBusy()&#x000A;&#x000A;def sleep(self):&#x000A;    self.send_command(0x02) # POWER_OFF&#x000A;    self.ReadBusy()&#x000A;&#x000A;    self.send_command(0x07) # DEEP_SLEEP&#x000A;    self.send_data(0XA5)&#x000A;&#x000A;    epdconfig.module_exit()</pre>
+
+<p>### END OF FILE ###</p>
+</div>
+<div id='context'>
+</div>
+
+</div>
+</div>
+
+<div id='footer-push'></div>
+</div>
+<div id='footer'>
+<a href="https://github.com/rdoc/hanna-nouveau"><strong>Hanna Nouveau</strong> RDoc template</a>
+</div>
+</body>
+</html>

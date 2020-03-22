@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+<head>
+<title>epd1in54.py</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<link href='../../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<script type='text/javascript'>
+  function popupCode(url) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+  
+  function toggleCode(id) {
+    var code = document.getElementById(id)
+  
+    code.style.display = code.style.display != 'block' ? 'block' : 'none'
+    return true
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+</script>
+</head>
+<body class='page'>
+<div class='file' id='wrapper'>
+<div class='header'>
+<h1 class='name'>epd1in54.py
+</h1>
+<div class='paths'>
+vendor/waveshare_epd/epd1in54.py
+</div>
+<div class='last-update'>
+Last Update:
+<span class='datetime'>2020-03-03 21:32:22 -0800</span>
+</div>
+</div>
+<div id='content'>
+<div id='text'>
+<div id='description'>
+<p># ***************************************************************************** # * | File        :       epd1in54.py # * | Author      :   Waveshare team # * | Function    :   Electronic paper driver # * | Info        : # *—————- # * | This version:   V3.1 # * | Date        :   2019-06-20 # # | Info        :   python demo # —————————————————————————– # V3.1(2019-06-18): # 2.remove commands define: #   define PANEL_SETTING                               0x00 #   define POWER_SETTING                               0x01 #   define POWER_OFF                                   0x02 #   define POWER_OFF_SEQUENCE_SETTING                  0x03 #   define POWER_ON                                    0x04 #   define POWER_ON_MEASURE                            0x05 #   define BOOSTER_SOFT_START                          0x06 #   define DEEP_SLEEP                                  0x07 #   define DATA_START_TRANSMISSION_1                   0x10 #   define DATA_STOP                                   0x11 #   define DISPLAY_REFRESH                             0x12 #   define DATA_START_TRANSMISSION_2                   0x13 #   define PLL_CONTROL                                 0x30 #   define TEMPERATURE_SENSOR_COMMAND                  0x40 #   define TEMPERATURE_SENSOR_CALIBRATION              0x41 #   define TEMPERATURE_SENSOR_WRITE                    0x42 #   define TEMPERATURE_SENSOR_READ                     0x43 #   define VCOM_AND_DATA_INTERVAL_SETTING              0x50 #   define LOW_POWER_DETECTION                         0x51 #   define TCON_SETTING                                0x60 #   define TCON_RESOLUTION                             0x61 #   define SOURCE_AND_GATE_START_SETTING               0x62 #   define GET_STATUS                                  0x71 #   define AUTO_MEASURE_VCOM                           0x80 #   define VCOM_VALUE                                  0x81 #   define VCM_DC_SETTING_REGISTER                     0x82 #   define PROGRAM_MODE                                0xA0 #   define ACTIVE_PROGRAM                              0xA1 #   define READ_OTP_DATA                               0xA2 # —————————————————————————– # V3.0(2018-11-01): # # 1.Remove: #   digital_write(self, pin, value) #   digital_read(self, pin) #   delay_ms(self, delaytime) #   set_lut(self, lut) #   self.lut = self.lut_full_update # * 2.Change: #   display_frame -&gt; TurnOnDisplay #   set_memory_area -&gt; SetWindow #   set_memory_pointer -&gt; SetCursor # * 3.How to use #   epd = epd1in54.EPD() #   epd.init(epd.lut_full_update) #   image = Image.new(&#39;1&#39;, (epd1in54.EPD_WIDTH, epd1in54.EPD_HEIGHT), 255) #   … #   drawing .….. #   … #   epd.display(getbuffer(image)) # ******************************************************************************/ # Permission is hereby granted, free of charge, to any person obtaining a copy # of this software and associated documnetation files (the “Software”), to deal # in the Software without restriction, including without limitation the rights # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell # copies of the Software, and to permit persons to  whom the Software is # furished to do so, subject to the following conditions: # # The above copyright notice and this permission notice shall be included in # all copies or substantial portions of the Software. # # THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, # FITNESS OR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER # LIABILITY WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN # THE SOFTWARE. #</p>
+
+<p>import logging from . import epdconfig</p>
+
+<p># Display resolution EPD_WIDTH       = 200 EPD_HEIGHT      = 200</p>
+
+<p>class EPD:</p>
+
+<pre>def __init__(self):&#x000A;    self.reset_pin = epdconfig.RST_PIN&#x000A;    self.dc_pin = epdconfig.DC_PIN&#x000A;    self.busy_pin = epdconfig.BUSY_PIN&#x000A;    self.cs_pin = epdconfig.CS_PIN&#x000A;    self.width = EPD_WIDTH&#x000A;    self.height = EPD_HEIGHT&#x000A;lut_full_update = [&#x000A;    0x02, 0x02, 0x01, 0x11, 0x12, 0x12, 0x22, 0x22, &#x000A;    0x66, 0x69, 0x69, 0x59, 0x58, 0x99, 0x99, 0x88, &#x000A;    0x00, 0x00, 0x00, 0x00, 0xF8, 0xB4, 0x13, 0x51, &#x000A;    0x35, 0x51, 0x51, 0x19, 0x01, 0x00&#x000A;]&#x000A;&#x000A;lut_partial_update  = [&#x000A;    0x10, 0x18, 0x18, 0x08, 0x18, 0x18, 0x08, 0x00, &#x000A;    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, &#x000A;    0x00, 0x00, 0x00, 0x00, 0x13, 0x14, 0x44, 0x12, &#x000A;    0x00, 0x00, 0x00, 0x00, 0x00, 0x00&#x000A;]&#x000A;&#x000A;# Hardware reset&#x000A;def reset(self):&#x000A;    epdconfig.digital_write(self.reset_pin, 1)&#x000A;    epdconfig.delay_ms(200) &#x000A;    epdconfig.digital_write(self.reset_pin, 0)         # module reset&#x000A;    epdconfig.delay_ms(10)&#x000A;    epdconfig.digital_write(self.reset_pin, 1)&#x000A;    epdconfig.delay_ms(200)   &#x000A;&#x000A;def send_command(self, command):&#x000A;    epdconfig.digital_write(self.dc_pin, 0)&#x000A;    epdconfig.digital_write(self.cs_pin, 0)&#x000A;    epdconfig.spi_writebyte([command])&#x000A;    epdconfig.digital_write(self.cs_pin, 1)&#x000A;&#x000A;def send_data(self, data):&#x000A;    epdconfig.digital_write(self.dc_pin, 1)&#x000A;    epdconfig.digital_write(self.cs_pin, 0)&#x000A;    epdconfig.spi_writebyte([data])&#x000A;    epdconfig.digital_write(self.cs_pin, 1)&#x000A;&#x000A;def ReadBusy(self):&#x000A;    logging.debug(&quot;e-Paper busy&quot;)&#x000A;    while(epdconfig.digital_read(self.busy_pin) == 1):      # 0: idle, 1: busy&#x000A;        epdconfig.delay_ms(100)&#x000A;    logging.debug(&quot;e-Paper busy release&quot;)&#x000A;&#x000A;def TurnOnDisplay(self):&#x000A;    self.send_command(0x22) # DISPLAY_UPDATE_CONTROL_2&#x000A;    self.send_data(0xC4)&#x000A;    self.send_command(0x20) # MASTER_ACTIVATION&#x000A;    self.send_command(0xFF) # TERMINATE_FRAME_READ_WRITE&#x000A;&#x000A;    self.ReadBusy()&#x000A;&#x000A;def SetWindow(self, x_start, y_start, x_end, y_end):&#x000A;    self.send_command(0x44) # SET_RAM_X_ADDRESS_START_END_POSITION&#x000A;    # x point must be the multiple of 8 or the last 3 bits will be ignored&#x000A;    self.send_data((x_start &gt;&gt; 3) &amp; 0xFF)&#x000A;    self.send_data((x_end &gt;&gt; 3) &amp; 0xFF)&#x000A;    self.send_command(0x45) # SET_RAM_Y_ADDRESS_START_END_POSITION&#x000A;    self.send_data(y_start &amp; 0xFF)&#x000A;    self.send_data((y_start &gt;&gt; 8) &amp; 0xFF)&#x000A;    self.send_data(y_end &amp; 0xFF)&#x000A;    self.send_data((y_end &gt;&gt; 8) &amp; 0xFF)&#x000A;&#x000A;def SetCursor(self, x, y):&#x000A;    self.send_command(0x4E) # SET_RAM_X_ADDRESS_COUNTER&#x000A;    # x point must be the multiple of 8 or the last 3 bits will be ignored&#x000A;    self.send_data((x &gt;&gt; 3) &amp; 0xFF)&#x000A;&#x000A;    self.send_command(0x4F) # SET_RAM_Y_ADDRESS_COUNTER&#x000A;    self.send_data(y &amp; 0xFF)&#x000A;    self.send_data((y &gt;&gt; 8) &amp; 0xFF)&#x000A;    # self.ReadBusy()&#x000A;&#x000A;def init(self, lut):&#x000A;    if (epdconfig.module_init() != 0):&#x000A;        return -1&#x000A;    # EPD hardware init start&#x000A;    self.reset()&#x000A;&#x000A;    self.send_command(0x01) # DRIVER_OUTPUT_CONTROL&#x000A;    self.send_data((EPD_HEIGHT - 1) &amp; 0xFF)&#x000A;    self.send_data(((EPD_HEIGHT - 1) &gt;&gt; 8) &amp; 0xFF)&#x000A;    self.send_data(0x00) # GD = 0 SM = 0 TB = 0&#x000A;&#x000A;    self.send_command(0x0C) # BOOSTER_SOFT_START_CONTROL&#x000A;    self.send_data(0xD7)&#x000A;    self.send_data(0xD6)&#x000A;    self.send_data(0x9D)&#x000A;&#x000A;    self.send_command(0x2C) # WRITE_VCOM_REGISTER&#x000A;    self.send_data(0xA8) # VCOM 7C&#x000A;&#x000A;    self.send_command(0x3A) # SET_DUMMY_LINE_PERIOD&#x000A;    self.send_data(0x1A) # 4 dummy lines per gate&#x000A;&#x000A;    self.send_command(0x3B) # SET_GATE_TIME&#x000A;    self.send_data(0x08) # 2us per line&#x000A;&#x000A;    self.send_command(0x11) # DATA_ENTRY_MODE_SETTING&#x000A;    self.send_data(0x03) # X increment Y increment&#x000A;&#x000A;    # set the look-up table register&#x000A;    self.send_command(0x32)&#x000A;    for i in range(0, len(lut)):&#x000A;        self.send_data(lut[i])&#x000A;    # EPD hardware init end&#x000A;    return 0&#x000A;&#x000A;def getbuffer(self, image):&#x000A;    buf = [0xFF] * (int(self.width / 8) * self.height)&#x000A;    image_monocolor = image.convert(&#39;1&#39;)&#x000A;    imwidth, imheight = image_monocolor.size&#x000A;    pixels = image_monocolor.load()&#x000A;    if(imwidth == self.width and imheight == self.height):&#x000A;        logging.debug(&quot;Horizontal&quot;)&#x000A;        for y in range(imheight):&#x000A;            for x in range(imwidth):&#x000A;                # Set the bits for the column of pixels at the current position.&#x000A;                if pixels[x, y] == 0:&#x000A;                    buf[int((x + y * self.width) / 8)] &amp;= ~(0x80 &gt;&gt; (x % 8))&#x000A;    elif(imwidth == self.height and imheight == self.width):&#x000A;        logging.debug(&quot;Vertical&quot;)&#x000A;        for y in range(imheight):&#x000A;            for x in range(imwidth):&#x000A;                newx = y&#x000A;                newy = self.height - x - 1&#x000A;                if pixels[x, y] == 0:&#x000A;                    buf[int((newx + newy*self.width) / 8)] &amp;= ~(0x80 &gt;&gt; (y % 8))&#x000A;    return buf&#x000A;&#x000A;def display(self, image):&#x000A;    if (image == None):&#x000A;        return&#x000A;&#x000A;    self.SetWindow(0, 0, self.width, self.height)&#x000A;    for j in range(0, self.height):&#x000A;        self.SetCursor(0, j)&#x000A;        self.send_command(0x24)&#x000A;        for i in range(0, int(self.width / 8)):&#x000A;            self.send_data(image[i + j * int(self.width / 8)])   &#x000A;    self.TurnOnDisplay()&#x000A;&#x000A;def Clear(self, color):&#x000A;    # self.SetWindow(0, 0, self.width - 1, self.height - 1)&#x000A;    # send the color data&#x000A;    self.SetWindow(0, 0, self.width, self.height)&#x000A;    # epdconfig.digital_write(self.dc_pin, 1)&#x000A;    # epdconfig.digital_write(self.cs_pin, 0)&#x000A;    for j in range(0, self.height):&#x000A;        self.SetCursor(0, j)&#x000A;        self.send_command(0x24)&#x000A;        for i in range(0, int(self.width / 8)):&#x000A;            self.send_data(color)&#x000A;    # epdconfig.digital_write(self.cs_pin, 1)&#x000A;    self.TurnOnDisplay()&#x000A;&#x000A;def sleep(self):&#x000A;    self.send_command(0x10) # DEEP_SLEEP_MODE&#x000A;    self.send_data(0x01)&#x000A;&#x000A;    epdconfig.module_exit()</pre>
+
+<p>### END OF FILE ###</p>
+</div>
+<div id='context'>
+</div>
+
+</div>
+</div>
+
+<div id='footer-push'></div>
+</div>
+<div id='footer'>
+<a href="https://github.com/rdoc/hanna-nouveau"><strong>Hanna Nouveau</strong> RDoc template</a>
+</div>
+</body>
+</html>

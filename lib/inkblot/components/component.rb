@@ -46,6 +46,7 @@ module Inkblot
         @html ||= build
       end
 
+      # Non-standalone, doesn't wrap with HTML and head tags
       def to_html_frag
         @html_frag ||= build(false)
       end
@@ -55,6 +56,7 @@ module Inkblot
         @html = build
       end
 
+      # Recompute +html_frag+ from +build+
       def to_html_frag!
         @html_frag = build(false)
       end

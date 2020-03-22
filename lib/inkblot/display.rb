@@ -49,6 +49,7 @@ module Inkblot
 				}
 			end
 
+			# Returns the +size+ as CSS style attributes
 			def size_css
 				size.transform_values { |n| "#{n}px" }
             .to_a

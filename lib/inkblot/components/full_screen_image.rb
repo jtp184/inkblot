@@ -2,6 +2,7 @@ module Inkblot
   module Components
     # Displays an image on the screen
     class FullScreenImage < Component
+      # Possible image sources
       IMG_SOURCES = %i[url path file]
 
       # Raises an argument error if no option is provided
