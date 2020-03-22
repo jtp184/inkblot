@@ -111,7 +111,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-get_press-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-get_press-source'><span class="ruby-comment"># File lib/inkblot/buttons.rb, line 46</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_press</span>(<span class="ruby-identifier">timeout</span>=<span class="ruby-keyword">nil</span>)&#x000A;  <span class="ruby-identifier">ky</span> = <span class="ruby-identifier">wait_for_press</span>(<span class="ruby-identifier">timeout</span>)&#x000A;  <span class="ruby-identifier">on_press</span>[<span class="ruby-identifier">ky</span>].<span class="ruby-identifier">call</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-get_press-source'><span class="ruby-comment"># File lib/inkblot/buttons.rb, line 46</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_press</span>(<span class="ruby-identifier">timeout</span>=<span class="ruby-keyword">nil</span>)&#x000A;  <span class="ruby-identifier">ky</span> = <span class="ruby-identifier">get_input</span>(<span class="ruby-identifier">timeout</span>)&#x000A;  <span class="ruby-identifier">on_press</span>[<span class="ruby-identifier">ky</span>].<span class="ruby-identifier">call</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-class' id='method-method-c-init'>

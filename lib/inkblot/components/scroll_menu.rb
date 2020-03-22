@@ -39,11 +39,13 @@ module Inkblot
         options[:items]
       end
 
+      # Gets the items that the current page is presenting as choices
       def choices
         select_page.options[:choices]
                    .map { |c| items[c] }
       end
 
+      # Get the choices for the current page, and return the one at index +ix+
       def choice(ix)
         items[select_page.options[:choices][ix]]
       end
@@ -60,6 +62,7 @@ module Inkblot
         self
       end
 
+      # Gets the current page depending on the mode
       def page
         case mode
         when :scroll

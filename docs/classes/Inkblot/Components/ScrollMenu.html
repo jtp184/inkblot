@@ -49,23 +49,26 @@ Superclass:
 </ol>
 <h3>Public Instance</h3>
 <ol>
+<li><a href="#method-i-choice">choice</a></li>
+<li><a href="#method-i-choices">choices</a></li>
 <li><a href="#attribute-i-current_page">current_page</a></li>
 <li><a href="#attribute-i-enum_method">enum_method</a></li>
 <li><a href="#method-i-items">items</a></li>
 <li><a href="#attribute-i-mode">mode</a></li>
 <li><a href="#method-i-next_page">next_page</a></li>
+<li><a href="#method-i-page">page</a></li>
 <li><a href="#method-i-prev_page">prev_page</a></li>
 <li><a href="#method-i-scroll">scroll</a></li>
-<li><a href="#method-i-scroll_page">scroll_page</a></li>
-<li><a href="#method-i-scroll_pages">scroll_pages</a></li>
 <li><a href="#method-i-select">select</a></li>
-<li><a href="#method-i-select_page">select_page</a></li>
-<li><a href="#method-i-select_pages">select_pages</a></li>
 <li><a href="#method-i-to_display">to_display</a></li>
 </ol>
 <h3>Private Instance</h3>
 <ol>
 <li><a href="#method-i-paginate">paginate</a></li>
+<li><a href="#method-i-scroll_page">scroll_page</a></li>
+<li><a href="#method-i-scroll_pages">scroll_pages</a></li>
+<li><a href="#method-i-select_page">select_page</a></li>
+<li><a href="#method-i-select_pages">select_pages</a></li>
 </ol>
 </div>
 <div id='context'>
@@ -152,6 +155,44 @@ Superclass:
 </div>
 </div>
 <h2>Public Instance methods</h2>
+<div class='method public-instance' id='method-method-i-choice'>
+<a name='method-i-choice'></a>
+<div class='synopsis'>
+<span class='name'>choice</span>
+<span class='arguments'>(ix)</span>
+
+</div>
+<div class='description'>
+
+<p>Get the choices for the current page, and return the one at index <code>ix</code></p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-choice-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-choice-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 49</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">choice</span>(<span class="ruby-identifier">ix</span>)&#x000A;  <span class="ruby-identifier">items</span>[<span class="ruby-identifier">select_page</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:choices</span>][<span class="ruby-identifier">ix</span>]]&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-choices'>
+<a name='method-i-choices'></a>
+<div class='synopsis'>
+<span class='name'>choices</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Gets the items that the current page is presenting as choices</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-choices-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-choices-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 43</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">choices</span>&#x000A;  <span class="ruby-identifier">select_page</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:choices</span>]&#x000A;             .<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">items</span>[<span class="ruby-identifier">c</span>] }&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
 <div class='method public-instance' id='method-method-i-items'>
 <a name='method-i-items'></a>
 <div class='synopsis'>
@@ -168,7 +209,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-items-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-items-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 43</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">items</span>&#x000A;  <span class="ruby-identifier">options</span>[<span class="ruby-value">:items</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-items-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 38</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">items</span>&#x000A;  <span class="ruby-identifier">options</span>[<span class="ruby-value">:items</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-next_page'>
@@ -187,7 +228,26 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-next_page-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-next_page-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 89</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">next_page</span>&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@current_page</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@current_page</span> <span class="ruby-operator">==</span> (<span class="ruby-ivar">@scroll_pages</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>)&#x000A;  <span class="ruby-ivar">@current_page</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>&#x000A;  <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-next_page-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 85</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">next_page</span>&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@current_page</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@current_page</span> <span class="ruby-operator">==</span> (<span class="ruby-ivar">@scroll_pages</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>)&#x000A;  <span class="ruby-ivar">@current_page</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>&#x000A;  <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-page'>
+<a name='method-i-page'></a>
+<div class='synopsis'>
+<span class='name'>page</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Gets the current page depending on the mode</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-page-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-page-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 66</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">page</span>&#x000A;  <span class="ruby-keyword">case</span> <span class="ruby-identifier">mode</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:scroll</span>&#x000A;    <span class="ruby-identifier">scroll_page</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:select</span>&#x000A;    <span class="ruby-identifier">select_page</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-prev_page'>
@@ -206,7 +266,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-prev_page-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-prev_page-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 81</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">prev_page</span>&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@current_page</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@current_page</span>.<span class="ruby-identifier">zero?</span>&#x000A;  <span class="ruby-ivar">@current_page</span> <span class="ruby-operator">-=</span> <span class="ruby-value">1</span>&#x000A;  <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-prev_page-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 77</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">prev_page</span>&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@current_page</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@current_page</span>.<span class="ruby-identifier">zero?</span>&#x000A;  <span class="ruby-ivar">@current_page</span> <span class="ruby-operator">-=</span> <span class="ruby-value">1</span>&#x000A;  <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-scroll'>
@@ -225,45 +285,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-scroll-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-scroll-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 48</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">scroll</span>&#x000A;  <span class="ruby-ivar">@mode</span> = <span class="ruby-value">:scroll</span>&#x000A;  <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
-</div>
-</div>
-<div class='method public-instance' id='method-method-i-scroll_page'>
-<a name='method-i-scroll_page'></a>
-<div class='synopsis'>
-<span class='name'>scroll_page</span>
-<span class='arguments'>()</span>
-
-</div>
-<div class='description'>
-
-<p>The current scroll page</p>
-
-</div>
-<div class='source'>
-<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-scroll_page-source&#39;); return false'>
-[show source]
-</a>
-<pre id='method-i-scroll_page-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 65</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">scroll_page</span>&#x000A;  <span class="ruby-ivar">@scroll_pages</span>[<span class="ruby-ivar">@current_page</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
-</div>
-</div>
-<div class='method public-instance' id='method-method-i-scroll_pages'>
-<a name='method-i-scroll_pages'></a>
-<div class='synopsis'>
-<span class='name'>scroll_pages</span>
-<span class='arguments'>()</span>
-
-</div>
-<div class='description'>
-
-<p>The array of scroll pages</p>
-
-</div>
-<div class='source'>
-<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-scroll_pages-source&#39;); return false'>
-[show source]
-</a>
-<pre id='method-i-scroll_pages-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 60</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">scroll_pages</span>&#x000A;  <span class="ruby-ivar">@scroll_pages</span> <span class="ruby-operator">||=</span> []&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-scroll-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 54</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">scroll</span>&#x000A;  <span class="ruby-ivar">@mode</span> = <span class="ruby-value">:scroll</span>&#x000A;  <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-select'>
@@ -282,45 +304,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-select-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-select-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 54</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">select</span>&#x000A;  <span class="ruby-ivar">@mode</span> = <span class="ruby-value">:select</span>&#x000A;  <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
-</div>
-</div>
-<div class='method public-instance' id='method-method-i-select_page'>
-<a name='method-i-select_page'></a>
-<div class='synopsis'>
-<span class='name'>select_page</span>
-<span class='arguments'>()</span>
-
-</div>
-<div class='description'>
-
-<p>The current select page</p>
-
-</div>
-<div class='source'>
-<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-select_page-source&#39;); return false'>
-[show source]
-</a>
-<pre id='method-i-select_page-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 75</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">select_page</span>&#x000A;  <span class="ruby-ivar">@select_pages</span>[<span class="ruby-ivar">@current_page</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
-</div>
-</div>
-<div class='method public-instance' id='method-method-i-select_pages'>
-<a name='method-i-select_pages'></a>
-<div class='synopsis'>
-<span class='name'>select_pages</span>
-<span class='arguments'>()</span>
-
-</div>
-<div class='description'>
-
-<p>The array of select pages</p>
-
-</div>
-<div class='source'>
-<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-select_pages-source&#39;); return false'>
-[show source]
-</a>
-<pre id='method-i-select_pages-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 70</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">select_pages</span>&#x000A;  <span class="ruby-ivar">@select_pages</span> <span class="ruby-operator">||=</span> []&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-select-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 60</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">select</span>&#x000A;  <span class="ruby-ivar">@mode</span> = <span class="ruby-value">:select</span>&#x000A;  <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-to_display'>
@@ -339,7 +323,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-to_display-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-to_display-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 33</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_display</span>&#x000A;  <span class="ruby-keyword">case</span> <span class="ruby-identifier">mode</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:scroll</span>&#x000A;    <span class="ruby-identifier">scroll_page</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:select</span>&#x000A;    <span class="ruby-identifier">select_page</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-to_display-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 33</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_display</span>&#x000A;  <span class="ruby-identifier">page</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <h2>Private Instance methods</h2>
@@ -359,7 +343,83 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-paginate-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-paginate-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 100</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">paginate</span>&#x000A;  <span class="ruby-identifier">pg</span> = [<span class="ruby-constant">LIST_START</span>]&#x000A;  &#x000A;  <span class="ruby-identifier">items</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">enum_method</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">pg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">i</span>.<span class="ruby-identifier">to_s</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">pg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">LIST_END</span>&#x000A;&#x000A;  <span class="ruby-identifier">icm_tmp</span> = <span class="ruby-identifier">proc</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">icn</span>, <span class="ruby-identifier">page</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-constant">IconMenu</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">menu</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">div_height</span> = <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">div_width</span> = <span class="ruby-value">:full</span>&#x000A;      <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">icons</span> = <span class="ruby-identifier">icn</span>&#x000A;      <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">frame_contents</span> = <span class="ruby-constant">ButtonMenu</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">btn</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-identifier">btn</span>.<span class="ruby-identifier">buttons</span> = <span class="ruby-identifier">page</span>&#x000A;      <span class="ruby-keyword">end</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-ivar">@scroll_pages</span> = <span class="ruby-identifier">pg</span>.<span class="ruby-identifier">each_slice</span>(<span class="ruby-value">4</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">page</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">icm_tmp</span>[<span class="ruby-value">:select</span>, <span class="ruby-identifier">page</span>]&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-ivar">@select_pages</span> = <span class="ruby-identifier">pg</span>.<span class="ruby-identifier">each_slice</span>(<span class="ruby-value">4</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">page</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">icm_tmp</span>[<span class="ruby-value">:arrows_in</span>, <span class="ruby-identifier">page</span>]&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-paginate-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 116</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">paginate</span>&#x000A;  <span class="ruby-identifier">pg</span> = [<span class="ruby-constant">LIST_START</span>]&#x000A;  &#x000A;  <span class="ruby-identifier">items</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">enum_method</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">pg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">i</span> &#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">pg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">LIST_END</span>&#x000A;&#x000A;  <span class="ruby-identifier">dx</span> = <span class="ruby-identifier">items</span>.<span class="ruby-identifier">each_with_index</span>.<span class="ruby-identifier">to_h</span>&#x000A;&#x000A;  <span class="ruby-identifier">icm_tmp</span> = <span class="ruby-identifier">proc</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">icn</span>, <span class="ruby-identifier">page</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-constant">IconMenu</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">menu</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">div_height</span> = <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">div_width</span> = <span class="ruby-value">:full</span>&#x000A;      <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">icons</span> = <span class="ruby-identifier">icn</span>&#x000A;      <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">choices</span> = <span class="ruby-identifier">page</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">g</span><span class="ruby-operator">|</span> <span class="ruby-identifier">dx</span>[<span class="ruby-identifier">g</span>] }&#x000A;      <span class="ruby-identifier">menu</span>.<span class="ruby-identifier">frame_contents</span> = <span class="ruby-constant">ButtonMenu</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">btn</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-identifier">btn</span>.<span class="ruby-identifier">buttons</span> = <span class="ruby-identifier">page</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_s</span>)&#x000A;      <span class="ruby-keyword">end</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-ivar">@scroll_pages</span> = <span class="ruby-identifier">pg</span>.<span class="ruby-identifier">each_slice</span>(<span class="ruby-value">4</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">page</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">icm_tmp</span>[<span class="ruby-value">:select</span>, <span class="ruby-identifier">page</span>]&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-ivar">@select_pages</span> = <span class="ruby-identifier">pg</span>.<span class="ruby-identifier">each_slice</span>(<span class="ruby-value">4</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">page</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">icm_tmp</span>[<span class="ruby-value">:arrows_in</span>, <span class="ruby-identifier">page</span>]&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method private-instance' id='method-method-i-scroll_page'>
+<a name='method-i-scroll_page'></a>
+<div class='synopsis'>
+<span class='name'>scroll_page</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>The current scroll page</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-scroll_page-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-scroll_page-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 99</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">scroll_page</span>&#x000A;  <span class="ruby-ivar">@scroll_pages</span>[<span class="ruby-ivar">@current_page</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method private-instance' id='method-method-i-scroll_pages'>
+<a name='method-i-scroll_pages'></a>
+<div class='synopsis'>
+<span class='name'>scroll_pages</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>The array of scroll pages</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-scroll_pages-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-scroll_pages-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 94</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">scroll_pages</span>&#x000A;  <span class="ruby-ivar">@scroll_pages</span> <span class="ruby-operator">||=</span> []&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method private-instance' id='method-method-i-select_page'>
+<a name='method-i-select_page'></a>
+<div class='synopsis'>
+<span class='name'>select_page</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>The current select page</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-select_page-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-select_page-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 109</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">select_page</span>&#x000A;  <span class="ruby-ivar">@select_pages</span>[<span class="ruby-ivar">@current_page</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method private-instance' id='method-method-i-select_pages'>
+<a name='method-i-select_pages'></a>
+<div class='synopsis'>
+<span class='name'>select_pages</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>The array of select pages</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-select_pages-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-select_pages-source'><span class="ruby-comment"># File lib/inkblot/components/scroll_menu.rb, line 104</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">select_pages</span>&#x000A;  <span class="ruby-ivar">@select_pages</span> <span class="ruby-operator">||=</span> []&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>
