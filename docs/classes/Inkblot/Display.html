@@ -106,10 +106,11 @@ Inkblot::Display
 
 <p>Disambiguation function to take in an <code>obj</code> and try to display it. In order of resolution: </p>
 <ul><li>
-<p>Anything that responds to <code>to_display</code> will have that method called</p>
+<p>Anything that responds to <code>to_display</code> will have that method called,</p>
+</li></ul>
 
-<pre>and the result sent back to call</pre>
-</li><li>
+<p>and the result sent back to call</p>
+<ul><li>
 <p>Any Component will be passed to an <a href="HtmlConverter.html"><code>HtmlConverter</code></a> and displayed</p>
 </li><li>
 <p>Any <a href="Converter.html"><code>Converter</code></a> will have its output displayed by path</p>

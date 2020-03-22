@@ -7,8 +7,8 @@ module Inkblot
 
 			# Disambiguation function to take in an +obj+ and try to display it.
 			# In order of resolution: 
-			# * Anything that responds to +to_display+ will have that method called
-			# 	and the result sent back to call
+			# * Anything that responds to +to_display+ will have that method called,
+			# and the result sent back to call
 			# * Any Component will be passed to an HtmlConverter and displayed
 			# * Any Converter will have its output displayed by path
 			# * Any File or Tempfile will have its output displayed by path
