@@ -43,10 +43,7 @@ module Inkblot
 
 			# Aspect ratio of the screen
 			def size
-				{
-					width: 264,
-					height: 176
-				}
+				Inkblot.screen_size
 			end
 
 			# Returns the +size+ as CSS style attributes

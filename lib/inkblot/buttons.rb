@@ -1,12 +1,9 @@
 module Inkblot
-  # Allows access to the buttons on the hat
+  # Singleton class that allows access to the buttons on the hat
   class Buttons
     class << self
       # Array of procs that can be used to define button callbacks
       attr_writer :on_press
-
-      # The specific pins in use by the waveshare hat
-      BUTTON_PINOUT = [5, 6, 13, 19].freeze
 
       # Array of procs that can be used to define button callbacks. 
       # Defaults to throwing :keypress_n
@@ -21,7 +18,7 @@ module Inkblot
 
       # Creates new GPIO::Pin objects from the BUTTON_PINOUT
       def pins
-        @pins ||= BUTTON_PINOUT.map { |pn| GPIO::Pin.new(pn) }
+        @pins ||= Inkblot.button_pinout.map { |pn| GPIO::Pin.new(pn) }
       end
 
       # True if all the pins are exported
@@ -50,7 +47,7 @@ module Inkblot
           pn = pins.find(&:on?)
           next unless pn
 
-          pindx = BUTTON_PINOUT.index(pn.id) 
+          pindx = Inkblot.button_pinout.index(pn.id) 
 
           return pindx
         end

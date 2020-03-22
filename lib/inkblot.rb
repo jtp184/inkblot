@@ -22,5 +22,24 @@ module Inkblot
 
 			[String.new(@vendor_path)].concat(paths).join('/')
 		end
+
+		# Allows for overwriting of the screen size for different HATs
+		attr_writer :screen_size
+		
+		# Aspect ratio of the screen
+		def screen_size
+			@screen_size ||= {
+				width: 264,
+				height: 176
+			}
+		end
+
+		# Allows for overwriting of the button pinout for different HATs
+		attr_writer :button_pinout
+
+		# Which pins are assigned to which of the four buttons, from top down
+		def button_pinout
+			@button_pinout ||= [5, 6, 13, 19].freeze
+		end
 	end
 end
