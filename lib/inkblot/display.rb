@@ -5,7 +5,19 @@ module Inkblot
 			# Set each time display is written to, represents what is being displayed
 			attr_reader :current
 
-			# Disambiguation function to take in an +obj+ and try to display it
+			# Disambiguation function to take in an +obj+ and try to display it.
+			# In order of resolution: 
+			# * Anything that responds to +to_display+ will have that method called
+			# 	and the result sent back to call
+			# * Any Component will be passed to an HtmlConverter and displayed
+			# * Any Converter will have its output displayed by path
+			# * Any File or Tempfile will have its output displayed by path
+			# * Any string which is an existing path on system will be displayed
+			# * Any string will be passed to a SimpleText component, which will be
+			#   passed to call
+			# * Anything else raises an ArgumentError
+			#
+			# After being displayed, the value of current is set to the object passed in
 			def call(obj)
 				if obj.respond_to?(:to_display)
 					call(obj.to_display)
@@ -27,10 +39,11 @@ module Inkblot
 				@current = obj
 			end
 
+			# Syntactic sugar options
 			alias show call
 			alias [] call
 
-			# Clears screen on device
+			# Clears screen on device, and sets current to nil
 			def clear
 				%x(#{pyscript("clear")})
 				@current = nil
@@ -41,7 +54,7 @@ module Inkblot
 				current.nil?
 			end
 
-			# Aspect ratio of the screen
+			# Aspect ratio of the screen, from Inkblot.screen_size
 			def size
 				Inkblot.screen_size
 			end
