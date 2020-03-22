@@ -9,11 +9,11 @@ module Inkblot
 			# In order of resolution: 
 			# * Anything that responds to +to_display+ will have that method called,
 			# and the result sent back to call
-			# * Any Component will be passed to an HtmlConverter and displayed
+			# * Any Components::Component will be passed to an HtmlConverter and displayed
 			# * Any Converter will have its output displayed by path
 			# * Any File or Tempfile will have its output displayed by path
 			# * Any string which is an existing path on system will be displayed
-			# * Any string will be passed to a SimpleText component, which will be
+			# * Any string will be passed to a Components::SimpleText component, which will be
 			#   passed to call
 			# * Anything else raises an ArgumentError
 			#
