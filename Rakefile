@@ -7,7 +7,7 @@ task :default => :spec
 
 task :docs do
   sh "rm -rf ./docs"
-  sh "rdoc --format=hanna --all --main=README.md --exclude=tmp"
+  sh "rdoc --format=hanna --all --main=README.md --exclude=bin --exclude=tmp"
   sh "mv doc docs"
 end
 

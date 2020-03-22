@@ -4331,6 +4331,7 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
 Element.addMethods();
 var search_index = [
   { method: '[]', module: 'inkblot::display', html: '<a href="classes/Inkblot/Display.html#method-c-5B-5D"><span class="method_name">::[]</span> <span class="module_name">(Inkblot::Display)</span></a>' },
+  { method: 'button_pinout', module: 'inkblot', html: '<a href="classes/Inkblot.html#method-c-button_pinout"><span class="method_name">::button_pinout</span> <span class="module_name">(Inkblot)</span></a>' },
   { method: 'call', module: 'inkblot::display', html: '<a href="classes/Inkblot/Display.html#method-c-call"><span class="method_name">::call</span> <span class="module_name">(Inkblot::Display)</span></a>' },
   { method: 'clear', module: 'inkblot::display', html: '<a href="classes/Inkblot/Display.html#method-c-clear"><span class="method_name">::clear</span> <span class="module_name">(Inkblot::Display)</span></a>' },
   { method: 'create', module: 'inkblot::components::component', html: '<a href="classes/Inkblot/Components/Component.html#method-c-create"><span class="method_name">::create</span> <span class="module_name">(Inkblot::Components::Component)</span></a>' },
@@ -4338,18 +4339,19 @@ var search_index = [
   { method: 'end_component_template', module: 'inkblot::components::component', html: '<a href="classes/Inkblot/Components/Component.html#method-c-end_component_template"><span class="method_name">::end_component_template</span> <span class="module_name">(Inkblot::Components::Component)</span></a>' },
   { method: 'get_input', module: 'inkblot::buttons', html: '<a href="classes/Inkblot/Buttons.html#method-c-get_input"><span class="method_name">::get_input</span> <span class="module_name">(Inkblot::Buttons)</span></a>' },
   { method: 'image', module: 'inkblot::display', html: '<a href="classes/Inkblot/Display.html#method-c-image"><span class="method_name">::image</span> <span class="module_name">(Inkblot::Display)</span></a>' },
-  { method: 'new', module: 'inkblot::gpio::pin', html: '<a href="classes/Inkblot/GPIO/Pin.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::GPIO::Pin)</span></a>' },
-  { method: 'new', module: 'inkblot::components::iconmenu', html: '<a href="classes/Inkblot/Components/IconMenu.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::Components::IconMenu)</span></a>' },
-  { method: 'new', module: 'inkblot::components::buttonmenu', html: '<a href="classes/Inkblot/Components/ButtonMenu.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::Components::ButtonMenu)</span></a>' },
   { method: 'new', module: 'inkblot::components::component', html: '<a href="classes/Inkblot/Components/Component.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::Components::Component)</span></a>' },
-  { method: 'new', module: 'inkblot::imageconverter', html: '<a href="classes/Inkblot/ImageConverter.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::ImageConverter)</span></a>' },
-  { method: 'new', module: 'inkblot::converter', html: '<a href="classes/Inkblot/Converter.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::Converter)</span></a>' },
   { method: 'new', module: 'inkblot::components::fullscreenimage', html: '<a href="classes/Inkblot/Components/FullScreenImage.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::Components::FullScreenImage)</span></a>' },
+  { method: 'new', module: 'inkblot::components::buttonmenu', html: '<a href="classes/Inkblot/Components/ButtonMenu.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::Components::ButtonMenu)</span></a>' },
+  { method: 'new', module: 'inkblot::components::iconmenu', html: '<a href="classes/Inkblot/Components/IconMenu.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::Components::IconMenu)</span></a>' },
+  { method: 'new', module: 'inkblot::imageconverter', html: '<a href="classes/Inkblot/ImageConverter.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::ImageConverter)</span></a>' },
+  { method: 'new', module: 'inkblot::gpio::pin', html: '<a href="classes/Inkblot/GPIO/Pin.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::GPIO::Pin)</span></a>' },
+  { method: 'new', module: 'inkblot::converter', html: '<a href="classes/Inkblot/Converter.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::Converter)</span></a>' },
   { method: 'on_press', module: 'inkblot::buttons', html: '<a href="classes/Inkblot/Buttons.html#method-c-on_press"><span class="method_name">::on_press</span> <span class="module_name">(Inkblot::Buttons)</span></a>' },
   { method: 'pins', module: 'inkblot::buttons', html: '<a href="classes/Inkblot/Buttons.html#method-c-pins"><span class="method_name">::pins</span> <span class="module_name">(Inkblot::Buttons)</span></a>' },
   { method: 'pyscript', module: 'inkblot::display', html: '<a href="classes/Inkblot/Display.html#method-c-pyscript"><span class="method_name">::pyscript</span> <span class="module_name">(Inkblot::Display)</span></a>' },
   { method: 'ready?', module: 'inkblot::buttons', html: '<a href="classes/Inkblot/Buttons.html#method-c-ready-3F"><span class="method_name">::ready?</span> <span class="module_name">(Inkblot::Buttons)</span></a>' },
   { method: 'respond', module: 'inkblot::buttons', html: '<a href="classes/Inkblot/Buttons.html#method-c-respond"><span class="method_name">::respond</span> <span class="module_name">(Inkblot::Buttons)</span></a>' },
+  { method: 'screen_size', module: 'inkblot', html: '<a href="classes/Inkblot.html#method-c-screen_size"><span class="method_name">::screen_size</span> <span class="module_name">(Inkblot)</span></a>' },
   { method: 'show', module: 'inkblot::display', html: '<a href="classes/Inkblot/Display.html#method-c-show"><span class="method_name">::show</span> <span class="module_name">(Inkblot::Display)</span></a>' },
   { method: 'size', module: 'inkblot::display', html: '<a href="classes/Inkblot/Display.html#method-c-size"><span class="method_name">::size</span> <span class="module_name">(Inkblot::Display)</span></a>' },
   { method: 'size_css', module: 'inkblot::display', html: '<a href="classes/Inkblot/Display.html#method-c-size_css"><span class="method_name">::size_css</span> <span class="module_name">(Inkblot::Display)</span></a>' },
@@ -4359,13 +4361,13 @@ var search_index = [
   { method: 'buttons', module: 'inkblot::components::buttonmenu', html: '<a href="classes/Inkblot/Components/ButtonMenu.html#method-i-buttons"><span class="method_name">#buttons</span> <span class="module_name">(Inkblot::Components::ButtonMenu)</span></a>' },
   { method: 'cat', module: 'inkblot::gpio::pin', html: '<a href="classes/Inkblot/GPIO/Pin.html#method-i-cat"><span class="method_name">#cat</span> <span class="module_name">(Inkblot::GPIO::Pin)</span></a>' },
   { method: 'close', module: 'inkblot::gpio::pin', html: '<a href="classes/Inkblot/GPIO/Pin.html#method-i-close"><span class="method_name">#close</span> <span class="module_name">(Inkblot::GPIO::Pin)</span></a>' },
-  { method: 'computed', module: 'inkblot::components::buttonmenu', html: '<a href="classes/Inkblot/Components/ButtonMenu.html#method-i-computed"><span class="method_name">#computed</span> <span class="module_name">(Inkblot::Components::ButtonMenu)</span></a>' },
-  { method: 'computed', module: 'inkblot::components::component', html: '<a href="classes/Inkblot/Components/Component.html#method-i-computed"><span class="method_name">#computed</span> <span class="module_name">(Inkblot::Components::Component)</span></a>' },
   { method: 'computed', module: 'inkblot::components::iconmenu', html: '<a href="classes/Inkblot/Components/IconMenu.html#method-i-computed"><span class="method_name">#computed</span> <span class="module_name">(Inkblot::Components::IconMenu)</span></a>' },
+  { method: 'computed', module: 'inkblot::components::component', html: '<a href="classes/Inkblot/Components/Component.html#method-i-computed"><span class="method_name">#computed</span> <span class="module_name">(Inkblot::Components::Component)</span></a>' },
   { method: 'computed', module: 'inkblot::components::simpletext', html: '<a href="classes/Inkblot/Components/SimpleText.html#method-i-computed"><span class="method_name">#computed</span> <span class="module_name">(Inkblot::Components::SimpleText)</span></a>' },
+  { method: 'computed', module: 'inkblot::components::buttonmenu', html: '<a href="classes/Inkblot/Components/ButtonMenu.html#method-i-computed"><span class="method_name">#computed</span> <span class="module_name">(Inkblot::Components::ButtonMenu)</span></a>' },
+  { method: 'convert', module: 'inkblot::converter', html: '<a href="classes/Inkblot/Converter.html#method-i-convert"><span class="method_name">#convert</span> <span class="module_name">(Inkblot::Converter)</span></a>' },
   { method: 'convert', module: 'inkblot::htmlconverter', html: '<a href="classes/Inkblot/HtmlConverter.html#method-i-convert"><span class="method_name">#convert</span> <span class="module_name">(Inkblot::HtmlConverter)</span></a>' },
   { method: 'convert', module: 'inkblot::imageconverter', html: '<a href="classes/Inkblot/ImageConverter.html#method-i-convert"><span class="method_name">#convert</span> <span class="module_name">(Inkblot::ImageConverter)</span></a>' },
-  { method: 'convert', module: 'inkblot::converter', html: '<a href="classes/Inkblot/Converter.html#method-i-convert"><span class="method_name">#convert</span> <span class="module_name">(Inkblot::Converter)</span></a>' },
   { method: 'convert!', module: 'inkblot::converter', html: '<a href="classes/Inkblot/Converter.html#method-i-convert-21"><span class="method_name">#convert!</span> <span class="module_name">(Inkblot::Converter)</span></a>' },
   { method: 'data', module: 'inkblot::components::component', html: '<a href="classes/Inkblot/Components/Component.html#method-i-data"><span class="method_name">#data</span> <span class="module_name">(Inkblot::Components::Component)</span></a>' },
   { method: 'dup', module: 'inkblot::components::component', html: '<a href="classes/Inkblot/Components/Component.html#method-i-dup"><span class="method_name">#dup</span> <span class="module_name">(Inkblot::Components::Component)</span></a>' },
@@ -4398,8 +4400,10 @@ var search_index = [
   { method: 'to_html_frag!', module: 'inkblot::components::component', html: '<a href="classes/Inkblot/Components/Component.html#method-i-to_html_frag-21"><span class="method_name">#to_html_frag!</span> <span class="module_name">(Inkblot::Components::Component)</span></a>' },
   { method: 'to_s', module: 'inkblot::components::component', html: '<a href="classes/Inkblot/Components/Component.html#method-i-to_s"><span class="method_name">#to_s</span> <span class="module_name">(Inkblot::Components::Component)</span></a>' },
   { method: 'watch', module: 'inkblot::gpio::pin', html: '<a href="classes/Inkblot/GPIO/Pin.html#method-i-watch"><span class="method_name">#watch</span> <span class="module_name">(Inkblot::GPIO::Pin)</span></a>' },
+  { method: 'button_pinout', module: 'inkblot', html: '<a href="classes/Inkblot.html#attribute-c-button_pinout"><span class="method_name">::button_pinout</span> <span class="module_name">(Inkblot)</span></a>' },
   { method: 'current', module: 'inkblot::display', html: '<a href="classes/Inkblot/Display.html#attribute-c-current"><span class="method_name">::current</span> <span class="module_name">(Inkblot::Display)</span></a>' },
   { method: 'on_press', module: 'inkblot::buttons', html: '<a href="classes/Inkblot/Buttons.html#attribute-c-on_press"><span class="method_name">::on_press</span> <span class="module_name">(Inkblot::Buttons)</span></a>' },
+  { method: 'screen_size', module: 'inkblot', html: '<a href="classes/Inkblot.html#attribute-c-screen_size"><span class="method_name">::screen_size</span> <span class="module_name">(Inkblot)</span></a>' },
   { method: 'exported', module: 'inkblot::gpio::pin', html: '<a href="classes/Inkblot/GPIO/Pin.html#attribute-i-exported"><span class="method_name">#exported</span> <span class="module_name">(Inkblot::GPIO::Pin)</span></a>' },
   { method: 'html', module: 'inkblot::components::component', html: '<a href="classes/Inkblot/Components/Component.html#attribute-i-html"><span class="method_name">#html</span> <span class="module_name">(Inkblot::Components::Component)</span></a>' },
   { method: 'id', module: 'inkblot::gpio::pin', html: '<a href="classes/Inkblot/GPIO/Pin.html#attribute-i-id"><span class="method_name">#id</span> <span class="module_name">(Inkblot::GPIO::Pin)</span></a>' },
@@ -4477,8 +4481,10 @@ function performSearch() {
 </form>
 <ol class='methods' id='search-results' style='display: none'></ol>
 <ol class='methods' id='index-entries'>
+<li><a href="classes/Inkblot.html#attribute-c-button_pinout"><span class="method_name">::button_pinout</span> <span class="module_name">(Inkblot)</span></a></li>
 <li><a href="classes/Inkblot/Display.html#attribute-c-current"><span class="method_name">::current</span> <span class="module_name">(Inkblot::Display)</span></a></li>
 <li><a href="classes/Inkblot/Buttons.html#attribute-c-on_press"><span class="method_name">::on_press</span> <span class="module_name">(Inkblot::Buttons)</span></a></li>
+<li><a href="classes/Inkblot.html#attribute-c-screen_size"><span class="method_name">::screen_size</span> <span class="module_name">(Inkblot)</span></a></li>
 <li><a href="classes/Inkblot/GPIO/Pin.html#attribute-i-exported"><span class="method_name">#exported</span> <span class="module_name">(Inkblot::GPIO::Pin)</span></a></li>
 <li><a href="classes/Inkblot/Components/Component.html#attribute-i-html"><span class="method_name">#html</span> <span class="module_name">(Inkblot::Components::Component)</span></a></li>
 <li><a href="classes/Inkblot/GPIO/Pin.html#attribute-i-id"><span class="method_name">#id</span> <span class="module_name">(Inkblot::GPIO::Pin)</span></a></li>
@@ -4486,6 +4492,7 @@ function performSearch() {
 <li><a href="classes/Inkblot/Components/Component.html#attribute-i-options"><span class="method_name">#options</span> <span class="module_name">(Inkblot::Components::Component)</span></a></li>
 <li><a href="classes/Inkblot/Converter.html#attribute-i-output"><span class="method_name">#output</span> <span class="module_name">(Inkblot::Converter)</span></a></li>
 <li><a href="classes/Inkblot/Display.html#method-c-5B-5D"><span class="method_name">::[]</span> <span class="module_name">(Inkblot::Display)</span></a></li>
+<li><a href="classes/Inkblot.html#method-c-button_pinout"><span class="method_name">::button_pinout</span> <span class="module_name">(Inkblot)</span></a></li>
 <li><a href="classes/Inkblot/Display.html#method-c-call"><span class="method_name">::call</span> <span class="module_name">(Inkblot::Display)</span></a></li>
 <li><a href="classes/Inkblot/Display.html#method-c-clear"><span class="method_name">::clear</span> <span class="module_name">(Inkblot::Display)</span></a></li>
 <li><a href="classes/Inkblot/Components/Component.html#method-c-create"><span class="method_name">::create</span> <span class="module_name">(Inkblot::Components::Component)</span></a></li>
@@ -4493,18 +4500,19 @@ function performSearch() {
 <li><a href="classes/Inkblot/Components/Component.html#method-c-end_component_template"><span class="method_name">::end_component_template</span> <span class="module_name">(Inkblot::Components::Component)</span></a></li>
 <li><a href="classes/Inkblot/Buttons.html#method-c-get_input"><span class="method_name">::get_input</span> <span class="module_name">(Inkblot::Buttons)</span></a></li>
 <li><a href="classes/Inkblot/Display.html#method-c-image"><span class="method_name">::image</span> <span class="module_name">(Inkblot::Display)</span></a></li>
-<li><a href="classes/Inkblot/GPIO/Pin.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::GPIO::Pin)</span></a></li>
-<li><a href="classes/Inkblot/Components/IconMenu.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::Components::IconMenu)</span></a></li>
-<li><a href="classes/Inkblot/Components/ButtonMenu.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::Components::ButtonMenu)</span></a></li>
 <li><a href="classes/Inkblot/Components/Component.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::Components::Component)</span></a></li>
-<li><a href="classes/Inkblot/ImageConverter.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::ImageConverter)</span></a></li>
-<li><a href="classes/Inkblot/Converter.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::Converter)</span></a></li>
 <li><a href="classes/Inkblot/Components/FullScreenImage.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::Components::FullScreenImage)</span></a></li>
+<li><a href="classes/Inkblot/Components/ButtonMenu.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::Components::ButtonMenu)</span></a></li>
+<li><a href="classes/Inkblot/Components/IconMenu.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::Components::IconMenu)</span></a></li>
+<li><a href="classes/Inkblot/ImageConverter.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::ImageConverter)</span></a></li>
+<li><a href="classes/Inkblot/GPIO/Pin.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::GPIO::Pin)</span></a></li>
+<li><a href="classes/Inkblot/Converter.html#method-c-new"><span class="method_name">::new</span> <span class="module_name">(Inkblot::Converter)</span></a></li>
 <li><a href="classes/Inkblot/Buttons.html#method-c-on_press"><span class="method_name">::on_press</span> <span class="module_name">(Inkblot::Buttons)</span></a></li>
 <li><a href="classes/Inkblot/Buttons.html#method-c-pins"><span class="method_name">::pins</span> <span class="module_name">(Inkblot::Buttons)</span></a></li>
 <li><a href="classes/Inkblot/Display.html#method-c-pyscript"><span class="method_name">::pyscript</span> <span class="module_name">(Inkblot::Display)</span></a></li>
 <li><a href="classes/Inkblot/Buttons.html#method-c-ready-3F"><span class="method_name">::ready?</span> <span class="module_name">(Inkblot::Buttons)</span></a></li>
 <li><a href="classes/Inkblot/Buttons.html#method-c-respond"><span class="method_name">::respond</span> <span class="module_name">(Inkblot::Buttons)</span></a></li>
+<li><a href="classes/Inkblot.html#method-c-screen_size"><span class="method_name">::screen_size</span> <span class="module_name">(Inkblot)</span></a></li>
 <li><a href="classes/Inkblot/Display.html#method-c-show"><span class="method_name">::show</span> <span class="module_name">(Inkblot::Display)</span></a></li>
 <li><a href="classes/Inkblot/Display.html#method-c-size"><span class="method_name">::size</span> <span class="module_name">(Inkblot::Display)</span></a></li>
 <li><a href="classes/Inkblot/Display.html#method-c-size_css"><span class="method_name">::size_css</span> <span class="module_name">(Inkblot::Display)</span></a></li>
@@ -4514,13 +4522,13 @@ function performSearch() {
 <li><a href="classes/Inkblot/Components/ButtonMenu.html#method-i-buttons"><span class="method_name">#buttons</span> <span class="module_name">(Inkblot::Components::ButtonMenu)</span></a></li>
 <li><a href="classes/Inkblot/GPIO/Pin.html#method-i-cat"><span class="method_name">#cat</span> <span class="module_name">(Inkblot::GPIO::Pin)</span></a></li>
 <li><a href="classes/Inkblot/GPIO/Pin.html#method-i-close"><span class="method_name">#close</span> <span class="module_name">(Inkblot::GPIO::Pin)</span></a></li>
-<li><a href="classes/Inkblot/Components/ButtonMenu.html#method-i-computed"><span class="method_name">#computed</span> <span class="module_name">(Inkblot::Components::ButtonMenu)</span></a></li>
-<li><a href="classes/Inkblot/Components/Component.html#method-i-computed"><span class="method_name">#computed</span> <span class="module_name">(Inkblot::Components::Component)</span></a></li>
 <li><a href="classes/Inkblot/Components/IconMenu.html#method-i-computed"><span class="method_name">#computed</span> <span class="module_name">(Inkblot::Components::IconMenu)</span></a></li>
+<li><a href="classes/Inkblot/Components/Component.html#method-i-computed"><span class="method_name">#computed</span> <span class="module_name">(Inkblot::Components::Component)</span></a></li>
 <li><a href="classes/Inkblot/Components/SimpleText.html#method-i-computed"><span class="method_name">#computed</span> <span class="module_name">(Inkblot::Components::SimpleText)</span></a></li>
+<li><a href="classes/Inkblot/Components/ButtonMenu.html#method-i-computed"><span class="method_name">#computed</span> <span class="module_name">(Inkblot::Components::ButtonMenu)</span></a></li>
+<li><a href="classes/Inkblot/Converter.html#method-i-convert"><span class="method_name">#convert</span> <span class="module_name">(Inkblot::Converter)</span></a></li>
 <li><a href="classes/Inkblot/HtmlConverter.html#method-i-convert"><span class="method_name">#convert</span> <span class="module_name">(Inkblot::HtmlConverter)</span></a></li>
 <li><a href="classes/Inkblot/ImageConverter.html#method-i-convert"><span class="method_name">#convert</span> <span class="module_name">(Inkblot::ImageConverter)</span></a></li>
-<li><a href="classes/Inkblot/Converter.html#method-i-convert"><span class="method_name">#convert</span> <span class="module_name">(Inkblot::Converter)</span></a></li>
 <li><a href="classes/Inkblot/Converter.html#method-i-convert-21"><span class="method_name">#convert!</span> <span class="module_name">(Inkblot::Converter)</span></a></li>
 <li><a href="classes/Inkblot/Components/Component.html#method-i-data"><span class="method_name">#data</span> <span class="module_name">(Inkblot::Components::Component)</span></a></li>
 <li><a href="classes/Inkblot/Components/Component.html#method-i-dup"><span class="method_name">#dup</span> <span class="module_name">(Inkblot::Components::Component)</span></a></li>

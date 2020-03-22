@@ -30,7 +30,7 @@ Rakefile
 </div>
 <div class='last-update'>
 Last Update:
-<span class='datetime'>2020-03-22 12:17:14 -0700</span>
+<span class='datetime'>2020-03-22 12:26:28 -0700</span>
 </div>
 </div>
 <div id='content'>
@@ -44,7 +44,7 @@ Last Update:
 
 <p>task :docs do</p>
 
-<pre class="ruby"><span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;rm -rf ./docs&quot;</span>&#x000A;<span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;rdoc --format=hanna --all --main=README.md --exclude=tmp&quot;</span>&#x000A;<span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;mv doc docs&quot;</span></pre>
+<pre class="ruby"><span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;rm -rf ./docs&quot;</span>&#x000A;<span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;rdoc --format=hanna --all --main=README.md --exclude=bin --exclude=tmp&quot;</span>&#x000A;<span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;mv doc docs&quot;</span></pre>
 
 <p>end</p>
 

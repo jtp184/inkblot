@@ -1,10 +1,8 @@
-Sun, 22 Mar 2020 12:20:49 -0700
-./bin/console	Sun, 22 Mar 2020 11:58:53 -0700
-./bin/setup	Wed, 04 Mar 2020 19:30:28 -0800
+Sun, 22 Mar 2020 12:37:10 -0700
 ./Gemfile	Thu, 05 Mar 2020 10:17:27 -0800
 ./Gemfile.lock	Thu, 05 Mar 2020 14:38:22 -0800
 ./inkblot.gemspec	Thu, 05 Mar 2020 14:38:15 -0800
-./lib/inkblot/buttons.rb	Sun, 22 Mar 2020 11:54:38 -0700
+./lib/inkblot/buttons.rb	Sun, 22 Mar 2020 12:35:38 -0700
 ./lib/inkblot/components/button_menu.rb	Sun, 22 Mar 2020 12:12:37 -0700
 ./lib/inkblot/components/component.rb	Sun, 22 Mar 2020 12:19:52 -0700
 ./lib/inkblot/components/full_screen_image.rb	Sun, 22 Mar 2020 12:20:06 -0700
@@ -12,12 +10,12 @@ Sun, 22 Mar 2020 12:20:49 -0700
 ./lib/inkblot/components/simple_text.rb	Sun, 22 Mar 2020 12:09:16 -0700
 ./lib/inkblot/components.rb	Sun, 22 Mar 2020 11:55:17 -0700
 ./lib/inkblot/converter.rb	Thu, 19 Mar 2020 09:17:08 -0700
-./lib/inkblot/display.rb	Sun, 22 Mar 2020 12:20:42 -0700
+./lib/inkblot/display.rb	Sun, 22 Mar 2020 12:32:02 -0700
 ./lib/inkblot/gpio.rb	Sun, 22 Mar 2020 11:47:42 -0700
 ./lib/inkblot/version.rb	Thu, 05 Mar 2020 22:42:49 -0800
-./lib/inkblot.rb	Thu, 19 Mar 2020 08:58:14 -0700
+./lib/inkblot.rb	Sun, 22 Mar 2020 12:32:48 -0700
 ./pkg/inkblot-0.1.0.gem	Wed, 04 Mar 2020 22:31:59 -0800
-./Rakefile	Sun, 22 Mar 2020 12:17:14 -0700
+./Rakefile	Sun, 22 Mar 2020 12:26:28 -0700
 ./README.md	Wed, 04 Mar 2020 19:30:28 -0800
 ./spec/inkblot_spec.rb	Wed, 04 Mar 2020 19:30:28 -0800
 ./spec/spec_helper.rb	Wed, 04 Mar 2020 19:30:28 -0800

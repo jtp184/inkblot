@@ -28,9 +28,6 @@ Inkblot
 </h1>
 <ol class='paths'>
 <li>
-<a href="../files/bin/console.html">bin/console</a>
-</li>
-<li class='other'>
 <a href="../files/lib/inkblot_rb.html">lib/inkblot.rb</a>
 </li>
 <li class='other'>
@@ -83,6 +80,10 @@ Inkblot
 <h2>Methods</h2>
 <h3>Public Class</h3>
 <ol>
+<li><a href="#method-c-button_pinout">button_pinout</a></li>
+<li><a href="#attribute-c-button_pinout">button_pinout</a></li>
+<li><a href="#method-c-screen_size">screen_size</a></li>
+<li><a href="#attribute-c-screen_size">screen_size</a></li>
 <li><a href="#method-c-vendor_path">vendor_path</a></li>
 </ol>
 </div>
@@ -101,8 +102,71 @@ Inkblot
 </ol>
 </div>
 <div id='section'>
+<div id='attribute-list'>
+<h2 class='section-bar'>Attributes</h2>
+<div class='name-list'>
+<table>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>
+<a name='attribute-c-button_pinout'>button_pinout</a>
+</td>
+<td class='context-item-value'>[W]</td>
+<td class='context-item-desc'>
+<p>Allows for overwriting of the button pinout for different HATs</p>
+</td>
+</tr>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>
+<a name='attribute-c-screen_size'>screen_size</a>
+</td>
+<td class='context-item-value'>[W]</td>
+<td class='context-item-desc'>
+<p>Allows for overwriting of the screen size for different HATs</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
 <div id='methods'>
 <h2>Public Class methods</h2>
+<div class='method public-class' id='method-method-c-button_pinout'>
+<a name='method-c-button_pinout'></a>
+<div class='synopsis'>
+<span class='name'>button_pinout</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Which pins are assigned to which of the four buttons, from top down</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-button_pinout-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-button_pinout-source'><span class="ruby-comment"># File lib/inkblot.rb, line 41</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">button_pinout</span>&#x000A;        <span class="ruby-ivar">@button_pinout</span> <span class="ruby-operator">||=</span> [<span class="ruby-value">5</span>, <span class="ruby-value">6</span>, <span class="ruby-value">13</span>, <span class="ruby-value">19</span>].<span class="ruby-identifier">freeze</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-class' id='method-method-c-screen_size'>
+<a name='method-c-screen_size'></a>
+<div class='synopsis'>
+<span class='name'>screen_size</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Aspect ratio of the screen</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-screen_size-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-screen_size-source'><span class="ruby-comment"># File lib/inkblot.rb, line 30</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">screen_size</span>&#x000A;        <span class="ruby-ivar">@screen_size</span> <span class="ruby-operator">||=</span> {&#x000A;                <span class="ruby-value">width:</span> <span class="ruby-value">264</span>,&#x000A;                <span class="ruby-value">height:</span> <span class="ruby-value">176</span>&#x000A;        }&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
 <div class='method public-class' id='method-method-c-vendor_path'>
 <a name='method-c-vendor_path'></a>
 <div class='synopsis'>
@@ -112,14 +176,14 @@ Inkblot
 </div>
 <div class='description'>
 
-<p>Override this in development</p>
+<p>Returns the path to the vendor directory for this gem, to access non-ruby assets like python code and html templates. If <code>paths</code> are appended, joins them to the base with &#39;/&#39;</p>
 
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-vendor_path-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-vendor_path-source'><span class="ruby-comment"># File bin/console, line 15</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier ruby-title">vendor_path</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">paths</span>)&#x000A;  <span class="ruby-ivar">@vendor_path</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span>).<span class="ruby-identifier">tap</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">str</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;/vendor&quot;</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@vendor_path</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">empty?</span>&#x000A;&#x000A;  [<span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@vendor_path</span>)].<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">paths</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;/&#39;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-vendor_path-source'><span class="ruby-comment"># File lib/inkblot.rb, line 14</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">vendor_path</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">paths</span>)&#x000A;        <span class="ruby-ivar">@vendor_path</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;GEM_HOME&#39;</span>]).<span class="ruby-identifier">tap</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">str</span><span class="ruby-operator">|</span>&#x000A;                <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;/gems&quot;</span>&#x000A;                <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;/inkblot-#{Inkblot::VERSION}&quot;</span>&#x000A;                <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;/vendor&quot;</span>&#x000A;        <span class="ruby-keyword">end</span>&#x000A;&#x000A;        <span class="ruby-keyword">return</span> <span class="ruby-ivar">@vendor_path</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">empty?</span>&#x000A;&#x000A;        [<span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@vendor_path</span>)].<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">paths</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;/&#39;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>
