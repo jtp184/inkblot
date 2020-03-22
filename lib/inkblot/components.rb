@@ -5,6 +5,7 @@ require 'inkblot/components/button_menu'
 require 'inkblot/components/icon_menu'
 
 module Inkblot
+  # Modular views for the e-Ink screen
   module Components
   end
 end

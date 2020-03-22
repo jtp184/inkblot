@@ -11,6 +11,7 @@ require "pry"
 
 include Inkblot # :nodoc:
 
+# Override this in development
 def Inkblot.vendor_path(*paths)
   @vendor_path ||= String.new(Dir.pwd).tap do |str|
     str << "/vendor"

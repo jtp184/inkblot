@@ -23,6 +23,8 @@ module Inkblot
         end
       end
 
+      # Creates a new basic component by joining the fragment maps
+      # of +args+
       def self.create(*args)
         subc = args
         yield subc if block_given?
@@ -64,14 +66,17 @@ module Inkblot
 
       private
 
+      # The HTML head/body wrapper start snippet
       def self.start_component_template
         @start_component_template ||= File.read(Inkblot.vendor_path('templates', 'startComponent.html.erb'))
       end
 
+      # The HTML head/body wrapper end snippet
       def self.end_component_template
         @end_component_template ||= File.read(Inkblot.vendor_path('templates', 'endComponent.html.erb'))
       end
 
+      # Generic access to a height setting method
       def get_height(dta)
         if options.key?(:div_height)
           dta[:div_height] = if options[:div_height] == :full
@@ -86,6 +91,7 @@ module Inkblot
         end
       end
 
+      # Generic access to a width setting method
       def get_width(dta)
         if options.key?(:div_width)
           dta[:div_width] = if options[:div_width] == :full

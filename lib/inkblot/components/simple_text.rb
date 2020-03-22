@@ -1,5 +1,6 @@
 module Inkblot
   module Components
+    # Shows text on the screen
     class SimpleText < Component
       private
 
@@ -15,6 +16,8 @@ module Inkblot
         dta.to_h
       end
 
+      # Takes in the +dta+ struct and sets optional values to their
+      # defaults if needed
       def optionals(dta)
         dta[:border_size] = options.fetch(:border_size, 0)
         dta[:font] = options.fetch(:font, "monospace")
@@ -22,6 +25,7 @@ module Inkblot
         dta[:text_align] = options.fetch(:text_align, "center")
       end
 
+      # Set an html tag based on the provided size
       def tag_from_size
         case options[:size]
         when :small
@@ -37,6 +41,7 @@ module Inkblot
         end
       end
 
+      # Returns a numeric value from the size option if possible
       def size_value
         return nil if options[:size].is_a?(Symbol)
         return "#{options[:size]}px" if options[:size].is_a?(Integer)
