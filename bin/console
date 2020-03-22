@@ -22,22 +22,17 @@ def Inkblot.vendor_path(*paths)
   [String.new(@vendor_path)].concat(paths).join('/')
 end
 
+### EXAMPLE COMPONENTS
+
+## SimpleText
 @t = Components::SimpleText.new do |st|
-  st.div_height = st.div_width = :full
+  st.div_height = st.div_width = 95
   st.text = "56%"
-  st.size = 80
+  st.size = 60
   st.border_size = 10
 end
 
-@i = Components::IconMenu.new do |mn|
-  mn.div_height = mn.div_width = :full
-
-  mn.frame = Components::SimpleText.new(
-    text: "Buttons!",
-    size: :large
-  ).to_html_frag
-end
-
+## IconMenu with ButtonMenu frame
 @b = Components::IconMenu.new do |mn|
   mn.div_height = mn.div_width = :full
   
@@ -49,10 +44,61 @@ end
   )
 end
 
-@s = Components::ScrollMenu.new do |sc|
-  sc.div_height = sc.div_width = :full
-  sc.items = (1..10).map { |x| "Option #{x}" }
+# IconMenu with SimpleText Frame
+@i = Components::IconMenu.new do |mn|
+  mn.div_height = mn.div_width = :full
+
+  mn.frame_contents = Components::SimpleText.new(
+    text: "Buttons!",
+    size: :large
+  )
 end
 
+def test_scroll
+  # ex_itms = [
+  #   :apple,
+  #   "Orange",
+  #   1,
+  #   [:two],
+  #   { keys: :values },
+  #   0..10,
+  #   0+3i,
+  #   5.576,
+  #   true,
+  #   false
+  # ]
+
+  ex_itms = (1..10).to_a.map { |x| "Option #{x}" }
+
+  ## ScrollMenu with example items
+  @s = Components::ScrollMenu.new do |sc|
+    sc.div_height = sc.div_width = :full
+    sc.items = ex_itms
+  end
+
+  sel_procs = [
+    Proc.new { return @s.choice(0) },
+    Proc.new { return @s.choice(1) },
+    Proc.new { return @s.choice(2) },
+    Proc.new { return @s.choice(3) },
+  ]
+
+  scr_procs = [
+    Proc.new { @s.select },
+    Proc.new { throw :cancel },
+    Proc.new { @s.prev_page},
+    Proc.new { @s.next_page },
+  ]
+
+  catch(:cancel) do
+    loop do
+      Buttons.on_press = @s.mode == :scroll ? scr_procs : sel_procs
+      Display[@s]
+      Buttons.get_press
+    end
+  end
+
+  :canceled
+end
 
 Pry.start

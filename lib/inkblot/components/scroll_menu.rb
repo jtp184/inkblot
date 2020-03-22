@@ -31,17 +31,21 @@ module Inkblot
 
       # Returns the page instead of having this object be displayed directly
       def to_display
-        case mode
-        when :scroll
-          scroll_page
-        when :select
-          select_page
-        end
+        page
       end
 
       # Sugar for the items array
       def items
         options[:items]
+      end
+
+      def choices
+        select_page.options[:choices]
+                   .map { |c| items[c] }
+      end
+
+      def choice(ix)
+        items[select_page.options[:choices][ix]]
       end
 
       # Sets scroll mode
@@ -55,6 +59,33 @@ module Inkblot
         @mode = :select
         self
       end
+
+      def page
+        case mode
+        when :scroll
+          scroll_page
+        when :select
+          select_page
+        end
+      end
+
+      # Decrements the current page unless we are on the first page,
+      # then returns self
+      def prev_page
+        return @current_page if @current_page.zero?
+        @current_page -= 1
+        self
+      end
+
+      # Increments the current page unless we are on the last page,
+      # then returns self
+      def next_page
+        return @current_page if @current_page == (@scroll_pages.count - 1)
+        @current_page += 1
+        self
+      end
+
+      private
 
       # The array of scroll pages
       def scroll_pages
@@ -76,24 +107,6 @@ module Inkblot
         @select_pages[@current_page]
       end
 
-      # Decrements the current page unless we are on the first page,
-      # then returns self
-      def prev_page
-        return @current_page if @current_page.zero?
-        @current_page -= 1
-        self
-      end
-
-      # Increments the current page unless we are on the last page,
-      # then returns self
-      def next_page
-        return @current_page if @current_page == (@scroll_pages.count - 1)
-        @current_page += 1
-        self
-      end
-
-      private
-
       # Takes the list items array, makes a new array outfixed by
       # the start / end codons, slices it into fours, and creates
       # scroll and select pages out of IconMenu instances
@@ -101,17 +114,20 @@ module Inkblot
         pg = [LIST_START]
         
         items.send(enum_method).each do |i|
-          pg << i.to_s
+          pg << i 
         end
 
         pg << LIST_END
+
+        dx = items.each_with_index.to_h
 
         icm_tmp = proc do |icn, page|
           IconMenu.new do |menu|
             menu.div_height = menu.div_width = :full
             menu.icons = icn
+            menu.choices = page.map { |g| dx[g] }
             menu.frame_contents = ButtonMenu.new do |btn|
-              btn.buttons = page
+              btn.buttons = page.map(&:to_s)
             end
           end
         end

@@ -44,7 +44,7 @@ module Inkblot
 
       # Uses the on_press procs to respond to input, passing +timeout+
       def get_press(timeout=nil)
-        ky = wait_for_press(timeout)
+        ky = get_input(timeout)
         on_press[ky].call
       end
 
