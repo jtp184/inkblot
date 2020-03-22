@@ -50,11 +50,15 @@ Superclass:
 <h3>Public Instance</h3>
 <ol>
 <li><a href="#method-i-close">close</a></li>
+<li><a href="#attribute-i-direction">direction</a></li>
+<li><a href="#method-i-direction-3D">direction=</a></li>
 <li><a href="#attribute-i-exported">exported</a></li>
 <li><a href="#attribute-i-id">id</a></li>
 <li><a href="#method-i-off-3F">off?</a></li>
 <li><a href="#method-i-on-3F">on?</a></li>
 <li><a href="#method-i-open">open</a></li>
+<li><a href="#attribute-i-pull">pull</a></li>
+<li><a href="#method-i-pull-3D">pull=</a></li>
 <li><a href="#method-i-watch">watch</a></li>
 </ol>
 <h3>Private Instance</h3>
@@ -75,6 +79,15 @@ Superclass:
 <table>
 <tr class='top-aligned-row context-row'>
 <td class='context-item-name'>
+<a name='attribute-i-direction'>direction</a>
+</td>
+<td class='context-item-value'>[R]</td>
+<td class='context-item-desc'>
+<p>Whether this pin is for input or output</p>
+</td>
+</tr>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>
 <a name='attribute-i-exported'>exported</a>
 </td>
 <td class='context-item-value'>[R]</td>
@@ -89,6 +102,15 @@ Superclass:
 <td class='context-item-value'>[R]</td>
 <td class='context-item-desc'>
 <p>Which pin is in question</p>
+</td>
+</tr>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>
+<a name='attribute-i-pull'>pull</a>
+</td>
+<td class='context-item-value'>[R]</td>
+<td class='context-item-desc'>
+<p>Whether this pin pulls up or down</p>
 </td>
 </tr>
 </table>
@@ -112,7 +134,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-new-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-new-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 14</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">pn</span>)&#x000A;        <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">pn</span>&#x000A;        <span class="ruby-ivar">@exported</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">gpio_pin_value_path</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-new-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 47</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">pn</span>)&#x000A;        <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">pn</span>&#x000A;        <span class="ruby-ivar">@exported</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">gpio_pin_value_path</span>)&#x000A;        <span class="ruby-identifier">st</span> = <span class="ruby-constant">GPIO</span>.<span class="ruby-identifier">gpio_state</span>(<span class="ruby-identifier">pn</span>)&#x000A;        <span class="ruby-ivar">@direction</span> = <span class="ruby-identifier">st</span>[<span class="ruby-value">:direction</span>]&#x000A;        <span class="ruby-ivar">@pull</span> = <span class="ruby-identifier">st</span>[<span class="ruby-value">:pull</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <h2>Public Instance methods</h2>
@@ -132,7 +154,26 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-close-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-close-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 49</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">close</span>&#x000A;        <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@exported</span>&#x000A;&#x000A;        <span class="ruby-identifier">echo</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">gpio_base_path</span>, <span class="ruby-string">&#39;unexport&#39;</span>)&#x000A;        <span class="ruby-ivar">@exported</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">gpio_pin_path</span>)&#x000A;&#x000A;        <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-close-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 85</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">close</span>&#x000A;        <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@exported</span>&#x000A;&#x000A;        <span class="ruby-identifier">echo</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">gpio_base_path</span>, <span class="ruby-string">&#39;unexport&#39;</span>)&#x000A;        <span class="ruby-ivar">@exported</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">gpio_pin_path</span>)&#x000A;&#x000A;        <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-direction-3D'>
+<a name='method-i-direction-3D'></a>
+<div class='synopsis'>
+<span class='name'>direction=</span>
+<span class='arguments'>(dir)</span>
+
+</div>
+<div class='description'>
+
+<p>Sets the direction using the pin path direction file</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-direction-3D-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-direction-3D-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 95</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">direction=</span>(<span class="ruby-identifier">dir</span>)&#x000A;        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span> <span class="ruby-keyword">unless</span> <span class="ruby-node">%i[in out]</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">dir</span>)&#x000A;        <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">direction</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">dir</span>&#x000A;        <span class="ruby-identifier">echo</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">gpio_pin_path</span>, <span class="ruby-string">&#39;direction&#39;</span>)&#x000A;        <span class="ruby-ivar">@direction</span> =  <span class="ruby-constant">GPIO</span>.<span class="ruby-identifier">gpio_state</span>(<span class="ruby-identifier">id</span>)[<span class="ruby-value">:direction</span>]&#x000A;        <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-off-3F'>
@@ -151,7 +192,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-off-3F-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-off-3F-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 26</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">off?</span>&#x000A;        <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@exported</span>&#x000A;        <span class="ruby-identifier">cat</span>(<span class="ruby-identifier">gpio_pin_value_path</span>).<span class="ruby-identifier">to_i</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-off-3F-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 62</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">off?</span>&#x000A;        <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@exported</span>&#x000A;        <span class="ruby-identifier">cat</span>(<span class="ruby-identifier">gpio_pin_value_path</span>).<span class="ruby-identifier">to_i</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-on-3F'>
@@ -170,7 +211,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-on-3F-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-on-3F-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 20</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">on?</span>&#x000A;        <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@exported</span>&#x000A;        <span class="ruby-identifier">cat</span>(<span class="ruby-identifier">gpio_pin_value_path</span>).<span class="ruby-identifier">to_i</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-on-3F-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 56</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">on?</span>&#x000A;        <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@exported</span>&#x000A;        <span class="ruby-identifier">cat</span>(<span class="ruby-identifier">gpio_pin_value_path</span>).<span class="ruby-identifier">to_i</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-open'>
@@ -189,7 +230,26 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-open-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-open-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 38</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">open</span>&#x000A;        <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@exported</span>&#x000A;        &#x000A;        <span class="ruby-identifier">echo</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">gpio_base_path</span>, <span class="ruby-string">&#39;export&#39;</span>)&#x000A;        &#x000A;        <span class="ruby-ivar">@exported</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">gpio_pin_value_path</span>)&#x000A;&#x000A;        <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-open-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 74</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">open</span>&#x000A;        <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@exported</span>&#x000A;        &#x000A;        <span class="ruby-identifier">echo</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">gpio_base_path</span>, <span class="ruby-string">&#39;export&#39;</span>)&#x000A;        &#x000A;        <span class="ruby-ivar">@exported</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">gpio_pin_value_path</span>)&#x000A;&#x000A;        <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-pull-3D'>
+<a name='method-i-pull-3D'></a>
+<div class='synopsis'>
+<span class='name'>pull=</span>
+<span class='arguments'>(pl)</span>
+
+</div>
+<div class='description'>
+
+<p>Sets the pull using the raspi-gpio tool</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-pull-3D-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-pull-3D-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 104</span>&#x000A;                <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">pull=</span>(<span class="ruby-identifier">pl</span>)&#x000A;                        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span> <span class="ruby-keyword">unless</span> <span class="ruby-node">%i[up down]</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">pl</span>)&#x000A;                        <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">pull</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">pl</span>&#x000A;                        &#x000A;                        <span class="ruby-identifier">cmd</span> = <span class="ruby-string">&quot;raspi-gpio set &quot;</span>&#x000A;                        <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">to_s</span>&#x000A;                        <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; p&quot;</span>&#x000A;                        <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">case</span> <span class="ruby-identifier">pl</span>&#x000A;                                                 <span class="ruby-keyword">when</span> <span class="ruby-value">:up</span>&#x000A;                                                         <span class="ruby-string">&#39;u&#39;</span>&#x000A;                               <span class="ruby-keyword">when</span> <span class="ruby-value">:down</span>&#x000A;                                                         <span class="ruby-string">&#39;d&#39;</span>&#x000A;                               <span class="ruby-keyword">end</span>&#x000A;&#x000A;<span class="ruby-identifier">system</span>(<span class="ruby-identifier">cmd</span>)&#x000A;                        <span class="ruby-ivar">@pull</span> =  <span class="ruby-constant">GPIO</span>.<span class="ruby-identifier">gpio_state</span>(<span class="ruby-identifier">id</span>)[<span class="ruby-value">:pull</span>]&#x000A;                        <span class="ruby-keyword">self</span>&#x000A;                <span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-watch'>
@@ -208,7 +268,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-watch-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-watch-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 32</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">watch</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)&#x000A;        <span class="ruby-keyword">nil</span> <span class="ruby-keyword">until</span> <span class="ruby-identifier">on?</span>&#x000A;        <span class="ruby-identifier">blk</span>.<span class="ruby-identifier">call</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-watch-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 68</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">watch</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)&#x000A;        <span class="ruby-keyword">nil</span> <span class="ruby-keyword">until</span> <span class="ruby-identifier">on?</span>&#x000A;        <span class="ruby-identifier">blk</span>.<span class="ruby-identifier">call</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <h2>Private Instance methods</h2>
@@ -228,7 +288,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-cat-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-cat-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 76</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">cat</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">pths</span>)&#x000A;        <span class="ruby-identifier">path</span> = <span class="ruby-identifier">pths</span>.<span class="ruby-identifier">reduce</span>(<span class="ruby-constant">Pathname</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;&quot;</span>), <span class="ruby-operator">&amp;</span><span class="ruby-value">:+</span>)&#x000A;&#x000A;        <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">path</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-cat-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 141</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">cat</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">pths</span>)&#x000A;        <span class="ruby-identifier">path</span> = <span class="ruby-identifier">pths</span>.<span class="ruby-identifier">reduce</span>(<span class="ruby-constant">Pathname</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;&quot;</span>), <span class="ruby-operator">&amp;</span><span class="ruby-value">:+</span>)&#x000A;&#x000A;        <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">path</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-echo'>
@@ -247,7 +307,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-echo-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-echo-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 83</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">echo</span>(<span class="ruby-identifier">value</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">pths</span>)&#x000A;        <span class="ruby-identifier">path</span> = <span class="ruby-identifier">pths</span>.<span class="ruby-identifier">reduce</span>(<span class="ruby-constant">Pathname</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;&quot;</span>), <span class="ruby-operator">&amp;</span><span class="ruby-value">:+</span>)&#x000A;&#x000A;        <span class="ruby-constant">IO</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">value</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-echo-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 148</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">echo</span>(<span class="ruby-identifier">value</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">pths</span>)&#x000A;        <span class="ruby-identifier">path</span> = <span class="ruby-identifier">pths</span>.<span class="ruby-identifier">reduce</span>(<span class="ruby-constant">Pathname</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;&quot;</span>), <span class="ruby-operator">&amp;</span><span class="ruby-value">:+</span>)&#x000A;&#x000A;        <span class="ruby-constant">IO</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">value</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-gpio_base_path'>
@@ -266,7 +326,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-gpio_base_path-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-gpio_base_path-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 71</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">gpio_base_path</span>&#x000A;        <span class="ruby-constant">Pathname</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;/sys/class/gpio&quot;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-gpio_base_path-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 136</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">gpio_base_path</span>&#x000A;        <span class="ruby-constant">Pathname</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;/sys/class/gpio&quot;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-gpio_pin_path'>
@@ -285,7 +345,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-gpio_pin_path-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-gpio_pin_path-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 66</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">gpio_pin_path</span>&#x000A;        <span class="ruby-identifier">gpio_base_path</span>.<span class="ruby-identifier">join</span>(<span class="ruby-node">&quot;gpio#{id}&quot;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-gpio_pin_path-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 131</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">gpio_pin_path</span>&#x000A;        <span class="ruby-identifier">gpio_base_path</span>.<span class="ruby-identifier">join</span>(<span class="ruby-node">&quot;gpio#{id}&quot;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-gpio_pin_value_path'>
@@ -304,7 +364,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-gpio_pin_value_path-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-gpio_pin_value_path-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 61</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">gpio_pin_value_path</span>&#x000A;        <span class="ruby-identifier">gpio_pin_path</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;value&#39;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-gpio_pin_value_path-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 126</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">gpio_pin_value_path</span>&#x000A;        <span class="ruby-identifier">gpio_pin_path</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;value&#39;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>
