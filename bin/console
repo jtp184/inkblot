@@ -54,7 +54,7 @@ end
   )
 end
 
-def test_scroll
+def test_scroll_loop
   # ex_itms = [
   #   :apple,
   #   "Orange",
@@ -99,6 +99,22 @@ def test_scroll
   end
 
   :canceled
+end
+
+def test_scroll
+  tsl = test_scroll_loop
+
+  if tsl == :canceled
+    Display.clear 
+  else
+    ts = Components::SimpleText.new do |st|
+      st.div_height = st.div_width = 95
+      st.text = "You picked #{tsl}"
+      st.size = :large
+      st.border_size = 10
+    end
+    Display[ts]
+  end
 end
 
 Pry.start
