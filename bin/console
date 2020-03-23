@@ -22,6 +22,9 @@ def Inkblot.vendor_path(*paths)
   [String.new(@vendor_path)].concat(paths).join('/')
 end
 
+# Exports and sets pulls for pins
+Buttons.init unless Buttons.ready?
+
 ### EXAMPLE COMPONENTS
 
 ## SimpleText
