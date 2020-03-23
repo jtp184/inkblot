@@ -46,10 +46,12 @@ Superclass:
 <h3>Public Class</h3>
 <ol>
 <li><a href="#method-c-get_input">get_input</a></li>
+<li><a href="#method-c-get_multi_input">get_multi_input</a></li>
 <li><a href="#method-c-get_press">get_press</a></li>
+<li><a href="#method-c-get_raw_input">get_raw_input</a></li>
 <li><a href="#method-c-init">init</a></li>
-<li><a href="#method-c-on_press">on_press</a></li>
 <li><a href="#attribute-c-on_press">on_press</a></li>
+<li><a href="#method-c-on_press">on_press</a></li>
 <li><a href="#method-c-pins">pins</a></li>
 <li><a href="#method-c-ready-3F">ready?</a></li>
 <li><a href="#method-c-release">release</a></li>
@@ -95,6 +97,25 @@ Superclass:
 <pre id='method-c-get_input-source'><span class="ruby-comment"># File lib/inkblot/buttons.rb, line 55</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_input</span>(<span class="ruby-identifier">timeout</span>=<span class="ruby-keyword">nil</span>)&#x000A;  <span class="ruby-identifier">ts</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>&#x000A;&#x000A;  <span class="ruby-identifier">loop</span> <span class="ruby-keyword">do</span>&#x000A;    <span class="ruby-keyword">if</span> <span class="ruby-identifier">timeout</span>&#x000A;      <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> (<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">ts</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">timeout</span>)&#x000A;    <span class="ruby-keyword">end</span>&#x000A;&#x000A;    <span class="ruby-identifier">pn</span> = <span class="ruby-identifier">pins</span>.<span class="ruby-identifier">find</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:on?</span>)&#x000A;    <span class="ruby-keyword">next</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">pn</span>&#x000A;&#x000A;    <span class="ruby-identifier">pindx</span> = <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">button_pinout</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">pn</span>.<span class="ruby-identifier">id</span>) &#x000A;&#x000A;    <span class="ruby-keyword">return</span> <span class="ruby-identifier">pindx</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
+<div class='method public-class' id='method-method-c-get_multi_input'>
+<a name='method-c-get_multi_input'></a>
+<div class='synopsis'>
+<span class='name'>get_multi_input</span>
+<span class='arguments'>(btn_ct=2, timeout=nil)</span>
+
+</div>
+<div class='description'>
+
+<p>Takes in a <code>btn_ct</code> integer for how many simultaneous buttons to watch for, and passes <code>timeout</code>, returns an array</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-get_multi_input-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-get_multi_input-source'><span class="ruby-comment"># File lib/inkblot/buttons.rb, line 74</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_multi_input</span>(<span class="ruby-identifier">btn_ct</span>=<span class="ruby-value">2</span>, <span class="ruby-identifier">timeout</span>=<span class="ruby-keyword">nil</span>)&#x000A;  <span class="ruby-identifier">ts</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>&#x000A;&#x000A;  <span class="ruby-identifier">loop</span> <span class="ruby-keyword">do</span>&#x000A;    <span class="ruby-keyword">if</span> <span class="ruby-identifier">timeout</span>&#x000A;      <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> (<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">ts</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">timeout</span>)&#x000A;    <span class="ruby-keyword">end</span>&#x000A;&#x000A;    <span class="ruby-identifier">pn</span> = <span class="ruby-identifier">pins</span>.<span class="ruby-identifier">find_all</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:on?</span>)&#x000A;    <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">pn</span>.<span class="ruby-identifier">empty?</span>&#x000A;    <span class="ruby-keyword">next</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">pn</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">btn_ct</span>&#x000A;    &#x000A;    <span class="ruby-identifier">pindx</span> = <span class="ruby-identifier">pn</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">button_pinout</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">n</span>.<span class="ruby-identifier">id</span>) }&#x000A;&#x000A;    <span class="ruby-keyword">return</span> <span class="ruby-identifier">pindx</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
 <div class='method public-class' id='method-method-c-get_press'>
 <a name='method-c-get_press'></a>
 <div class='synopsis'>
@@ -112,6 +133,25 @@ Superclass:
 [show source]
 </a>
 <pre id='method-c-get_press-source'><span class="ruby-comment"># File lib/inkblot/buttons.rb, line 46</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_press</span>(<span class="ruby-identifier">timeout</span>=<span class="ruby-keyword">nil</span>)&#x000A;  <span class="ruby-identifier">ky</span> = <span class="ruby-identifier">get_input</span>(<span class="ruby-identifier">timeout</span>)&#x000A;  <span class="ruby-identifier">on_press</span>[<span class="ruby-identifier">ky</span>].<span class="ruby-identifier">call</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-class' id='method-method-c-get_raw_input'>
+<a name='method-c-get_raw_input'></a>
+<div class='synopsis'>
+<span class='name'>get_raw_input</span>
+<span class='arguments'>(timefr=1)</span>
+
+</div>
+<div class='description'>
+
+<p>Loops for <code>timefr</code> seconds collecting the status of the pins. Yields that status to a block if given, and returns the collection</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-get_raw_input-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-get_raw_input-source'><span class="ruby-comment"># File lib/inkblot/buttons.rb, line 94</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_raw_input</span>(<span class="ruby-identifier">timefr</span>=<span class="ruby-value">1</span>)&#x000A;  <span class="ruby-identifier">ts</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>&#x000A;&#x000A;  <span class="ruby-identifier">inputs</span> = []&#x000A;&#x000A;  <span class="ruby-identifier">loop</span> <span class="ruby-keyword">do</span>&#x000A;    <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> (<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">ts</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">timefr</span>)&#x000A;&#x000A;    <span class="ruby-identifier">cur</span> = <span class="ruby-constant">Array</span>(<span class="ruby-identifier">pins</span>.<span class="ruby-identifier">find_all</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:on?</span>).<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">pn</span><span class="ruby-operator">|</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">button_pinout</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">pn</span>.<span class="ruby-identifier">id</span>) })&#x000A;    &#x000A;    <span class="ruby-keyword">yield</span> <span class="ruby-identifier">cur</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>&#x000A;    <span class="ruby-identifier">inputs</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">cur</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">inputs</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-class' id='method-method-c-init'>
