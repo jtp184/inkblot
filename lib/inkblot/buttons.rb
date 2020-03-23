@@ -68,6 +68,45 @@ module Inkblot
           return pindx
         end
       end
+
+      # Takes in a +btn_ct+ integer for how many simultaneous buttons to watch for,
+      # and passes +timeout+, returns an array
+      def get_multi_input(btn_ct=2, timeout=nil)
+        ts = Time.now
+
+        loop do
+          if timeout
+            return nil if (Time.now - ts > timeout)
+          end
+
+          pn = pins.find_all(&:on?)
+          next if pn.empty?
+          next unless pn.count == btn_ct
+          
+          pindx = pn.map { |n| Inkblot.button_pinout.index(n.id) }
+
+          return pindx
+        end
+      end
+
+      # Loops for +timefr+ seconds collecting the status of the pins.
+      # Yields that status to a block if given, and returns the collection
+      def get_raw_input(timefr=1)
+        ts = Time.now
+
+        inputs = []
+
+        loop do
+          break if (Time.now - ts > timefr)
+
+          cur = Array(pins.find_all(&:on?).map { |pn| Inkblot.button_pinout.index(pn.id) })
+          
+          yield cur if block_given?
+          inputs << cur
+        end
+
+        inputs
+      end
     end
   end
 end
