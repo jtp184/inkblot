@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.name          = "inkblot"
   spec.version       = Inkblot::VERSION
   spec.authors       = ["Justin Piotroski"]
-  spec.email         = ["jpiotroski@appliedvr.io"]
+  spec.email         = ["jtp184@gmail.com"]
 
   spec.summary       = %q{Interface with Waveshare e-Paper hat}
   spec.homepage      = "http://justinp.io/"
