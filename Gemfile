@@ -5,3 +5,7 @@ gemspec
 
 gem "rake", "~> 12.0"
 gem "rspec", "~> 3.0"
+
+# Development Tools
+
+gem "simplecov", "~> 0.18.5"

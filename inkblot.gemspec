@@ -23,12 +23,13 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "pry"
-  spec.add_development_dependency "hirb"
-  spec.add_development_dependency "awesome_print"
+  spec.add_development_dependency "pry", "~> 0.12.2"
+  spec.add_development_dependency "hirb", "~> 0.7.3"
+  spec.add_development_dependency "awesome_print", "~> 1.8.0"
+  spec.add_development_dependency "cucumber", "~> 3.1.2"
 
-  spec.add_dependency "mini_magick"
-  spec.add_dependency "wkhtmltopdf-binary"
-  spec.add_dependency "pdfkit"
-  spec.add_dependency "imgkit"
+  spec.add_dependency "mini_magick", "~> 4.10.1"
+  spec.add_dependency "wkhtmltopdf-binary", "~> 0.12.5.4"
+  spec.add_dependency "pdfkit", "~> 0.8.4.1"
+  spec.add_dependency "imgkit", "~> 1.6.2"
 end
