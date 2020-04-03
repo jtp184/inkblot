@@ -1,6 +1,7 @@
 require "bundler/gem_tasks"
 require 'cucumber'
 require 'cucumber/rake/task'
+require 'git'
 
 Cucumber::Rake::Task.new(:features) do |t|
   t.cucumber_opts = "--format pretty" # Any valid command line option can go here.
@@ -21,7 +22,7 @@ end
 
 task :bump do
   repo = Git.open(".")
-  version_file = "./lib/inkbot/version.rb"
+  version_file = "./lib/inkblot/version.rb"
   matcher = /VERSION = "(.*)"\.freeze/
 
   file_contents = File.read(version_file)

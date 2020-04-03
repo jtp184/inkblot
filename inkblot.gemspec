@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry", "~> 0.12.2"
   spec.add_development_dependency "hirb", "~> 0.7.3"
   spec.add_development_dependency "awesome_print", "~> 1.8.0"
+  spec.add_development_dependency "git", "~> 1.5.0"
   spec.add_development_dependency "cucumber", "~> 3.1.2"
 
   spec.add_dependency "mini_magick", "~> 4.10.1"
