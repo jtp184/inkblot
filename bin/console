@@ -117,6 +117,9 @@ def test_scroll
       st.border_size = 10
     end
     Display[ts]
+    Buttons.get_input
+    Display.clear
+    tsl
   end
 end
 
