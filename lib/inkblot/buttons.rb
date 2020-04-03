@@ -39,7 +39,7 @@ module Inkblot
       def ready?
         pins.all?(&:exported) && 
         pins.all? { |n| n.direction == :in } &&
-        pins.all? { |n| n.pull == :up }
+        pins.all? { |n| n.pull != :down }
       end
 
       # Uses the on_press procs to respond to input, passing +timeout+

@@ -7,7 +7,7 @@ module Inkblot
 		# Uses the raspi-gpio tool to get pin state for one or more pins +pn+
 		def self.gpio_state(*pn)
 			cmd = `raspi-gpio get #{pn.join(",")}`
-			pt = /GPIO (?<pin>\d*): level=(?<level>\w*) fsel=(?<fsel>\w*) func=(?<func>\w*) pull=(?<pull>\w*)/
+			pt = /GPIO (?<pin>\d*): level=(?<level>\w*) fsel=(?<fsel>\w*)(?: alt=(?<alt>\d))? func=(?<func>\w*)(?: pull=(?<pull>\w*))?/
 			st = cmd.lines.map { |x| x.match(pt) }
 							 		  .map(&:named_captures)
 										.map { |x| x.transform_keys(&:to_sym) }
@@ -26,6 +26,8 @@ module Inkblot
 									  	:up
 									  when "DOWN"
 									  	:down
+									  when nil
+									  	:unknown
 									  end
 			end
 
