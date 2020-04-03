@@ -5,7 +5,6 @@ PATH
       imgkit (~> 1.6.2)
       mini_magick (~> 4.10.1)
       pdfkit (~> 0.8.4.1)
-      wkhtmltopdf-binary-edge (~> 0.12.5.1)
 
 GEM
   remote: https://rubygems.org/
@@ -62,7 +61,6 @@ GEM
       docile (~> 1.1)
       simplecov-html (~> 0.11)
     simplecov-html (0.12.2)
-    wkhtmltopdf-binary-edge (0.12.5.1)
 
 PLATFORMS
   ruby

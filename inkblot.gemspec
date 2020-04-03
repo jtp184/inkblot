@@ -30,7 +30,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "cucumber", "~> 3.1.2"
 
   spec.add_dependency "mini_magick", "~> 4.10.1"
-  spec.add_dependency "wkhtmltopdf-binary-edge", "~> 0.12.5.1"
   spec.add_dependency "pdfkit", "~> 0.8.4.1"
   spec.add_dependency "imgkit", "~> 1.6.2"
 end
