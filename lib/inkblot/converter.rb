@@ -9,7 +9,7 @@ module Inkblot
 		# The passed object to convert
 		attr_accessor :input
 		# The bmp file to display on the device
-		attr_accessor :output
+		attr_reader :output
 
 		# Take in +input+ and any other args
 		def initialize(opts={})
@@ -25,6 +25,13 @@ module Inkblot
 		# Child classes override to implement core behavior
 		def convert
 			@input
+		end
+
+		# Override so that we can't call this without conversion
+		def output
+			return @output if @output
+			convert!
+			@output
 		end
 	end
 

@@ -22,7 +22,7 @@ module Inkblot
 				if obj.respond_to?(:to_display)
 					call(obj.to_display)
 				elsif obj.is_a?(Components::Component)
-					img = HtmlConverter.new(input: obj.to_html).convert!
+					img = HtmlConverter.new(input: obj.to_html)
 					image(img.output.path)
 				elsif obj.is_a?(Converter)
 					image(obj.output.path)
