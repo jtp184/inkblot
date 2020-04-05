@@ -39,9 +39,15 @@ module Inkblot
 				@current = obj
 			end
 
+			# Show the current object again, presumably after changing it
+			def redisplay
+				call current
+			end
+
 			# Syntactic sugar options
 			alias show call
 			alias [] call
+			alias again redisplay
 
 			# Clears screen on device, and sets current to nil
 			def clear

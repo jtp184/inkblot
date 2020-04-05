@@ -2,7 +2,7 @@ module Inkblot
   module Components
     # Displays two panes, one on the left with icons,
     # one on the right which can be a component
-    class IconMenu < Component
+    class IconPane < Component
       # Converts icon groups if given
       def initialize(*args)
         super

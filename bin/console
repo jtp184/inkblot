@@ -23,7 +23,9 @@ def Inkblot.vendor_path(*paths)
 end
 
 # Exports and sets pulls for pins
-Buttons.init unless Buttons.ready?
+if Gem.platforms.last.os == "linux"
+  Buttons.init unless Buttons.ready?
+end
 
 ### EXAMPLE COMPONENTS
 
@@ -36,19 +38,19 @@ Buttons.init unless Buttons.ready?
 end
 
 ## IconMenu with ButtonMenu frame
-@b = Components::IconMenu.new do |mn|
+@b = Components::IconPane.new do |mn|
   mn.div_height = mn.div_width = :full
   
   mn.icons = :arrows
   
-  mn.frame_contents = Components::ButtonMenu.new(
+  mn.frame_contents = Components::TableList.new(
     buttons: ["One", "Two", "Three", "Four"],
     div_height: (Inkblot::Display.size[:height].to_f * 0.95).floor.to_s + "px"
   )
 end
 
 # IconMenu with SimpleText Frame
-@i = Components::IconMenu.new do |mn|
+@i = Components::IconPane.new do |mn|
   mn.div_height = mn.div_width = :full
 
   mn.frame_contents = Components::SimpleText.new(

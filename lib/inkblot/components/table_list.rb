@@ -1,20 +1,20 @@
 module Inkblot
   module Components
     # Shows a table of line entries, usually to describe what the side buttons do,
-    # but could also be useful for list enumeration
-    class ButtonMenu < Component
-      # Creates default buttons if none exist
+    # but also useful for list enumeration
+    class TableList < Component
+      # Creates default items if none exist
       def initialize(*args)
         super
 
-        if !options.key?(:buttons)
-          options[:buttons] = Array.new(4) { |x| "Key #{x}" }
+        if !options.key?(:items)
+          options[:items] = Array.new(4) { |x| "Key #{x}" }
         end
       end
 
-      # Sugar to get to the buttons
-      def buttons
-        options[:buttons]
+      # Sugar to get to the items
+      def items
+        options[:items]
       end
 
       private
