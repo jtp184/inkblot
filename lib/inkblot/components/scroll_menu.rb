@@ -12,6 +12,7 @@ module Inkblot
       attr_reader :filter
       
       def_states :scroll, :select
+      paginate_with :pad_list
 
       # Start codon for list
       LIST_START = "/--".freeze
@@ -23,7 +24,7 @@ module Inkblot
         super  
 
         @filter ||= :itself.to_proc
-        @page_count = paginate
+        paginate
 
         unless options[:items]
           raise ArgumentError, "No items given"
@@ -41,7 +42,7 @@ module Inkblot
 
       # Gets the items that the current page is presenting as choices
       def choices
-        to_display.options[:choices].map { |c| items[c] }
+        to_display.options[:choices].map { |c| c.nil? ? nil : items[c] }
       end
 
       # Get the choices for the current page, and return the one at index +ix+
@@ -51,7 +52,7 @@ module Inkblot
 
       private
 
-      def paginate
+      def pad_list
         pg = [LIST_START]
         
         items.each do |i|

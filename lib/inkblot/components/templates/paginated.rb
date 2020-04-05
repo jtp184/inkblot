@@ -9,6 +9,14 @@ module Inkblot
         def starting_page
           @starting_page ||= 0
         end
+
+        def paginate_with(mtd)
+          @paginate_with_method = mtd
+        end
+
+        def paginate_with_method
+          @paginate_with_method
+        end
       end
 
       def self.included(base)
@@ -17,6 +25,10 @@ module Inkblot
 
       def current_page
         @current_page ||= self.class.starting_page
+      end
+
+      def paginate
+        @page_count ||= send(self.class.paginate_with_method)
       end
 
       # Decrements the current page unless we are on the first page,
