@@ -97,7 +97,7 @@ def test_scroll_loop
 
   catch(:cancel) do
     loop do
-      Buttons.on_press = @s.mode == :scroll ? scr_procs : sel_procs
+      Buttons.on_press = @s.state == :scroll ? scr_procs : sel_procs
       Display[@s]
       Buttons.get_press
     end
