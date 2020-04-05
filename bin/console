@@ -89,7 +89,7 @@ def test_scroll_loop
   ]
 
   scr_procs = [
-    Proc.new { @s.select },
+    Proc.new { @s.state = :select },
     Proc.new { throw :cancel },
     Proc.new { @s.prev_page},
     Proc.new { @s.next_page },
