@@ -81,7 +81,7 @@ module Inkblot
             IconPane.new do |pane|
               pane.div_height = pane.div_width = :full
               pane.choices = page.map { |g| dx[g] }
-              pane.icons = pane.choices.map { |ch| ch.nil? ? "" : :rarr }
+              pane.icons = pane.choices.map { |ch| ch.nil? ? :times : :rarr }
               pane.frame_contents = TableList.new do |lst|
                 lst.items = page.map(&:to_s)
               end
