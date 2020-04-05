@@ -130,7 +130,7 @@ module Inkblot
 
       # Simply appends the file extension. Overridable
       def template_path
-        template_base_path << '.html.erb'
+        template_base_path + '.html.erb'
       end
 
       # Generates HTML from the ERB template. Adds the start / end component blocks
