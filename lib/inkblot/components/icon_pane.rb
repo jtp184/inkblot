@@ -14,6 +14,11 @@ module Inkblot
         options[:icons]
       end
 
+      # Sugar to get to the frame_contents option
+      def frame_contents
+        options[:frame_contents]
+      end
+
       private
 
       # Turns the frame contents into the frame, array-ifying and joining
