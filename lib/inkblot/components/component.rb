@@ -7,8 +7,6 @@ module Inkblot
     class Component
       # Options for the dynamic aspects of the content
       attr_reader :options
-      # The resulting html fragment from the component
-      attr_reader :html
 
       # Takes in options for building the component either throungh +opts+
       # or by yielding an OpenStruct to a block.
@@ -41,24 +39,19 @@ module Inkblot
         template
       end
 
-      # Lazily creates the +html+ attribute by running +build+
+      # Lazily creates the html by running +build+
       def to_html
-        @html ||= build
+        build
       end
 
       # Non-standalone, doesn't wrap with HTML and head tags
       def to_html_frag
-        @html_frag ||= build(false)
+        build(false)
       end
 
-      # Recompute +html+ from +build+
-      def to_html!
-        @html = build
-      end
-
-      # Recompute +html_frag+ from +build+
-      def to_html_frag!
-        @html_frag = build(false)
+      def convert
+        return @converted if !@converted.nil? && @converted.input == to_html
+        @converted = HtmlConverter.new(input: to_html)
       end
 
       # Lazily gets the template from +template_path+
