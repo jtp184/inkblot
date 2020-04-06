@@ -50,8 +50,7 @@ module Inkblot
       end
 
       def convert
-        return @converted if !@converted.nil? && @converted.input == to_html
-        @converted = HtmlConverter.new(input: to_html)
+        HtmlConverter.new(input: to_html)
       end
 
       # Lazily gets the template from +template_path+
