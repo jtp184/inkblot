@@ -2,20 +2,6 @@ module Inkblot
   # Singleton class that allows access to the buttons on the hat
   class Buttons
     class << self
-      # Array of procs that can be used to define button callbacks
-      attr_writer :on_press
-
-      # Array of procs that can be used to define button callbacks. 
-      # Defaults to throwing :keypress_n
-      def on_press
-        @on_press ||= [
-          ->{ throw :keypress_0 },
-          ->{ throw :keypress_1 },
-          ->{ throw :keypress_2 },
-          ->{ throw :keypress_3 }
-        ]
-      end
-
       # Creates new GPIO::Pin objects from the BUTTON_PINOUT
       def pins
         @pins ||= Inkblot.button_pinout.map { |pn| GPIO::Pin.new(pn) }
@@ -42,10 +28,17 @@ module Inkblot
         pins.all? { |n| n.pull != :down }
       end
 
-      # Uses the on_press procs to respond to input, passing +timeout+
+      # Passes the +timeout+ to get_input, and calls the associated proc on
+      # the object that is Display.current, with some guard clauses
       def get_press(timeout=nil)
+        unless Display.current.respond_to?(:button_actions)
+          raise NoMethodError, "#{Display.current.class.name} has no #button_actions"
+        end
+
         ky = get_input(timeout)
-        on_press[ky].call
+
+        return nil if ky.nil?
+        Display.current.button_actions[ky].call
       end
 
       # Gets input from the buttons. Blocks until a pin reads as on
