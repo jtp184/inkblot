@@ -8,9 +8,6 @@ module Inkblot
       include Templates::MultiState
       include Templates::Paginated
 
-      # What method to apply to the items. Defaults to a noop of itself
-      attr_reader :filter
-      
       def_states :scroll, :select
       paginate_with :pad_list
 
@@ -21,18 +18,17 @@ module Inkblot
 
       # Sets the instance vars, validates the items list, and paginates
       def initialize(*args)
-        super  
-
-        @filter ||= :itself.to_proc
-        paginate
+        super
 
         unless options[:items]
           raise ArgumentError, "No items given"
         end
+
+        paginate
       end
 
       def to_display
-        stateful_content[state][current_page]
+        content_for_state[current_page]
       end
 
       # Sugar for the items array
@@ -55,9 +51,7 @@ module Inkblot
       def pad_list
         pg = [LIST_START]
         
-        items.each do |i|
-          pg << filter.(i)
-        end
+        pg += items
 
         pg << LIST_END
 
