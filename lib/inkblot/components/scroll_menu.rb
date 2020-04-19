@@ -8,7 +8,10 @@ module Inkblot
       include Templates::MultiState
       include Templates::Paginated
 
-      def_states :scroll, :select
+      # The selected choice
+      attr_reader :answer
+
+      def_states :scroll, :select, :answered, :canceled
       paginate_with :pad_list
 
       # Start codon for list
@@ -29,6 +32,30 @@ module Inkblot
 
       def to_display
         content_for_state[current_page]
+      end
+
+      def button_actions
+        case state
+        when :scroll
+          [
+            -> { self.state = :select },
+            -> { self.state = :canceled },
+            -> { self.prev_page },
+            -> { self.next_page }
+          ]
+        when :select
+          Array.new(4) do |i| 
+            lambda do
+              ch = choice(i)
+              return unless ch
+              
+              @answer = ch
+              self.state = :answered
+            end 
+          end
+        else
+          []
+        end
       end
 
       # Sugar for the items array
