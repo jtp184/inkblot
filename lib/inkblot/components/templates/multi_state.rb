@@ -36,14 +36,23 @@ module Inkblot
         @state = st
       end
 
-      def stateful_content
-        return @stateful_content if @stateful_content
-        @stateful_content = states.map { |s| [s, nil] }.to_h
+      def state_content
+        return @state_content if @state_content
+        @state_content = states.map { |s| [s, nil] }.to_h
       end
 
-      def content_for_state(st, &blk)
-        raise ArgumentError, "Not a valid state" unless states.include?(st)
-        stateful_content[st] = blk.call
+      def content_for_state(st=nil)
+        if !st.nil? && !states.include?(st)
+          raise ArgumentError, "Not a valid state"
+        end
+
+        st = st ? st : state
+
+        if block_given?
+          state_content[st] = yield
+        else
+          state_content[st]
+        end
       end
     end
   end
