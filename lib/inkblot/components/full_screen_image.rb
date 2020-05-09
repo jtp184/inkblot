@@ -16,19 +16,6 @@ module Inkblot
         end
       end
 
-      # Overrides this so that Display.show recieves these converters
-      # instead of trying to build the html and display.
-      def to_display
-        case img_src
-        when :url
-          HtmlConverter.new(input: options[:url])
-        when :path
-          ImageConverter.new(input: options[:path])
-        when :file
-          ImageConverter.new(input: options[:file])
-        end
-      end
-
       private
 
       def computed
