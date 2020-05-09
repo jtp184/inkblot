@@ -50,11 +50,10 @@ end
 end
 
 ## IconPane with a FullScreenImage in the frame
-# @i = Components::IconPane.new do |mn|
-#   mn.div_height = mn.div_width = :full
-#   # TODO: FSI within other components
-#   mn.frame_contents = Components::FullScreenImage.new(path: Inkblot.vendor_path('chris_kim.bmp'))
-# end
+@i = Components::IconPane.new do |mn|
+  mn.div_height = mn.div_width = :full
+  mn.frame_contents = Components::FullScreenImage.new(path: Inkblot.vendor_path('chris_kim.bmp'))
+end
 
 ## ScrollMenu with example items
 @s = Components::ScrollMenu.new do |sc|
