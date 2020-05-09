@@ -40,7 +40,7 @@ module Inkblot
 		# Detects a :path option to read from, or calls super
 		def initialize(opts={})
 			pth = opts.fetch(:path, nil)
-			pth ? input = File.read(pth) : super
+			pth ? @input = File.open(pth).tap(&:close) : super
 		end
 
 		# Reads input, and uses MiniMagick to modify. Modifies Tempfiles in place,
