@@ -49,6 +49,7 @@ Superclass:
 </ol>
 <h3>Private Instance</h3>
 <ol>
+<li><a href="#method-i-auto_scale_tag">auto_scale_tag</a></li>
 <li><a href="#method-i-computed">computed</a></li>
 <li><a href="#method-i-optionals">optionals</a></li>
 <li><a href="#method-i-size_value">size_value</a></li>
@@ -80,6 +81,25 @@ Superclass:
 </div>
 </div>
 <h2>Private Instance methods</h2>
+<div class='method private-instance' id='method-method-i-auto_scale_tag'>
+<a name='method-i-auto_scale_tag'></a>
+<div class='synopsis'>
+<span class='name'>auto_scale_tag</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Return a tag based on text length</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-auto_scale_tag-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-auto_scale_tag-source'><span class="ruby-comment"># File lib/inkblot/components/simple_text.rb, line 59</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">auto_scale_tag</span>&#x000A;  <span class="ruby-keyword">case</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:text</span>].<span class="ruby-identifier">length</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">70</span>&#x000A;    <span class="ruby-string">&#39;h1&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">70</span><span class="ruby-operator">..</span><span class="ruby-value">200</span>&#x000A;    <span class="ruby-string">&#39;h3&#39;</span>&#x000A;  <span class="ruby-keyword">else</span>&#x000A;    <span class="ruby-string">&#39;p&#39;</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
 <div class='method private-instance' id='method-method-i-computed'>
 <a name='method-i-computed'></a>
 <div class='synopsis'>
@@ -134,7 +154,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-size_value-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-size_value-source'><span class="ruby-comment"># File lib/inkblot/components/simple_text.rb, line 50</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">size_value</span>&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:size</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>)&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-node">&quot;#{options[:size]}px&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:size</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>)&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:size</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-size_value-source'><span class="ruby-comment"># File lib/inkblot/components/simple_text.rb, line 52</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">size_value</span>&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:size</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>)&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-node">&quot;#{options[:size]}px&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:size</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>)&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:size</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-tag_from_size'>
@@ -153,7 +173,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-tag_from_size-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-tag_from_size-source'><span class="ruby-comment"># File lib/inkblot/components/simple_text.rb, line 34</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">tag_from_size</span>&#x000A;  <span class="ruby-keyword">case</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:size</span>]&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:small</span>&#x000A;    <span class="ruby-string">&#39;p&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:medium</span>&#x000A;    <span class="ruby-string">&#39;h3&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:large</span>&#x000A;    <span class="ruby-string">&#39;h1&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-keyword">nil</span> &#x000A;    <span class="ruby-string">&#39;p&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-operator">-&gt;</span>(<span class="ruby-identifier">x</span>) { <span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>) }&#x000A;    <span class="ruby-string">&#39;h1&#39;</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-tag_from_size-source'><span class="ruby-comment"># File lib/inkblot/components/simple_text.rb, line 34</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">tag_from_size</span>&#x000A;  <span class="ruby-keyword">case</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:size</span>]&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:tiny</span>&#x000A;    <span class="ruby-string">&#39;p&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:small</span>&#x000A;    <span class="ruby-string">&#39;h3&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:medium</span>&#x000A;    <span class="ruby-string">&#39;h2&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:large</span>&#x000A;    <span class="ruby-string">&#39;h1&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-keyword">nil</span> &#x000A;    <span class="ruby-identifier">auto_scale_tag</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-operator">-&gt;</span>(<span class="ruby-identifier">x</span>) { <span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>) }&#x000A;    <span class="ruby-string">&#39;h1&#39;</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>

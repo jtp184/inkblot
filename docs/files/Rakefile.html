@@ -30,7 +30,7 @@ Rakefile
 </div>
 <div class='last-update'>
 Last Update:
-<span class='datetime'>2020-05-09 19:07:32 -0700</span>
+<span class='datetime'>2020-05-10 15:58:05 -0700</span>
 </div>
 </div>
 <div id='content'>
@@ -48,7 +48,7 @@ Last Update:
 
 <p>task :docs do</p>
 
-<pre class="ruby"><span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;rm -rf ./docs&quot;</span>&#x000A;<span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;rdoc --format=hanna --all --main=README.md --exclude=bin --exclude=tmp&quot;</span>&#x000A;<span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;mv doc docs&quot;</span></pre>
+<pre class="ruby"><span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;rm -rf ./docs&quot;</span>&#x000A;<span class="ruby-identifier">rd_exclude</span> = <span class="ruby-node">%w[bin tmp vendor/waveshare_epd coverage spec]</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;--exclude=#{r}&quot;</span>}.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39; &#39;</span>)&#x000A;<span class="ruby-identifier">sh</span> <span class="ruby-node">&quot;rdoc --format=hanna --all --main=README.md #{rd_exclude}&quot;</span>&#x000A;<span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;mv doc docs&quot;</span></pre>
 
 <p>end</p>
 

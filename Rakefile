@@ -11,7 +11,8 @@ task :default => :features
 
 task :docs do
   sh "rm -rf ./docs"
-  sh "rdoc --format=hanna --all --main=README.md --exclude=bin --exclude=tmp"
+  rd_exclude = %w[bin tmp vendor/waveshare_epd coverage spec].map { |r| "--exclude=#{r}"}.join(' ')
+  sh "rdoc --format=hanna --all --main=README.md #{rd_exclude}"
   sh "mv doc docs"
 end
 
