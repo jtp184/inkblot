@@ -43,6 +43,10 @@ Superclass:
 </div>
 <div id='method-list'>
 <h2>Methods</h2>
+<h3>Public Instance</h3>
+<ol>
+<li><a href="#method-i-text">text</a></li>
+</ol>
 <h3>Private Instance</h3>
 <ol>
 <li><a href="#method-i-computed">computed</a></li>
@@ -55,6 +59,26 @@ Superclass:
 </div>
 <div id='section'>
 <div id='methods'>
+<h2>Public Instance methods</h2>
+<div class='method public-instance' id='method-method-i-text'>
+<a name='method-i-text'></a>
+<div class='synopsis'>
+<span class='name'>text</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Sugar method for accessing the text data</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-text-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-text-source'><span class="ruby-comment"># File lib/inkblot/components/simple_text.rb, line 6</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">text</span>&#x000A;  <span class="ruby-identifier">options</span>[<span class="ruby-value">:text</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
 <h2>Private Instance methods</h2>
 <div class='method private-instance' id='method-method-i-computed'>
 <a name='method-i-computed'></a>
@@ -72,7 +96,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-computed-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-computed-source'><span class="ruby-comment"># File lib/inkblot/components/simple_text.rb, line 9</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">computed</span>&#x000A;  <span class="ruby-identifier">dta</span> = <span class="ruby-constant">OpenStruct</span>.<span class="ruby-identifier">new</span>&#x000A;  <span class="ruby-identifier">optionals</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">get_height</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">get_width</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">tag</span> = <span class="ruby-identifier">tag_from_size</span>&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">font_size</span> = <span class="ruby-identifier">size_value</span>&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">to_h</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-computed-source'><span class="ruby-comment"># File lib/inkblot/components/simple_text.rb, line 14</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">computed</span>&#x000A;  <span class="ruby-identifier">dta</span> = <span class="ruby-constant">OpenStruct</span>.<span class="ruby-identifier">new</span>&#x000A;  <span class="ruby-identifier">optionals</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">get_height</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">get_width</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">tag</span> = <span class="ruby-identifier">tag_from_size</span>&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">font_size</span> = <span class="ruby-identifier">size_value</span>&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">to_h</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-optionals'>
@@ -91,7 +115,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-optionals-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-optionals-source'><span class="ruby-comment"># File lib/inkblot/components/simple_text.rb, line 21</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">optionals</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">dta</span>[<span class="ruby-value">:border_size</span>] = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:border_size</span>, <span class="ruby-value">0</span>)&#x000A;  <span class="ruby-identifier">dta</span>[<span class="ruby-value">:font</span>] = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:font</span>, <span class="ruby-string">&quot;monospace&quot;</span>)&#x000A;  <span class="ruby-identifier">dta</span>[<span class="ruby-value">:size</span>] = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:size</span>, <span class="ruby-value">:large</span>)&#x000A;  <span class="ruby-identifier">dta</span>[<span class="ruby-value">:text_align</span>] = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:text_align</span>, <span class="ruby-string">&quot;center&quot;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-optionals-source'><span class="ruby-comment"># File lib/inkblot/components/simple_text.rb, line 26</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">optionals</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">dta</span>[<span class="ruby-value">:border_size</span>] = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:border_size</span>, <span class="ruby-value">0</span>)&#x000A;  <span class="ruby-identifier">dta</span>[<span class="ruby-value">:font</span>] = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:font</span>, <span class="ruby-string">&quot;monospace&quot;</span>)&#x000A;  <span class="ruby-identifier">dta</span>[<span class="ruby-value">:size</span>] = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:size</span>, <span class="ruby-value">:large</span>)&#x000A;  <span class="ruby-identifier">dta</span>[<span class="ruby-value">:text_align</span>] = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:text_align</span>, <span class="ruby-string">&quot;center&quot;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-size_value'>
@@ -110,7 +134,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-size_value-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-size_value-source'><span class="ruby-comment"># File lib/inkblot/components/simple_text.rb, line 45</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">size_value</span>&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:size</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>)&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-node">&quot;#{options[:size]}px&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:size</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>)&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:size</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-size_value-source'><span class="ruby-comment"># File lib/inkblot/components/simple_text.rb, line 50</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">size_value</span>&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:size</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>)&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-node">&quot;#{options[:size]}px&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:size</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>)&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:size</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-tag_from_size'>
@@ -129,7 +153,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-tag_from_size-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-tag_from_size-source'><span class="ruby-comment"># File lib/inkblot/components/simple_text.rb, line 29</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">tag_from_size</span>&#x000A;  <span class="ruby-keyword">case</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:size</span>]&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:small</span>&#x000A;    <span class="ruby-string">&#39;p&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:medium</span>&#x000A;    <span class="ruby-string">&#39;h3&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:large</span>&#x000A;    <span class="ruby-string">&#39;h1&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-keyword">nil</span> &#x000A;    <span class="ruby-string">&#39;p&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-operator">-&gt;</span>(<span class="ruby-identifier">x</span>) { <span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>) }&#x000A;    <span class="ruby-string">&#39;h1&#39;</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-tag_from_size-source'><span class="ruby-comment"># File lib/inkblot/components/simple_text.rb, line 34</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">tag_from_size</span>&#x000A;  <span class="ruby-keyword">case</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:size</span>]&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:small</span>&#x000A;    <span class="ruby-string">&#39;p&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:medium</span>&#x000A;    <span class="ruby-string">&#39;h3&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:large</span>&#x000A;    <span class="ruby-string">&#39;h1&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-keyword">nil</span> &#x000A;    <span class="ruby-string">&#39;p&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-operator">-&gt;</span>(<span class="ruby-identifier">x</span>) { <span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>) }&#x000A;    <span class="ruby-string">&#39;h1&#39;</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>

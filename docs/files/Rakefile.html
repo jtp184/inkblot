@@ -30,17 +30,21 @@ Rakefile
 </div>
 <div class='last-update'>
 Last Update:
-<span class='datetime'>2020-03-22 12:26:28 -0700</span>
+<span class='datetime'>2020-05-09 19:07:32 -0700</span>
 </div>
 </div>
 <div id='content'>
 <div id='text'>
 <div id='description'>
-<p>require “bundler/gem_tasks” require “rspec/core/rake_task”</p>
+<p>require “bundler/gem_tasks” require &#39;cucumber&#39; require &#39;cucumber/rake/task&#39; require &#39;git&#39;</p>
 
-<p>RSpec::Core::RakeTask.new(:spec)</p>
+<p>Cucumber::Rake::Task.new(:features) do |t|</p>
 
-<p>task :default =&gt; :spec</p>
+<pre class="ruby"><span class="ruby-identifier">t</span>.<span class="ruby-identifier">cucumber_opts</span> = <span class="ruby-string">&quot;--format pretty&quot;</span> <span class="ruby-comment"># Any valid command line option can go here.</span></pre>
+
+<p>end</p>
+
+<p>task :default =&gt; :features</p>
 
 <p>task :docs do</p>
 
@@ -56,7 +60,7 @@ Last Update:
 
 <p>task :bump do</p>
 
-<pre class="ruby"><span class="ruby-identifier">repo</span> = <span class="ruby-constant">Git</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&quot;.&quot;</span>)&#x000A;<span class="ruby-identifier">version_file</span> = <span class="ruby-string">&quot;./lib/inkbot/version.rb&quot;</span>&#x000A;<span class="ruby-identifier">matcher</span> = <span class="ruby-regexp">/VERSION = &quot;(.*)&quot;\.freeze/</span>&#x000A;&#x000A;<span class="ruby-identifier">file_contents</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">version_file</span>)&#x000A;&#x000A;<span class="ruby-identifier">updated</span> = <span class="ruby-identifier">file_contents</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-identifier">matcher</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>&#x000A;  <span class="ruby-identifier">v</span>.<span class="ruby-identifier">gsub</span> <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">last_match</span>(<span class="ruby-value">1</span>), <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">last_match</span>(<span class="ruby-value">1</span>).<span class="ruby-identifier">succ</span>&#x000A;<span class="ruby-keyword">end</span>&#x000A;&#x000A;<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">version_file</span>, <span class="ruby-string">&quot;w+&quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">updated</span> }&#x000A;&#x000A;<span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;bundle&quot;</span>&#x000A;&#x000A;<span class="ruby-identifier">repo</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">version_file</span>)&#x000A;<span class="ruby-identifier">repo</span>.<span class="ruby-identifier">add</span>(<span class="ruby-string">&quot;Gemfile.lock&quot;</span>)</pre>
+<pre class="ruby"><span class="ruby-identifier">repo</span> = <span class="ruby-constant">Git</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&quot;.&quot;</span>)&#x000A;<span class="ruby-identifier">version_file</span> = <span class="ruby-string">&quot;./lib/inkblot/version.rb&quot;</span>&#x000A;<span class="ruby-identifier">matcher</span> = <span class="ruby-regexp">/VERSION = &quot;(.*)&quot;\.freeze/</span>&#x000A;&#x000A;<span class="ruby-identifier">file_contents</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">version_file</span>)&#x000A;&#x000A;<span class="ruby-identifier">updated</span> = <span class="ruby-identifier">file_contents</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-identifier">matcher</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>&#x000A;  <span class="ruby-identifier">v</span>.<span class="ruby-identifier">gsub</span> <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">last_match</span>(<span class="ruby-value">1</span>), <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">last_match</span>(<span class="ruby-value">1</span>).<span class="ruby-identifier">succ</span>&#x000A;<span class="ruby-keyword">end</span>&#x000A;&#x000A;<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">version_file</span>, <span class="ruby-string">&quot;w+&quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">updated</span> }&#x000A;&#x000A;<span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;bundle&quot;</span>&#x000A;&#x000A;<span class="ruby-identifier">repo</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">version_file</span>)&#x000A;<span class="ruby-identifier">repo</span>.<span class="ruby-identifier">add</span>(<span class="ruby-string">&quot;Gemfile.lock&quot;</span>)</pre>
 
 <p>end</p>
 </div>
