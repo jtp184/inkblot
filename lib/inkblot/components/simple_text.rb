@@ -2,6 +2,11 @@ module Inkblot
   module Components
     # Shows text on the screen
     class SimpleText < Component
+      # Sugar method for accessing the text data
+      def text
+        options[:text]
+      end
+      
       private
 
       # Derives the tag to wrap text in from the size option,
