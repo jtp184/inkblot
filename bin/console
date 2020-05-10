@@ -32,7 +32,9 @@ end
 ## SimpleText
 @t = Components::SimpleText.new do |st|
   st.div_height = st.div_width = 95
-  st.text = "56%"
+  st.gfonts = ['Dancing Script', 'Oswald', 'Pacifico', 'Arvo', 'Righteous']
+  st.font = st.gfonts.sample
+  st.text = "Hello"
   st.size = 60
   st.border_size = 10
 end
