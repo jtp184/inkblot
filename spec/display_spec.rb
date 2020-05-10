@@ -55,30 +55,59 @@ RSpec.describe 'Display' do
     end
   end
 
-  describe 'Display tests' do
+  describe 'Show tests' do
     before :each do
       allow(Inkblot::Display).to receive(:pyscript) { 'echo' }
     end
 
-    xit 'Can display objects with a to_display method' do
+    it 'Can display objects with a to_display method' do
+      st = Inkblot::Components::SimpleText.new(text: 'Hello')
+      item = double('Displayable', to_display: st)
+
+      Inkblot::Display.show(item)
+
+      expect(Inkblot::Display.current).to be(item)
     end
 
-    xit 'Can display Components' do
+    it 'Can display Components' do
+      item = Inkblot::Components::SimpleText.new(text: 'Hello')
+      Inkblot::Display.show(item)
+
+      expect(Inkblot::Display.current).to eq(item)
     end
 
-    xit 'Can display Converters' do
+    it 'Can display Converters' do
+      item = Inkblot::ImageConverter.new(path: Inkblot.vendor_path('qrtest.bmp'))
+      Inkblot::Display.show(item)
+
+      expect(Inkblot::Display.current).to be(item)
     end
 
-    xit 'Can display Files and TempFiles' do
+    it 'Can display Files and TempFiles' do
+      item = File.open(Inkblot.vendor_path('qrtest.bmp')).tap(&:close)
+      Inkblot::Display.show(item)
+
+      expect(Inkblot::Display.current).to be(item)
     end
 
-    xit 'Can display files by path' do
+    it 'Can display files by path' do
+      item = Inkblot.vendor_path('qrtest.bmp')
+      Inkblot::Display.show(item)
+
+      expect(Inkblot::Display.current).to eq(item)
     end
 
-    xit 'Can display plain strings as text' do
+    it 'Can display plain strings as text' do
+      item = 'Hello'
+      Inkblot::Display.show(item)
+
+      expect(Inkblot::Display.current).to eq(item)
     end
 
-    xit 'Raises an error if the object cannot be displayed' do
+    it 'Raises an error if the object cannot be displayed' do
+      item = 5
+
+      expect { Inkblot::Display.show(item) }.to raise_error(ArgumentError)
     end
   end
 end
