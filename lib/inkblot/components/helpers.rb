@@ -1,7 +1,7 @@
 module Inkblot
   module Components
     # Holds common patterns for components
-    module Templates
+    module Helpers
     end
   end
 end

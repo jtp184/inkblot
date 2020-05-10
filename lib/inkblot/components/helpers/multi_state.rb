@@ -1,6 +1,5 @@
 module Inkblot
   module Components
-    # Helper modules for components to share behavior
     module Helpers
       # Adds methods for storing multiple states and different content
       # for each one.
