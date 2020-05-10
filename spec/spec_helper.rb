@@ -103,3 +103,14 @@ RSpec.configure do |config|
 end
 
 require 'inkblot'
+
+# Override for testing
+def Inkblot.vendor_path(*paths)
+  @vendor_path ||= String.new(Dir.pwd).tap do |str|
+    str << "/vendor"
+  end
+
+  return @vendor_path if paths.empty?
+
+  [String.new(@vendor_path)].concat(paths).join('/')
+end
