@@ -33,14 +33,16 @@ module Inkblot
       # Set an html tag based on the provided size
       def tag_from_size
         case options[:size]
-        when :small
+        when :tiny
           'p'
-        when :medium
+        when :small
           'h3'
+        when :medium
+          'h2'
         when :large
           'h1'
         when nil 
-          'p'
+          auto_scale_tag
         when ->(x) { x.is_a?(Integer) }
           'h1'
         end
@@ -51,6 +53,18 @@ module Inkblot
         return nil if options[:size].is_a?(Symbol)
         return "#{options[:size]}px" if options[:size].is_a?(Integer)
         return options[:size]
+      end
+
+      # Return a tag based on text length
+      def auto_scale_tag
+        case options[:text].length
+        when 0..70
+          'h1'
+        when 70..200
+          'h3'
+        else
+          'p'
+        end
       end
     end
   end
