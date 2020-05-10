@@ -1,17 +1,20 @@
-require_relative 'templates/multi_state'
-require_relative 'templates/paginated'
+require_relative 'helpers/multi_state'
+require_relative 'helpers/paginated'
 
 module Inkblot
   module Components
     # Allows displaying a variable length list of options
     class ScrollMenu < Component
-      include Templates::MultiState
-      include Templates::Paginated
+      include Helpers::MultiState
+      include Helpers::Paginated
 
       # The selected choice
       attr_reader :answer
 
+      # Defines the possible states 
       def_states :scroll, :select, :answered, :canceled
+
+      # Defines the method to page by
       paginate_with :pad_list
 
       # Start codon for list
@@ -30,10 +33,12 @@ module Inkblot
         paginate
       end
 
+      # Overrides what is displayed to be the content for the current page
       def to_display
         content_for_state[current_page]
       end
 
+      # Defines actions for the Buttons depending on state
       def button_actions
         case state
         when :scroll
@@ -75,6 +80,9 @@ module Inkblot
 
       private
 
+      # Sets up pagination by creating a new array that includes the list
+      # start & end, and slicing it into fours. Creates content for relevant
+      # states with different icons.
       def pad_list
         pg = [LIST_START]
         

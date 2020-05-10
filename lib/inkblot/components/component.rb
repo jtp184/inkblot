@@ -49,6 +49,7 @@ module Inkblot
         build(false)
       end
 
+      # Returns a new HtmlConverter with the result of #to_html
       def convert
         HtmlConverter.new(input: to_html)
       end

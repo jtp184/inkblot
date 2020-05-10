@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang='en'>
 <head>
-<title>Inkblot::Templates::Paginated::ClassMethods</title>
+<title>Inkblot::Components::Helpers::Paginated::ClassMethods</title>
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<link href='../../../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='../../../../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
 <script type='text/javascript'>
   function popupCode(url) {
     window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
@@ -24,17 +24,19 @@
 <div class='class' id='wrapper'>
 <div class='header'>
 <h1 class='name'><span class='type'>module</span>
-Inkblot::Templates::Paginated::ClassMethods
+Inkblot::Components::Helpers::Paginated::ClassMethods
 </h1>
 <ol class='paths'>
 <li>
-<a href="../../../../files/lib/inkblot/components/templates/paginated_rb.html">lib/inkblot/components/templates/paginated.rb</a>
+<a href="../../../../../files/lib/inkblot/components/helpers/paginated_rb.html">lib/inkblot/components/helpers/paginated.rb</a>
 </li>
 </ol>
 </div>
 <div id='content'>
 <div id='text'>
-<div id='description'></div>
+<div id='description'>
+<p>The methods to add to the class</p>
+</div>
 <div id='method-list'>
 <h2>Methods</h2>
 <h3>Public Instance</h3>
@@ -59,12 +61,14 @@ Inkblot::Templates::Paginated::ClassMethods
 </div>
 <div class='description'>
 
+<p>The method to set up pagination with. Must return the page count.</p>
+
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-paginate_with-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-paginate_with-source'><span class="ruby-comment"># File lib/inkblot/components/templates/paginated.rb, line 13</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">paginate_with</span>(<span class="ruby-identifier">mtd</span>)&#x000A;  <span class="ruby-ivar">@paginate_with_method</span> = <span class="ruby-identifier">mtd</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-paginate_with-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/paginated.rb, line 19</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">paginate_with</span>(<span class="ruby-identifier">mtd</span>)&#x000A;  <span class="ruby-ivar">@paginate_with_method</span> = <span class="ruby-identifier">mtd</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-paginate_with_method'>
@@ -76,12 +80,14 @@ Inkblot::Templates::Paginated::ClassMethods
 </div>
 <div class='description'>
 
+<p>Attribute accessor for the pagination method</p>
+
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-paginate_with_method-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-paginate_with_method-source'><span class="ruby-comment"># File lib/inkblot/components/templates/paginated.rb, line 17</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">paginate_with_method</span>&#x000A;  <span class="ruby-ivar">@paginate_with_method</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-paginate_with_method-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/paginated.rb, line 24</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">paginate_with_method</span>&#x000A;  <span class="ruby-ivar">@paginate_with_method</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-start_page'>
@@ -93,12 +99,14 @@ Inkblot::Templates::Paginated::ClassMethods
 </div>
 <div class='description'>
 
+<p>Sets the starting page to <code>pg</code></p>
+
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-start_page-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-start_page-source'><span class="ruby-comment"># File lib/inkblot/components/templates/paginated.rb, line 5</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">start_page</span>(<span class="ruby-identifier">pg</span>)&#x000A;  <span class="ruby-ivar">@starting_page</span> = <span class="ruby-identifier">pg</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-start_page-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/paginated.rb, line 9</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">start_page</span>(<span class="ruby-identifier">pg</span>)&#x000A;  <span class="ruby-ivar">@starting_page</span> = <span class="ruby-identifier">pg</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-starting_page'>
@@ -110,12 +118,14 @@ Inkblot::Templates::Paginated::ClassMethods
 </div>
 <div class='description'>
 
+<p>Defaults the starting page to 0 if unset</p>
+
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-starting_page-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-starting_page-source'><span class="ruby-comment"># File lib/inkblot/components/templates/paginated.rb, line 9</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">starting_page</span>&#x000A;  <span class="ruby-ivar">@starting_page</span> <span class="ruby-operator">||=</span> <span class="ruby-value">0</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-starting_page-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/paginated.rb, line 14</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">starting_page</span>&#x000A;  <span class="ruby-ivar">@starting_page</span> <span class="ruby-operator">||=</span> <span class="ruby-value">0</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>

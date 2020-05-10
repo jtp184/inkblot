@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang='en'>
 <head>
-<title>Inkblot::Templates::MultiState::ClassMethods</title>
+<title>Inkblot::Components::Helpers::MultiState::ClassMethods</title>
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<link href='../../../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<link href='../../../../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
 <script type='text/javascript'>
   function popupCode(url) {
     window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
@@ -24,17 +24,19 @@
 <div class='class' id='wrapper'>
 <div class='header'>
 <h1 class='name'><span class='type'>module</span>
-Inkblot::Templates::MultiState::ClassMethods
+Inkblot::Components::Helpers::MultiState::ClassMethods
 </h1>
 <ol class='paths'>
 <li>
-<a href="../../../../files/lib/inkblot/components/templates/multi_state_rb.html">lib/inkblot/components/templates/multi_state.rb</a>
+<a href="../../../../../files/lib/inkblot/components/helpers/multi_state_rb.html">lib/inkblot/components/helpers/multi_state.rb</a>
 </li>
 </ol>
 </div>
 <div id='content'>
 <div id='text'>
-<div id='description'></div>
+<div id='description'>
+<p>The methods to add to the class</p>
+</div>
 <div id='method-list'>
 <h2>Methods</h2>
 <h3>Public Instance</h3>
@@ -59,12 +61,14 @@ Inkblot::Templates::MultiState::ClassMethods
 </div>
 <div class='description'>
 
+<p>Define states from symbols <code>sts</code></p>
+
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-def_states-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-def_states-source'><span class="ruby-comment"># File lib/inkblot/components/templates/multi_state.rb, line 5</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">def_states</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">sts</span>)&#x000A;  <span class="ruby-ivar">@states</span> = <span class="ruby-identifier">sts</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-def_states-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/multi_state.rb, line 11</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">def_states</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">sts</span>)&#x000A;  <span class="ruby-ivar">@states</span> = <span class="ruby-identifier">sts</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-default_state'>
@@ -76,12 +80,14 @@ Inkblot::Templates::MultiState::ClassMethods
 </div>
 <div class='description'>
 
+<p>Set the default state directly to <code>st</code></p>
+
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-default_state-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-default_state-source'><span class="ruby-comment"># File lib/inkblot/components/templates/multi_state.rb, line 9</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">default_state</span>(<span class="ruby-identifier">st</span>)&#x000A;  <span class="ruby-ivar">@default_state_value</span> = <span class="ruby-identifier">st</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-default_state-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/multi_state.rb, line 16</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">default_state</span>(<span class="ruby-identifier">st</span>)&#x000A;  <span class="ruby-ivar">@default_state_value</span> = <span class="ruby-identifier">st</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-default_state_value'>
@@ -93,12 +99,14 @@ Inkblot::Templates::MultiState::ClassMethods
 </div>
 <div class='description'>
 
+<p>Returns the value set by default state, or the first state if it was not set</p>
+
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-default_state_value-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-default_state_value-source'><span class="ruby-comment"># File lib/inkblot/components/templates/multi_state.rb, line 13</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">default_state_value</span>&#x000A;  <span class="ruby-ivar">@default_state_value</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">states</span>.<span class="ruby-identifier">first</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-default_state_value-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/multi_state.rb, line 22</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">default_state_value</span>&#x000A;  <span class="ruby-ivar">@default_state_value</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">states</span>.<span class="ruby-identifier">first</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-states'>
@@ -110,12 +118,14 @@ Inkblot::Templates::MultiState::ClassMethods
 </div>
 <div class='description'>
 
+<p>Attribute reader for the states variable</p>
+
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-states-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-states-source'><span class="ruby-comment"># File lib/inkblot/components/templates/multi_state.rb, line 17</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">states</span>&#x000A;  <span class="ruby-ivar">@states</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-states-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/multi_state.rb, line 27</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">states</span>&#x000A;  <span class="ruby-ivar">@states</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>
