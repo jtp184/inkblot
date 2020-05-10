@@ -12,3 +12,4 @@
 
 # Gem specific
 .raspi-hostname
+spec/examples.txt
