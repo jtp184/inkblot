@@ -1,5 +1,6 @@
 require 'inkblot/components/component'
 require 'inkblot/components/simple_text'
+require 'inkblot/components/qr_code'
 require 'inkblot/components/full_screen_image'
 require 'inkblot/components/table_list'
 require 'inkblot/components/icon_pane'
