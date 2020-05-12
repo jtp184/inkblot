@@ -34,4 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "mini_magick", "~> 4.10.1"
   spec.add_dependency "pdfkit", "~> 0.8.4.1"
   spec.add_dependency "imgkit", "~> 1.6.2"
+  spec.add_dependency "rqrcode", "~> 1.1.2"
 end

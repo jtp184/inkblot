@@ -39,27 +39,33 @@ end
   st.border_size = 10
 end
 
+## QR Code
+@q = Components::QrCode.new do |qr|
+  qr.fullscreen = true
+  # qr.margin_top = qr.margin_left = -5
+  qr.message = "https://youtu.be/zt2uIhAvQZ8"
+end
+
+## IconPane with a FullScreenImage in the frame
+@i = Components::IconPane.new do |ip|
+  ip.fullscreen = true
+  ip.frame_contents = Components::FullScreenImage.new(path: Inkblot.vendor_path('chris_kim.bmp'))
+end
+
 ## IconPane with TableList frame
-@b = Components::IconPane.new do |mn|
-  mn.div_height = mn.div_width = :full
+@b = Components::IconPane.new do |ip|
+  ip.fullscreen = true  
+  ip.icons = :arrows
   
-  mn.icons = :arrows
-  
-  mn.frame_contents = Components::TableList.new(
+  ip.frame_contents = Components::TableList.new(
     items: ["Apples", "Oranges", "Pears", "Peaches"],
     div_height: (Inkblot::Display.size[:height].to_f * 0.95).floor.to_s + "px"
   )
 end
 
-## IconPane with a FullScreenImage in the frame
-@i = Components::IconPane.new do |mn|
-  mn.div_height = mn.div_width = :full
-  mn.frame_contents = Components::FullScreenImage.new(path: Inkblot.vendor_path('chris_kim.bmp'))
-end
-
 ## ScrollMenu with example items
 @s = Components::ScrollMenu.new do |sc|
-  sc.div_height = sc.div_width = :full
+  sc.fullscreen = true
   sc.items = (1..10).to_a.map { |x| "Option #{x}" }
 end
 
@@ -75,7 +81,7 @@ def test_scroll
   end
 
   scr = Components::IconPane.new do |pane|
-    pane.div_height = pane.div_width = :full
+    pane.fullscreen = true
     pane.icons = :cancel
     pane.frame_contents = Components::SimpleText.new do |st|
       st.text = "You picked #{@s.answer}"

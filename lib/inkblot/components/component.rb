@@ -10,7 +10,7 @@ module Inkblot
 
       # Takes in options for building the component either throungh +opts+
       # or by yielding an OpenStruct to a block.
-      def initialize(topts={}, kopts={}) #:yields: opts_struct
+      def initialize(topts = {}, kopts = {}) #:yields: opts_struct
         @options = topts
         kopts.each_pair { |k, v| instance_variable_set(:"@#{k}", v) }
 
@@ -73,31 +73,35 @@ module Inkblot
 
       # Generic access to a height setting method
       def get_height(dta)
-        if options.key?(:div_height)
+        if options.key?(:fullscreen)
+          dta[:div_height] = Display.size[:height].to_s + 'px'
+        elsif options.key?(:div_height)
           dta[:div_height] = if options[:div_height] == :full
-            Display.size[:height].to_s + 'px'
-          elsif options[:div_height].is_a?(Integer)
-            options[:div_height].to_s + "%"
-          else
-            options[:div_height].to_s
+                               Display.size[:height].to_s + 'px'
+                             elsif options[:div_height].is_a?(Integer)
+                               options[:div_height].to_s + '%'
+                             else
+                               options[:div_height].to_s
           end
         else
-          dta[:div_height] = "100%"
+          dta[:div_height] = '100%'
         end
       end
 
       # Generic access to a width setting method
       def get_width(dta)
-        if options.key?(:div_width)
+        if options.key?(:fullscreen)
+          dta[:div_width] = Display.size[:width].to_s + 'px'
+        elsif options.key?(:div_width)
           dta[:div_width] = if options[:div_width] == :full
-            Display.size[:width].to_s + 'px'
-          elsif options[:div_height].is_a?(Integer)
-            options[:div_height].to_s + "%"
-          else
-            options[:div_height].to_s
+                              Display.size[:width].to_s + 'px'
+                            elsif options[:div_height].is_a?(Integer)
+                              options[:div_height].to_s + '%'
+                            else
+                              options[:div_height].to_s
           end
         else
-          dta[:div_width] = "100%"
+          dta[:div_width] = '100%'
         end
       end
 
@@ -128,9 +132,9 @@ module Inkblot
 
       # Generates HTML from the ERB template. Adds the start / end component blocks
       # if +wrap+ is true
-      def build(wrap=true)
+      def build(wrap = true)
         h = []
-        
+
         h << self.class.start_component_template if wrap
         h << template
         h << self.class.end_component_template if wrap
