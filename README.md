@@ -67,7 +67,7 @@ Inkblot::Buttons.get_raw_input(3) # => [[], [0], [0, 1]...]
 Usually, you'll use the buttons with a display component. Components may have their own defined button actions, and the Buttons class can access them.
 
 ```ruby
-c = Components::ScrollMenu.new do |sc|
+c = Inkblot::Components::ScrollMenu.new do |sc|
   sc.div_height = sc.div_width = :full
   sc.items = (1..10).to_a.map { |x| "Option #{x}" }
 end
@@ -82,6 +82,36 @@ Inkblot::Display.again
 ```
 
 ### Components
+
+Components are composable views. They're written as ultra-basic ERB/HTML templates, with scaling applied to look good at the resolution of the EPD. These are then passed into [wkhtmltopdf](https://wkhtmltopdf.org/) and another pass through ImageMagick to convert them into 1-deep `.bmp` files. No writing or comprehension of HTML is necessary though, as you merely pass in options to the constructor.
+
+You can provide options to the constructor with standard or block syntax.
+
+```ruby
+Inkblot::Components::SimpleText.new(text: "Works this way")
+
+Inkblot::Components::SimpleText.new do |st|
+	st.text = "Or this way"
+end
+```
+
+Passed in options can be retrieved through the options method, or defined accessors
+
+```ruby
+c = Inkblot::Components::SimpleText.new(text: "Text")
+
+c.options[:text] # => "Text"
+```
+
+You can also compose components by passing them to `Component.create` method, which will combine the fragments together into a single page, top to bottom.
+
+```ruby
+Component.create do |cpt|
+	cpt << SimpleText.new(text: "Several")
+	cpt << SimpleText.new(text: "Different")
+	cpt << SimpleText.new(text: "Components")
+end
+```
 
 ### Built-in Components
 
