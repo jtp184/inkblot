@@ -3,6 +3,7 @@ require 'base64'
 
 module Inkblot
   module Components
+    # Render and display QR Codes
     class QrCode < Component
       # Sugar method for the encoded message
       def message
@@ -11,6 +12,7 @@ module Inkblot
 
       private
 
+      # Sets the margins and sizing
       def computed
         dta = OpenStruct.new
 
@@ -38,10 +40,12 @@ module Inkblot
         dta.to_h
       end
 
+      # Converts the encoded message to png and emits it as a data url
       def png_data
         encode_message.as_png(size: 512, border_modules: 0).to_data_url
       end
 
+      # Encodes the message using the rqrcode library
       def encode_message
         RQRCode::QRCode.new(message)
       end

@@ -106,11 +106,33 @@ c.options[:text] # => "Text"
 You can also compose components by passing them to `Component.create` method, which will combine the fragments together into a single page, top to bottom.
 
 ```ruby
-Component.create do |cpt|
-	cpt << SimpleText.new(text: "Several")
-	cpt << SimpleText.new(text: "Different")
-	cpt << SimpleText.new(text: "Components")
+Inkblot::Components::Component.create do |cpt|
+	cpt << Inkblot::Components::SimpleText.new(text: "Several")
+	cpt << Inkblot::Components::SimpleText.new(text: "Different")
+	cpt << Inkblot::Components::SimpleText.new(text: "Components")
 end
+```
+
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+
+	</head>
+	<body style="height: 176px; width: 264px;">
+		<div style="border: 0px solid black; box-sizing: border-box; height: 100%; width: 100%; display: flex; flex-flow: column; align-items: center; justify-content: center; text-align: center">
+		<h1 style="font-family: monospace; ">Several</h1>
+		</div>
+
+		<div style="border: 0px solid black; box-sizing: border-box; height: 100%; width: 100%; display: flex; flex-flow: column; align-items: center; justify-content: center; text-align: center">
+		<h1 style="font-family: monospace; ">Different</h1>
+		</div>
+
+		<div style="border: 0px solid black; box-sizing: border-box; height: 100%; width: 100%; display: flex; flex-flow: column; align-items: center; justify-content: center; text-align: center">
+		<h1 style="font-family: monospace; ">Components</h1>
+		</div>
+	</body>
+</html>
 ```
 
 ### Built-in Components

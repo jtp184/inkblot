@@ -1,5 +1,5 @@
-Mon, 11 May 2020 23:38:03 -0700
-./README.md	Mon, 11 May 2020 23:35:08 -0700
+Tue, 12 May 2020 00:00:18 -0700
+./README.md	Mon, 11 May 2020 23:56:28 -0700
 ./Rakefile	Sun, 10 May 2020 15:58:05 -0700
 ./lib/inkblot/components.rb	Mon, 11 May 2020 23:37:37 -0700
 ./lib/inkblot/gpio.rb	Thu, 02 Apr 2020 18:31:19 -0700
@@ -9,7 +9,7 @@ Mon, 11 May 2020 23:38:03 -0700
 ./lib/inkblot/components/helpers.rb	Sun, 10 May 2020 15:37:28 -0700
 ./lib/inkblot/components/component.rb	Mon, 11 May 2020 23:37:37 -0700
 ./lib/inkblot/components/full_screen_image.rb	Sat, 09 May 2020 19:07:24 -0700
-./lib/inkblot/components/qr_code.rb	Mon, 11 May 2020 23:37:37 -0700
+./lib/inkblot/components/qr_code.rb	Tue, 12 May 2020 00:00:11 -0700
 ./lib/inkblot/components/simple_text.rb	Sun, 10 May 2020 16:19:02 -0700
 ./lib/inkblot/components/icon_pane.rb	Sat, 09 May 2020 19:07:24 -0700
 ./lib/inkblot/components/table_list.rb	Sat, 09 May 2020 19:07:24 -0700
