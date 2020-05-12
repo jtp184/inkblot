@@ -121,15 +121,15 @@ end
   </head>
   <body style="height: 176px; width: 264px;">
     <div style="border: 0px solid black; box-sizing: border-box; height: 100%; width: 100%; display: flex; flex-flow: column; align-items: center; justify-content: center; text-align: center">
-    <h1 style="font-family: monospace; ">Several</h1>
+      <h1 style="font-family: monospace; ">Several</h1>
     </div>
 
     <div style="border: 0px solid black; box-sizing: border-box; height: 100%; width: 100%; display: flex; flex-flow: column; align-items: center; justify-content: center; text-align: center">
-    <h1 style="font-family: monospace; ">Different</h1>
+      <h1 style="font-family: monospace; ">Different</h1>
     </div>
 
     <div style="border: 0px solid black; box-sizing: border-box; height: 100%; width: 100%; display: flex; flex-flow: column; align-items: center; justify-content: center; text-align: center">
-    <h1 style="font-family: monospace; ">Components</h1>
+      <h1 style="font-family: monospace; ">Components</h1>
     </div>
   </body>
 </html>
