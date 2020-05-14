@@ -1,14 +1,14 @@
-Thu, 14 May 2020 01:15:30 -0700
+Thu, 14 May 2020 01:55:06 -0700
 ./Gemfile	Tue, 12 May 2020 21:05:56 -0700
 ./Gemfile.lock	Tue, 12 May 2020 21:05:56 -0700
 ./lib/inkblot/buttons.rb	Sat, 18 Apr 2020 19:24:35 -0700
-./lib/inkblot/components/component.rb	Tue, 12 May 2020 21:05:56 -0700
+./lib/inkblot/components/component.rb	Thu, 14 May 2020 01:54:32 -0700
 ./lib/inkblot/components/full_screen_image.rb	Wed, 13 May 2020 23:39:12 -0700
 ./lib/inkblot/components/helpers/multi_state.rb	Tue, 12 May 2020 21:05:56 -0700
 ./lib/inkblot/components/helpers/paginated.rb	Thu, 14 May 2020 01:02:22 -0700
 ./lib/inkblot/components/helpers.rb	Tue, 12 May 2020 21:05:56 -0700
 ./lib/inkblot/components/icon_pane.rb	Mon, 06 Apr 2020 12:35:30 -0700
-./lib/inkblot/components/qr_code.rb	Thu, 14 May 2020 01:02:11 -0700
+./lib/inkblot/components/qr_code.rb	Thu, 14 May 2020 01:54:25 -0700
 ./lib/inkblot/components/scroll_menu.rb	Thu, 14 May 2020 01:02:22 -0700
 ./lib/inkblot/components/simple_text.rb	Tue, 12 May 2020 21:05:56 -0700
 ./lib/inkblot/components/table_list.rb	Sat, 04 Apr 2020 16:29:43 -0700
@@ -19,7 +19,7 @@ Thu, 14 May 2020 01:15:30 -0700
 ./lib/inkblot/version.rb	Mon, 30 Mar 2020 15:11:55 -0700
 ./lib/inkblot.rb	Mon, 30 Mar 2020 15:11:55 -0700
 ./Rakefile	Tue, 12 May 2020 21:05:56 -0700
-./README.md	Thu, 14 May 2020 01:13:55 -0700
+./README.md	Thu, 14 May 2020 01:54:25 -0700
 ./vendor/chris_kim.bmp	Mon, 30 Mar 2020 15:11:55 -0700
 ./vendor/clear.py	Mon, 30 Mar 2020 15:11:55 -0700
 ./vendor/display.py	Mon, 30 Mar 2020 15:11:55 -0700
