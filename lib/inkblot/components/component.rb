@@ -73,35 +73,31 @@ module Inkblot
 
       # Generic access to a height setting method
       def get_height(dta)
-        if options.key?(:fullscreen)
-          dta[:div_height] = Display.size[:height].to_s + 'px'
-        elsif options.key?(:div_height)
-          dta[:div_height] = if options[:div_height] == :full
-                               Display.size[:height].to_s + 'px'
-                             elsif options[:div_height].is_a?(Integer)
-                               options[:div_height].to_s + '%'
-                             else
-                               options[:div_height].to_s
-          end
-        else
-          dta[:div_height] = '100%'
-        end
+        get_dimension('height', dta)
       end
 
       # Generic access to a width setting method
       def get_width(dta)
+        get_dimension('width', dta)
+      end
+
+      # DRYs out the width and height calls
+      def get_dimension(dim, dta)
+        dim_div = :"div_#{dim}"
+        dim_sym = dim.to_sym
+
         if options.key?(:fullscreen)
-          dta[:div_width] = Display.size[:width].to_s + 'px'
-        elsif options.key?(:div_width)
-          dta[:div_width] = if options[:div_width] == :full
-                              Display.size[:width].to_s + 'px'
-                            elsif options[:div_height].is_a?(Integer)
-                              options[:div_height].to_s + '%'
+          dta[dim_div] = Display.size[dim_sym].to_s + 'px'
+        elsif options.key?(dim_div)
+          dta[dim_div] = if options[dim_div] == :full
+                              Display.size[dim_sym].to_s + 'px'
+                            elsif options[dim_div].is_a?(Integer)
+                              options[dim_div].to_s + '%'
                             else
-                              options[:div_height].to_s
+                              options[dim_div].to_s
           end
         else
-          dta[:div_width] = '100%'
+          dta[dim_div] = '100%'
         end
       end
 
