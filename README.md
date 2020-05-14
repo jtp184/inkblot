@@ -174,6 +174,16 @@ Inkblot::Components::FullScreenImage.new(file: File.new("/home/pi/img.jpg"))
 Inkblot::Components::FullScreenImage.new(binary: File.read("/home/pi/img.jpg"))
 ```
 #### QrCode
+
+The `QrCode` class can generate and render QR Codes to the screen, great for small area and two-channel color.
+
+```ruby
+Inkblot::Components::QrCode.new do |qr| 
+  qr.message = "http://justinp.io/"
+  qr.margin_top = qr.margin_left = -5 # adds a -5% margin
+end
+```
+
 #### TableList
 #### IconPane
 #### ScrollMenu
