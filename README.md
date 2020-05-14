@@ -196,6 +196,23 @@ end
 ```
 
 #### IconPane
+
+An `IconPane` is a two-column layout with icons on the left, and a large rectangular frame on the right. Other components can be placed in the right-hand frame. 
+
+```ruby
+Inkblot::Components::IconPane.new do |ic|
+  # This symbol is equivalent to %i[nwarr larr swarr swarr]
+  # Other icon group presets include :arrows_out, :select, and :agree / :cancel
+  # You can also pass strings, or symbols which are considered html symbols
+  ic.icons = :arrows_in 
+
+  # A single object or an array works here. Arrays are composed with `Component.create`
+  ic.frame_contents = Inkblot::Components::FullScreenImage.new do |fc|
+    fc.path = Inkblot.vendor_path('chris_kim.bmp')
+  end
+end
+```
+
 #### ScrollMenu
 
 ### Creating new Components
