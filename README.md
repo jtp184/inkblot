@@ -137,7 +137,18 @@ end
 
 ### Built-in Components
 
+#### Base Component
+#### SimpleText
+#### FullScreenImage
+#### QrCode
+#### TableList
+#### IconPane
+#### ScrollMenu
+
 ### Creating new Components
+
+#### Templates
+#### Helpers
 
 ## Contributing
 
