@@ -218,7 +218,7 @@ The `ScrollMenu` can be used for selecting from a list of items, and includes a 
 
 ```ruby
 scroll_menu = Inkblot::Components::ScrollMenu.new do |sc|
-  sc.items = (1..10).to_a.map { |x| "Option #{x}" }
+  sc.items = (1..10).map { |x| "Option #{x}" }
 end
 
 # Scroll menu has 4 states: :scroll, :select, :answered, and :canceled
