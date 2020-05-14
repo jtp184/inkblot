@@ -138,6 +138,26 @@ end
 ### Built-in Components
 
 #### Base Component
+
+The `Component` class is the superclass of all other components, as well as a component itself. Components have a `#options` method, a hash containing their customization options. The base component has only one relevant option, its body.
+
+```ruby
+
+Inkblot::Components::Component.new(body: %q(<h1>A Simple Component</h1>))
+
+# You can also set width and height on any component like so
+Inkblot::Components::Component.new do |c|
+  c.body = %q(<p>small text</p>)
+
+  c.div_height = 100 # height: 100%
+  c.div_width = '500px' # height: 500px
+  c.div_height = :full # height = Display height 
+  c.fullscreen = true # Same as c.div_height = c.div_width = :full
+end
+```
+
+Other components subclass from this, and have their own customization options. Composed components from `Component.create` are instances of the base component class.
+
 #### SimpleText
 
 The `SimpleText` class allows you to do just that, simple text. Sizing can be set explicitly or automatically, as can fonts.
