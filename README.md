@@ -167,8 +167,11 @@ end
 # Sets the img tag src to the absolute version of the path
 Inkblot::Components::FullScreenImage.new(path: "/home/pi/img.jpg")
 
-# Sets the img tag src as a data url
-Inkblot::Components::FullScreenImage.new(file: File.open("/home/pi/img.jpg"))
+# Sets the img tag src as a data url from reading the file
+Inkblot::Components::FullScreenImage.new(file: File.new("/home/pi/img.jpg"))
+
+# Sets the img tag src as a data url from the file contents themselves
+Inkblot::Components::FullScreenImage.new(binary: File.read("/home/pi/img.jpg"))
 ```
 #### QrCode
 #### TableList
