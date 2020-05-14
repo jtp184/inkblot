@@ -139,6 +139,21 @@ end
 
 #### Base Component
 #### SimpleText
+
+The `SimpleText` class allows you to do just that, simple text. Sizing can be set explicitly or automatically, as can fonts.
+
+```ruby
+Inkblot::Components::SimpleText do |st|
+  st.text = "Example Text"
+  st.border_size = 10 # Adds an inner border
+  st.size = :large # :tiny, :small, :medium, :large or an integer for px
+  # Takes in an array of font names and includes them
+  st.gfonts = ['Roboto', 'Open Sans', 'Jost', 'Pangolin']
+  # Also works with built in fonts like Helvetica
+  st.font = "Pangolin"
+end
+```
+
 #### FullScreenImage
 #### QrCode
 #### TableList
