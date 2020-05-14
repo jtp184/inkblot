@@ -73,11 +73,9 @@ end
 def test_scroll
   Display[@s]
 
-  menu_exit = -> { @s.state == :answered || @s.state == :canceled }
-
-  until menu_exit.call
+  until @s.concluded?
     Buttons.get_press
-    Display.again unless menu_exit.call
+    Display.again unless @s.concluded?
   end
 
   scr = Components::IconPane.new do |pane|
