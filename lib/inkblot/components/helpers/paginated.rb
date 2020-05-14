@@ -42,6 +42,11 @@ module Inkblot
           @page_count ||= send(self.class.paginate_with_method)
         end
 
+        # The number of pages, set after paginate has run
+        def page_count
+          @page_count
+        end
+
         # Decrements the current page unless we are on the first page,
         # then returns self
         def prev_page

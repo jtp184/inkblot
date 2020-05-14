@@ -78,6 +78,11 @@ module Inkblot
         items[to_display.options[:choices][ix]]
       end
 
+      # True if the state is answered or canceled
+      def concluded?
+        state == :answered || state == :canceled
+      end
+
       private
 
       # Sets up pagination by creating a new array that includes the list
