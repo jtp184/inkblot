@@ -185,6 +185,16 @@ end
 ```
 
 #### TableList
+
+The `TableList` class displays up to 4 line items in a horizontal table view. If you supply fewer than 4 items, blank entries are produced to keep 4 lines.
+
+```ruby
+Inkblot::Components::TableList.new do |tl|
+  tl.items = ['Apples', 'Pears', 'Oranges', 'Bananas']
+end
+
+```
+
 #### IconPane
 #### ScrollMenu
 
