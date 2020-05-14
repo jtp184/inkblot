@@ -47,6 +47,7 @@ Inkblot::Components::Helpers::Paginated
 <ol>
 <li><a href="#method-i-current_page">current_page</a></li>
 <li><a href="#method-i-next_page">next_page</a></li>
+<li><a href="#method-i-page_count">page_count</a></li>
 <li><a href="#method-i-paginate">paginate</a></li>
 <li><a href="#method-i-prev_page">prev_page</a></li>
 </ol>
@@ -117,7 +118,26 @@ Inkblot::Components::Helpers::Paginated
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-next_page-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-next_page-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/paginated.rb, line 55</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">next_page</span>&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-identifier">current_page</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_page</span> <span class="ruby-operator">==</span> (<span class="ruby-ivar">@page_count</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>)&#x000A;  <span class="ruby-ivar">@current_page</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>&#x000A;  <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-next_page-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/paginated.rb, line 60</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">next_page</span>&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-identifier">current_page</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_page</span> <span class="ruby-operator">==</span> (<span class="ruby-ivar">@page_count</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>)&#x000A;  <span class="ruby-ivar">@current_page</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>&#x000A;  <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-page_count'>
+<a name='method-i-page_count'></a>
+<div class='synopsis'>
+<span class='name'>page_count</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>The number of pages, set after paginate has run</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-page_count-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-page_count-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/paginated.rb, line 46</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">page_count</span>&#x000A;  <span class="ruby-ivar">@page_count</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-paginate'>
@@ -155,7 +175,7 @@ Inkblot::Components::Helpers::Paginated
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-prev_page-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-prev_page-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/paginated.rb, line 47</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">prev_page</span>&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-identifier">current_page</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_page</span>.<span class="ruby-identifier">zero?</span>&#x000A;  <span class="ruby-ivar">@current_page</span> <span class="ruby-operator">-=</span> <span class="ruby-value">1</span>&#x000A;  <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-prev_page-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/paginated.rb, line 52</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">prev_page</span>&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-identifier">current_page</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_page</span>.<span class="ruby-identifier">zero?</span>&#x000A;  <span class="ruby-ivar">@current_page</span> <span class="ruby-operator">-=</span> <span class="ruby-value">1</span>&#x000A;  <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>
