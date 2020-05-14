@@ -229,13 +229,13 @@ scroll_menu.current_page # => 0
 scroll_menu.page_count # => 3
 
 # Using the menu as User prompting is simple
-Display.show(scroll_menu) # Display the component initially
+Inkblot::Display.show(scroll_menu) # Display the component initially
 
 until scroll_menu.concluded? # True when canceled or answered
   # Contains the 4 presented options
   puts "User can see #{scroll_menu.choices.map { |x| %Q("#{x}") }.join(',') }"
-  Buttons.get_press # Defers to ScrollMenu's #button_actions method
-  Display.again unless scroll_menu.concluded? # Show again after changes
+  Inkblot::Buttons.get_press # Defers to ScrollMenu's #button_actions method
+  Inkblot::Display.again unless scroll_menu.concluded? # Show it again
 end
 
 scroll_menu.answer # => One of the options, or nil if canceled
