@@ -214,7 +214,32 @@ end
 ```
 
 #### ScrollMenu
+The `ScrollMenu` can be used for selecting from a list of items, and includes a view and button actions to accomplish this
 
+```ruby
+scroll_menu = Inkblot::Components::ScrollMenu.new do |sc|
+  sc.items = (1..10).to_a.map { |x| "Option #{x}" }
+end
+
+# Scroll menu has 4 states: :scroll, :select, :answered, and :canceled
+scroll_menu.state # => :scroll
+
+# Scroll menu also has pages of content divided into fours
+scroll_menu.current_page # => 0
+scroll_menu.page_count # => 3
+
+# Using the menu as User prompting is simple
+Display.show(scroll_menu) # Display the component initially
+
+until scroll_menu.concluded? # True when canceled or answered
+  # Contains the 4 presented options
+  puts "User can see #{scroll_menu.choices.map { |x| %Q("#{x}") }.join(',') }"
+  Buttons.get_press # Defers to ScrollMenu's #button_actions method
+  Display.again unless scroll_menu.concluded? # Show again after changes
+end
+
+scroll_menu.answer # => One of the options, or nil if canceled
+```
 ### Creating new Components
 
 #### Templates
