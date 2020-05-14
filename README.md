@@ -155,6 +155,21 @@ end
 ```
 
 #### FullScreenImage
+
+The `FullScreenImage` class displays images. You can pass a variety of image sources in, and it works with other components for nesting and resizing. Images are automatically resized and downsampled.
+
+```ruby
+# Sets the img tag src to the url
+Inkblot::Components::FullScreenImage.new do |fsi| 
+  fsi.url = "https://live.staticflickr.com/2753/4177140189_f5fd431b26_o_d.jpg"
+end
+
+# Sets the img tag src to the absolute version of the path
+Inkblot::Components::FullScreenImage.new(path: "/home/pi/img.jpg")
+
+# Sets the img tag src as a data url
+Inkblot::Components::FullScreenImage.new(file: File.open("/home/pi/img.jpg"))
+```
 #### QrCode
 #### TableList
 #### IconPane
