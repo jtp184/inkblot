@@ -2,8 +2,8 @@
 	<div class="iconBar" style="float: left; width: 15%;">
 		<table style="width: 90%; height: 100%; border: 2px solid black; font-family: <%= data[:font] %>; text-align: center;">
 		<% data[:icons].each do |icn| %>
-			<tr style="height: <%= (100 / data[:icons].count) %>%">
-				<td style="font-size: 30px;">
+			<tr style="height: <%= data[:icon_height] %>%">
+				<td style="font-size: <%= data[:icon_size] %>px;">
 					<%= icn.is_a?(Symbol) ? "&#{icn.to_s};" : icn.to_s %>
 				</td>
 			</tr>

@@ -29,6 +29,21 @@ module Inkblot
         get_height(dta)
         get_width(dta)
 
+        dta.icon_size = case options[:icon_size]
+                        when nil
+                          30
+                        when ->(x) { x.is_a?(Integer) }
+                          Array.new(4, options[:icon_size])
+                        when ->(x) { x.is_a?(Array) }
+                          options[:icon_size]
+                        end
+
+        dta.icon_height = if options[:fixed_height]
+                            25
+                          else
+                            (100 / icons.count)
+                          end
+
         fr = options.fetch(:frame_contents, [])
         
         unless fr.is_a?(Array)
