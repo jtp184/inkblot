@@ -31,7 +31,7 @@ module Inkblot
 
         dta.icon_size = case options[:icon_size]
                         when nil
-                          30
+                          Array.new(4, 30)
                         when ->(x) { x.is_a?(Integer) }
                           Array.new(4, options[:icon_size])
                         when ->(x) { x.is_a?(Array) }
