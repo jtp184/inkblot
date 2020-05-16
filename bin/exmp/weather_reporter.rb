@@ -26,7 +26,7 @@ class WeatherReporter
       ic.icon_size = [30, 0, 18, 30]
 
       ic.frame_contents = Inkblot::Components::SimpleText.new(
-        text: "#{api[:temp]}˚", size: 60
+        text: "#{api[:temp]}&deg;", size: 60
       )
     end
   end
