@@ -12,7 +12,7 @@ module Inkblot
 		# assets like python code and html templates.
 		# If +paths+ are appended, joins them to the base with '/'
 		def vendor_path(*paths)
-			@vendor_path ||= String.new(ENV['GEM_HOME']).tap do |str|
+			@vendor_path ||= String.new(ENV['GEM_HOME'] || Gem.default_path.last).tap do |str|
 				str << "/gems"
 				str << "/inkblot-#{Inkblot::VERSION}"
 				str << "/vendor"
