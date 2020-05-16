@@ -1,12 +1,20 @@
 <div style="height: <%= data[:div_height] %>; width: <%= data[:div_width] %>;">
 	<div class="iconBar" style="float: left; width: 15%;">
 		<table style="width: 90%; height: 100%; border: 2px solid black; font-family: <%= data[:font] %>; text-align: center;">
-		<% data[:icons].each do |icn| %>
+		<% data[:icons].each_with_index do |icn, ix| %>
 			<tr style="height: <%= data[:icon_height] %>%">
-				<td style="font-size: <%= data[:icon_size] %>px;">
+				<td style="font-size: <%= data[:icon_size][ix] %>px;">
 					<%= icn.is_a?(Symbol) ? "&#{icn.to_s};" : icn.to_s %>
 				</td>
 			</tr>
+		<% end %>
+		<% if data[:fixed_height] %>
+			<% (4 - data[:icons].count).times do |ix| %>
+			<tr style="height: <%= data[:icon_height] %>%">
+				<td style="font-size: 0px;">
+				</td>
+			</tr>
+			<% end %>
 		<% end %>
 		</table>
 	</div>
