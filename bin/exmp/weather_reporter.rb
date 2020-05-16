@@ -125,9 +125,9 @@ end
 # delay_time = 5
 
 # loop do
-#   Display.show(@w.refresh)
-#
-#   if Buttons.get_input(delay_time)
+#   Inkblot::Display.show(@w.refresh)
+
+#   if Inkblot::Buttons.get_input(delay_time)
 #     break @w.latest_report
 #   else
 # 	  sleep(refresh_time - delay_time)
