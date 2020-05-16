@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'bundler/setup'
 require 'inkblot'
 require 'net/http'
 
@@ -21,7 +20,10 @@ class WeatherReporter
 
     Inkblot::Components::IconPane.new do |ic|
       ic.fullscreen = true
-      ic.icons = [api[:icon], api[:wind_speed], api[:wind_dir]]
+      ic.fixed_height = true
+
+      ic.icons = [api[:icon], '.', api[:wind_speed], api[:wind_dir]]
+      ic.icon_size = [30, 0, 18, 30]
 
       ic.frame_contents = Inkblot::Components::SimpleText.new(
         text: "#{api[:temp]}˚", size: 60
