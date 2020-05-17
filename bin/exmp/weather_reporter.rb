@@ -155,14 +155,18 @@ end
 # @w = WeatherReporter.new(zip_code: "90210")
 
 # refresh_time = 15 * 60
-# delay_time = 5
 
-# loop do
-#   Inkblot::Display.show(@w.refresh)
+# begin
+#   loop do
+#     Inkblot::Display.show(@w)
+#     Inkblot::Buttons.get_press(refresh_time)
 
-#   if Inkblot::Buttons.get_input(delay_time)
-#     break @w.latest_report
-#   else
-# 	  sleep(refresh_time - delay_time)
+#     @w.refresh
+
+#     puts
+#     puts Time.now, @w.latest_report
 #   end
+# rescue IndexError
+#   Inkblot::Display.clear
+#   exit
 # end
