@@ -24,7 +24,7 @@ class WeatherReporter
       ic.icons = [api[:icon], :"#8203", api[:wind_speed], api[:wind_dir]]
 
       ic.frame_contents = Inkblot::Components::SimpleText.new(
-        text: "#{api[:temp]}&deg;", size: 60
+        text: api[@disp], size: 60
       )
     end
   end
@@ -111,7 +111,8 @@ class WeatherReporter
     data = JSON.parse(Net::HTTP.get(addr))
 
     @latest_report = {
-      temp: data['main']['temp'].round,
+      temp: data['main']['temp'].round.to_s + "&deg;",
+      desc: data['weather'][0]['description'],
       icon: weather_icon(data['weather'][0]['icon'][0..-2].to_i),
       wind_speed: data['wind']['speed'].floor,
       wind_dir: compass_dir(data['wind']['deg'])
