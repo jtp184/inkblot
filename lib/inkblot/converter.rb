@@ -37,12 +37,6 @@ module Inkblot
 
 	# Converts images from other formats into grayscale bmps
 	class ImageConverter < Converter
-		# Detects a :path option to read from, or calls super
-		def initialize(opts={})
-			pth = opts.fetch(:path, nil)
-			pth ? @input = File.open(pth).tap(&:close) : super
-		end
-
 		# Reads input, and uses MiniMagick to modify. Modifies Tempfiles in place,
 		# creates tempfiles for strings or regular files
 		def convert
@@ -54,7 +48,7 @@ module Inkblot
 				img_file = input
 			elsif input.is_a?(String)
 				img_file = Tempfile.open('inkblot-convertimage') do |f|
-					f << input
+					f << Pathname.new(input).exist? ? File.read(input) : input
 				end
 			end
 
