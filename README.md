@@ -115,7 +115,7 @@ Abstract parent class for common functionality. It defines the overridable `#con
 
 #### ImageConverter
 
-The `ImageConverter` class can convert images on disk from their original size and format into single-channel bmp files suitable for display on the EPD.
+The `ImageConverter` class can take images on disk, and through ImageMagick resize and convert them into 1-deep `.bmp` files suitable for display on the EPD.
 
 ```ruby
 # Paths
@@ -130,9 +130,26 @@ i.convert! && i.output # => Tempfile
 
 #### HtmlConverter
 
+The `HtmlConverter` takes in an HTML doc as input, and transforms it into an image using [wkhtmltopdf](https://wkhtmltopdf.org/). This image is then piped through an `ImageConverter` so that it can be rendered on the EPD
+
+```ruby
+html_doc = <<DOC
+<html>
+  <head></head>
+  <body>
+    <p>Happy Meal with Extra Happy</p>
+  </body>
+</html>
+DOC
+
+h = HtmlConverter.new(input: html_doc)
+
+h.output.path # => "/tmp/inkblot-convert..."
+```
+
 ### Components
 
-Components are composable views. They're written as ultra-basic ERB/HTML templates, with scaling applied to look good at the resolution of the EPD. These are then passed into [wkhtmltopdf](https://wkhtmltopdf.org/) and another pass through ImageMagick to convert them into 1-deep `.bmp` files. No writing or comprehension of HTML is necessary though, as you merely pass in options to the constructor.
+Components are composable views. They're written as ultra-basic ERB/HTML templates, with scaling applied to look good at the resolution of the EPD. These are then passed into the `HtmlConverter`. No writing or comprehension of HTML is necessary though, as you merely pass in options to the constructor.
 
 You can provide options to the constructor with standard or block syntax.
 
