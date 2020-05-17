@@ -300,9 +300,10 @@ class MyUniqueComponent < Inkblot::Components::Component
   # ...
 end
 
-muc = MyUniqueComponent.new({}, { template_base_path: "/path/to/my/templates" }) do |mc|
-  mc.first_name = "Erek"
-  mc.last_name = "King"
+user_info = { first_name: "Erek", last_name: "King"}
+
+muc = MyUniqueComponent.new(user_info, { template_base_path: "/path/to/my/templates" }) do |mc|
+  mc.full_name = [mc.first_name, mc.last_name].join(' ')
 end
 
 muc.send(:template_path) # => "/path/to/my/templates/MyUniqueComponent.html.erb"
@@ -311,6 +312,9 @@ muc.send(:template_path) # => "/path/to/my/templates/MyUniqueComponent.html.erb"
 ```ruby
 # Create a new root object for Components to be based off of 
 class ParentComponent < Inkblot::Components::Component
+  
+  private
+
   def template_base_path
     @template_base_path ||= "/path/to/my/templates"
   end
@@ -329,7 +333,17 @@ MySecondComponent.new.send(:template_path) # => "/path/to/my/templates/MySecondC
 
 ```
 
-#### Conversion
+Components expect that they come with an HTML Template and should produce a bmp version of it for the display. If your components don't intend to use HTML templates, you can still output them to the screen by overriding the `#convert` function
+
+```ruby
+class PhotoFrame < Inkblot::Components::Component
+  # ...
+  def convert
+    # Return any converter, or elsewise displayable object here
+    ImageConverter.new(input: binary_img_data)
+  end
+end
+```
 
 #### Helpers
 
