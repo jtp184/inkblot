@@ -293,7 +293,21 @@ Components are subclasses of `Inkblot::Components::Component`, which gives them 
 A Template is an ERB file, like a rails view partial. The built-in components store their templates in a common directory within the gem's vendor directory. You can load custom templates a couple of different ways.
 
 ```ruby
-# Create a new root object for Component to be based off of 
+# Pass it as a class option to a generic component
+class MyUniqueComponent < Inkblot::Components::Component
+  # ...
+end
+
+muc = MyUniqueComponent.new({}, { template_base_path: "/path/to/my/templates" }) do |mc|
+  mc.first_name = "Erek"
+  mc.last_name = "King"
+end
+
+muc.send(:template_path) # => "/path/to/my/templates/MyUniqueComponent.html.erb"
+```
+
+```ruby
+# Create a new root object for Components to be based off of 
 class ParentComponent < Inkblot::Components::Component
   def template_base_path
     @template_base_path ||= "/path/to/my/templates"
@@ -307,18 +321,10 @@ end
 class MySecondComponent < ParentComponent
   # ...
 end
-```
 
-```ruby
-# Pass it as a class option to a generic component
-class MyUniqueComponent < Inkblot::Components::Component
-  # ...
-end
+MyFirstComponent.new.send(:template_path) # => "/path/to/my/templates/MyFirstComponent.html.erb"
+MySecondComponent.new.send(:template_path) # => "/path/to/my/templates/MySecondComponent.html.erb"
 
-MyUniqueComponent.new({}, { template_base_path: "/path/to/my/templates" }) do |mc|
-  mc.first_name = "Erek"
-  mc.last_name = "King"
-end
 ```
 
 #### Helpers
