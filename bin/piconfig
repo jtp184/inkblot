@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+
+require 'bundler/inline'
+
+gemfile do
+	source 'https://rubygems.org/'
+
+	gem 'net/ssh'
+	gem 'colorize'
+	gem 'tty-prompt'
+	gem 'tty-progressbar'
+end
+
+prompt = TTY::Prompt.new(
+	interrupt: -> { puts "Goodbye".red; puts; abort }
+)
+
+# Prompt user for config options
+config = prompt.collect do
+	key(:hostname).ask("What hostname would you like to give this pi?", default: 'raspberrypi')
+	key(:new_pass).mask("What would you like to set the password to?")
+end
+
+File.open('.raspi-hostname', 'w+') { |f| f << config[:hostname] }
+
+# Start SSH Connection
+Net::SSH.start('raspberrypi.local', 'pi', 'raspberry') do |ssh|
+	# Installs rbenv and ruby
+	ruby_install = <<DOC
+		git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+		cd ~/.rbenv && src/configure && make -C src
+		echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+		~/.rbenv/bin/rbenv init
+		echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+		source ~/.bashrc
+		mkdir -p "$(rbenv root)/plugins"
+		rbenv install #{File.read('.ruby-version')}
+	DOC
+
+	ruby_install.lines.each { |l| ssh.exec!(l) }
+end
