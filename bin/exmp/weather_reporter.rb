@@ -25,9 +25,10 @@ class WeatherReporter
 
       ic.icons = [api[:icon], :"#8203", api[:wind_speed], api[:wind_dir]]
 
-      ic.frame_contents = Inkblot::Components::SimpleText.new(
-        text: api[@disp], size: 60
-      )
+      ic.frame_contents = Inkblot::Components::SimpleText.new do |st|
+        st.text = api[@disp]
+        st.size = 60 if @disp == :temp
+      end
     end
   end
 
