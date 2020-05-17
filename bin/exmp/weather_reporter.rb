@@ -13,7 +13,7 @@ class WeatherReporter
     opts.each_pair { |k, v| instance_variable_set(:"@#{k}", v) }
     @api_key ||= ENV['OPEN_WEATHER_MAP_API_KEY']
     @units ||= 'imperial'
-    @disp ||= :desc
+    @disp ||= :temp
   end
 
   # Composes and emits an IconPane component with weather data
