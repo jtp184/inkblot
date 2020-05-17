@@ -95,6 +95,16 @@ class WeatherReporter
     end
   end
 
+  # Flips imperial and metric
+  def swap_units(unit)
+    case unit
+    when 'imperial'
+      'metric'
+    when 'metric'
+      'imperial'
+    end
+  end
+
   # Retrieves JSON payload of API data and converts it into a simplified hash
   def fetch_api_data
     addr = URI(API_URL)
@@ -112,7 +122,7 @@ class WeatherReporter
 
   # Composes the form params out of the location args, units, and api_key
   def form_params
-    location_args.merge(units: (@units || 'imperial'), appid: @api_key)
+    location_args.merge(units: @units, appid: @api_key)
   end
 end
 
