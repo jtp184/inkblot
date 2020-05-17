@@ -31,6 +31,29 @@ class WeatherReporter
     end
   end
 
+  # Defines the button actions for the reporter
+  # - 1: noop to refresh display
+  # - 2: Swap units c/f
+  # - 3: Abort display
+  # - 4: Swap temp / conditions
+  def button_actions
+    return @button_actions if @button_actions
+
+    @button_actions = [proc {}]
+
+    @button_actions << proc do
+      @units = swap_units(@units || 'imperial')
+    end
+
+    @button_actions << proc do
+      raise IndexError, 'Cancel button was pressed'
+    end
+
+    @button_actions << proc do
+      @disp = @disp == :temp ? :desc : :temp
+    end
+  end
+
   # Fetch the api data and return this object
   def refresh
     fetch_api_data
