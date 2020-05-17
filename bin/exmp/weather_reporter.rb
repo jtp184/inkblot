@@ -63,7 +63,7 @@ class WeatherReporter
 
   # Most recently pulled info
   def latest_report
-    @latest_report ? @latest_report : fetch_api_data
+    @latest_report || fetch_api_data
   end
 
   private
@@ -137,7 +137,7 @@ class WeatherReporter
     data = JSON.parse(Net::HTTP.get(addr))
 
     @latest_report = {
-      temp: data['main']['temp'].round.to_s + "&deg;",
+      temp: data['main']['temp'].round.to_s + '&deg;',
       desc: data['weather'][0]['description'],
       icon: weather_icon(data['weather'][0]['icon'][0..-2].to_i),
       wind_speed: data['wind']['speed'].floor,
@@ -152,7 +152,7 @@ class WeatherReporter
 end
 
 ##=== For Displaying on the EPD ===##
-# @w = WeatherReporter.new(zip_code: "90210")
+# @w = WeatherReporter.new(zip_code: '90210')
 
 # refresh_time = 15 * 60
 
