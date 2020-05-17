@@ -144,7 +144,7 @@ DOC
 
 h = HtmlConverter.new(input: html_doc)
 
-h.output.path # => "/tmp/inkblot-convert..."
+h.image_contents # => \"BM\\xFE\\u0018\\u0000\\u0000\\u0000..."
 ```
 
 ### Components
