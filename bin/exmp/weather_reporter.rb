@@ -19,11 +19,9 @@ class WeatherReporter
     api = latest_report
 
     Inkblot::Components::IconPane.new do |ic|
-      ic.fullscreen = true
-      ic.fixed_height = true
+      ic.fullscreen = ic.fixed_height = true
 
       ic.icons = [api[:icon], :"#8203", api[:wind_speed], api[:wind_dir]]
-      ic.icon_size = [30, 30, 18, 30]
 
       ic.frame_contents = Inkblot::Components::SimpleText.new(
         text: "#{api[:temp]}&deg;", size: 60
