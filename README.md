@@ -176,8 +176,8 @@ Inkblot::Components::Component.new do |c|
   c.body = %q(<p>small text</p>)
 
   c.div_height = 100 # height: 100%
-  c.div_width = '500px' # height: 500px
-  c.div_height = :full # height = Display height 
+  c.div_width = '500px' # width: 500px
+  c.div_height = :full # height = Display.size[:height] 
   c.fullscreen = true # Same as c.div_height = c.div_width = :full
 end
 ```
