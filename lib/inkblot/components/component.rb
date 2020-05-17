@@ -113,17 +113,15 @@ module Inkblot
         options.merge(computed)
       end
 
-      # Derives the template along the vendor path for this class, with lazy evaluation
+      # Overridable, returns the vendor path templates directory
       def template_base_path
-        return @template_path if @template_path
-
-        klass = self.class.name.split('::').last
-        @template_path ||= Inkblot.vendor_path('templates', klass)
+        @template_base_path ||= Inkblot.vendor_path('templates')
       end
 
-      # Simply appends the file extension. Overridable
+      # Joins the base path with the converted class name and appends extension
       def template_path
-        template_base_path + '.html.erb'
+        fn = self.class.name.split('::').last + (-'.html.erb')
+        [template_base_path, fn].join("/")
       end
 
       # Generates HTML from the ERB template. Adds the start / end component blocks
