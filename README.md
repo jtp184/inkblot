@@ -22,7 +22,7 @@ rake install
 
 ### Getting Started
 
-### The Display class
+### Display
 
 The `Display` class handles outputting to the screen. It accepts an argument to its `.show` method to output to the screen, which can be any number of displayable objects.
 
@@ -44,6 +44,22 @@ Inkblot::Display.(items[3])
 
 # Plaintext also works
 Inkblot::Display.("Show Me")
+```
+
+One of the easiest ways to start using Inkblot is to add a `#to_display` method on your object which returns a component.
+
+```ruby
+class SomethingToShow
+  def initialize(smth)
+    @something = smth.to_s
+  end
+
+  def to_display
+    Inkblot::Components::SimpleText.new(text: @something)
+  end
+end
+
+Inkblot::Display.show(SomethingToShow.new("Cinnamon Buns"))
 ```
 ### Buttons
 
