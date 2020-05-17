@@ -35,8 +35,8 @@ class WeatherReporter
   # Defines the button actions for the reporter
   # - 1: noop to refresh display
   # - 2: Swap units c/f
-  # - 3: Abort display
-  # - 4: Swap temp / conditions
+  # - 3: Swap temp / conditions
+  # - 4: Abort display
   def button_actions
     return @button_actions if @button_actions
 
@@ -47,11 +47,11 @@ class WeatherReporter
     end
 
     @button_actions << proc do
-      raise IndexError, 'Cancel button was pressed'
+      @disp = @disp == :temp ? :desc : :temp
     end
 
     @button_actions << proc do
-      @disp = @disp == :temp ? :desc : :temp
+      raise IndexError, 'Cancel button was pressed'
     end
   end
 
