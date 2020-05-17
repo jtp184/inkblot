@@ -105,6 +105,8 @@ Buttons.get_press
 Inkblot::Display.again
 ```
 
+### Converters
+
 ### Components
 
 Components are composable views. They're written as ultra-basic ERB/HTML templates, with scaling applied to look good at the resolution of the EPD. These are then passed into [wkhtmltopdf](https://wkhtmltopdf.org/) and another pass through ImageMagick to convert them into 1-deep `.bmp` files. No writing or comprehension of HTML is necessary though, as you merely pass in options to the constructor.
@@ -326,6 +328,8 @@ MyFirstComponent.new.send(:template_path) # => "/path/to/my/templates/MyFirstCom
 MySecondComponent.new.send(:template_path) # => "/path/to/my/templates/MySecondComponent.html.erb"
 
 ```
+
+#### Conversion
 
 #### Helpers
 
