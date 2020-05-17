@@ -107,6 +107,29 @@ Inkblot::Display.again
 
 ### Converters
 
+The `Converter` class and its subclasses are used to transform input data into other forms, with the end goal of being able to display it on the EPD. Converters are used internally by Components to render their HTML, and are first-class displayables in and of themselves.
+
+#### Converter
+
+Abstract parent class for common functionality. It defines the overridable `#convert` method which is used by the `#convert!` method to produce the output.
+
+#### ImageConverter
+
+The `ImageConverter` class can convert images on disk from their original size and format into single-channel bmp files suitable for display on the EPD.
+
+```ruby
+# Paths
+i = ImageConverter.new(input: "/home/pi/img.png")
+# File and Tempfile objects
+j = ImageConverter.new(input: File.new("/home/pi/img.png"))
+# Binary image data
+k = ImageConverter.new(input: File.read("/home/pi/img.png"))
+
+i.convert! && i.output # => Tempfile
+```
+
+#### HtmlConverter
+
 ### Components
 
 Components are composable views. They're written as ultra-basic ERB/HTML templates, with scaling applied to look good at the resolution of the EPD. These are then passed into [wkhtmltopdf](https://wkhtmltopdf.org/) and another pass through ImageMagick to convert them into 1-deep `.bmp` files. No writing or comprehension of HTML is necessary though, as you merely pass in options to the constructor.
