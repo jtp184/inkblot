@@ -10,6 +10,14 @@ Add this line to your application's Gemfile:
 gem 'inkblot', github: 'jtp184/inkblot'
 ```
 
+You can also download and install it globally with
+
+```bash
+git clone https://github.com/jtp184/inkblot.git
+cd inkblot
+rake install
+```
+
 ## Usage
 
 ### Getting Started
