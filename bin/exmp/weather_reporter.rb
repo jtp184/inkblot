@@ -37,9 +37,7 @@ class WeatherReporter
 
   # Most recently pulled info
   def latest_report
-    return @latest_report if @latest_report
-
-    fetch_api_data
+    @latest_report ? @latest_report : fetch_api_data
   end
 
   private
