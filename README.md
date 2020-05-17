@@ -270,7 +270,41 @@ scroll_menu.answer # => One of the options, or nil if canceled
 ```
 ### Creating new Components
 
+Components are subclasses of `Inkblot::Components::Component`, which gives them all common behavior around generating their HTML representations. You can create subclasses of Component if you want to create customized views and behaviors, or if you want to go outside of the HTML template model but still use the Display / Buttons functions.
+
 #### Templates
+
+A Template is an ERB file, like a rails view partial. The built-in components store their templates in a common directory within the gem's vendor directory. You can load custom templates a couple of different ways.
+
+```ruby
+# Create a new root object for Component to be based off of 
+class ParentComponent < Inkblot::Components::Component
+  def template_base_path
+    @template_base_path ||= "/path/to/my/templates"
+  end
+end
+
+class MyFirstComponent < ParentComponent
+  # ...
+end
+
+class MySecondComponent < ParentComponent
+  # ...
+end
+```
+
+```ruby
+# Pass it as a class option to a generic component
+class MyUniqueComponent < Inkblot::Components::Component
+  # ...
+end
+
+MyUniqueComponent.new({}, { template_base_path: "/path/to/my/templates" }) do |mc|
+  mc.first_name = "Erek"
+  mc.last_name = "King"
+end
+```
+
 #### Helpers
 
 ## Contributing
