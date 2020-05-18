@@ -6,6 +6,7 @@ require_relative 'helpers/data_url'
 
 module Inkblot
   module Components
+    # Render and display QR Codes
     class QrCode < Component
       include Helpers::DataUrl
 
@@ -16,6 +17,7 @@ module Inkblot
 
       private
 
+      # Sets the margins and sizing
       def computed
         dta = OpenStruct.new
 
@@ -45,6 +47,7 @@ module Inkblot
         dta.to_h
       end
 
+      # Encodes the message using the rqrcode library
       def encode_message
         Barby::QrCode.new(message)
       end
