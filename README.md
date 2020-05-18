@@ -548,12 +548,8 @@ require 'inkblot/components/helpers/data_url'
 class Lithograph < Inkblot::Components::Component
   include Inkblot::Components::Helpers::DataUrl
 
-  private
-
-  def computed
-    {
-      data_url: data_url_from_binary(File.read(options[:image_path]))
-    }
+  def image_contents
+    data_url_from_binary(File.read(options[:image_path]))
   end
 end
 
