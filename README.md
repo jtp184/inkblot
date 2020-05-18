@@ -20,8 +20,6 @@ rake install
 
 ## Usage
 
-### Getting Started
-
 ### Display
 
 The `Display` class handles outputting to the screen. It accepts an argument to its `.show` method to output to the screen, which can be any number of displayable objects.
