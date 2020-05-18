@@ -470,6 +470,23 @@ s.next_page && s.current_page # => 9, won't go out of bounds
 ##### MultiState
 ##### DataUrl
 
+The `DataUrl` helper helps turn binary image data into a data url suitable for the src attribute of an img tag.
+
+```ruby
+class Lithograph < Inkblot::Components::Component
+  include Inkblot::Components::Helpers::DataUrl
+
+  private
+
+  def computed
+    {
+      data_url: data_url_from_binary(File.read(options[:image_path]))
+    }
+  end
+end
+
+```
+
 ## Contributing
 
 Bug reports, feature ideas, and pull requests are welcome on GitHub at https://github.com/jtp184/inkblot
