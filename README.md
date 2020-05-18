@@ -270,6 +270,14 @@ Inkblot::Components::QrCode.new do |qr|
 end
 ```
 
+#### BarCode
+
+The `BarCode` class can generate and render EAN-13 style barcodes.
+
+```ruby
+Inkblot::Components::BarCode.new(code: "123123123123")
+```
+
 #### TableList
 
 The `TableList` class displays up to 4 line items in a horizontal table view. If you supply fewer than 4 items, blank entries are produced to keep 4 lines.
