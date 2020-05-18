@@ -1,21 +1,22 @@
-require 'rqrcode'
-require 'barby/barcode/qr_code'
+require 'barby/barcode/ean_13'
 require 'barby/outputter/png_outputter'
 
 require_relative 'helpers/data_url'
 
 module Inkblot
   module Components
-    class QrCode < Component
+    # For generating 1D UPC style codes
+    class BarCode < Component
       include Helpers::DataUrl
 
-      # Sugar method for the encoded message
-      def message
-        options[:message]
+      # Sugar method for the code contents
+      def code
+        options[:code]
       end
 
       private
 
+      # Handles sizing and margins, and creates the data url
       def computed
         dta = OpenStruct.new
 
@@ -40,13 +41,14 @@ module Inkblot
                         m
                       end
 
-        dta.data_url = data_url_from_binary(encode_message.to_png)
+        dta.data_url = data_url_from_binary(generate_code.to_png(height: 60))
 
         dta.to_h
       end
 
-      def encode_message
-        Barby::QrCode.new(message)
+      # Uses Barby to encode the code as an EAN-13
+      def generate_code
+        Barby::EAN13.new(code)
       end
     end
   end
