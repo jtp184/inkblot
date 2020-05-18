@@ -51,10 +51,15 @@ Superclass:
 <ol>
 <li><a href="#method-i-computed">computed</a></li>
 <li><a href="#method-i-encode_message">encode_message</a></li>
-<li><a href="#method-i-png_data">png_data</a></li>
 </ol>
 </div>
 <div id='context'>
+<div id='includes'>
+<h2>Included modules</h2>
+<ol>
+<li><a href="Helpers/DataUrl.html">Helpers::DataUrl</a></li>
+</ol>
+</div>
 </div>
 <div id='section'>
 <div id='methods'>
@@ -75,7 +80,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-message-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-message-source'><span class="ruby-comment"># File lib/inkblot/components/qr_code.rb, line 9</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">message</span>&#x000A;  <span class="ruby-identifier">options</span>[<span class="ruby-value">:message</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-message-source'><span class="ruby-comment"># File lib/inkblot/components/qr_code.rb, line 14</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">message</span>&#x000A;  <span class="ruby-identifier">options</span>[<span class="ruby-value">:message</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <h2>Private Instance methods</h2>
@@ -95,7 +100,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-computed-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-computed-source'><span class="ruby-comment"># File lib/inkblot/components/qr_code.rb, line 16</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">computed</span>&#x000A;  <span class="ruby-identifier">dta</span> = <span class="ruby-constant">OpenStruct</span>.<span class="ruby-identifier">new</span>&#x000A;&#x000A;  <span class="ruby-identifier">get_width</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">get_height</span>(<span class="ruby-identifier">dta</span>)&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_top</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:margin_top</span>, <span class="ruby-value">0</span>)&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_left</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:margin_left</span>, <span class="ruby-value">0</span>)&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margins</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_top</span>.<span class="ruby-identifier">zero?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_left</span>.<span class="ruby-identifier">zero?</span>&#x000A;                  <span class="ruby-string">&#39;&#39;</span>&#x000A;                <span class="ruby-keyword">else</span>&#x000A;                  <span class="ruby-identifier">m</span> = <span class="ruby-string">+&#39; &#39;</span>&#x000A;                  <span class="ruby-keyword">if</span> <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_top</span>&#x000A;                    <span class="ruby-identifier">m</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;margin-top: #{dta.margin_top}%; &quot;</span>&#x000A;                  <span class="ruby-keyword">end</span>&#x000A;&#x000A;                  <span class="ruby-keyword">if</span> <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_left</span>&#x000A;                    <span class="ruby-identifier">m</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;margin-left: #{dta.margin_left}%;&quot;</span>&#x000A;                  <span class="ruby-keyword">end</span>&#x000A;&#x000A;                  <span class="ruby-identifier">m</span>&#x000A;                <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">to_h</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-computed-source'><span class="ruby-comment"># File lib/inkblot/components/qr_code.rb, line 21</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">computed</span>&#x000A;  <span class="ruby-identifier">dta</span> = <span class="ruby-constant">OpenStruct</span>.<span class="ruby-identifier">new</span>&#x000A;&#x000A;  <span class="ruby-identifier">get_width</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">get_height</span>(<span class="ruby-identifier">dta</span>)&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_top</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:margin_top</span>, <span class="ruby-value">0</span>)&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_left</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:margin_left</span>, <span class="ruby-value">0</span>)&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margins</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_top</span>.<span class="ruby-identifier">zero?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_left</span>.<span class="ruby-identifier">zero?</span>&#x000A;                  <span class="ruby-string">&#39;&#39;</span>&#x000A;                <span class="ruby-keyword">else</span>&#x000A;                  <span class="ruby-identifier">m</span> = <span class="ruby-string">+&#39; &#39;</span>&#x000A;                  <span class="ruby-keyword">if</span> <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_top</span>&#x000A;                    <span class="ruby-identifier">m</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;margin-top: #{dta.margin_top}%; &quot;</span>&#x000A;                  <span class="ruby-keyword">end</span>&#x000A;&#x000A;                  <span class="ruby-keyword">if</span> <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_left</span>&#x000A;                    <span class="ruby-identifier">m</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;margin-left: #{dta.margin_left}%;&quot;</span>&#x000A;                  <span class="ruby-keyword">end</span>&#x000A;&#x000A;                  <span class="ruby-identifier">m</span>&#x000A;                <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">data_url</span> = <span class="ruby-identifier">data_url_from_binary</span>(<span class="ruby-identifier">encode_message</span>.<span class="ruby-identifier">to_png</span>)&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">to_h</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-encode_message'>
@@ -114,26 +119,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-encode_message-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-encode_message-source'><span class="ruby-comment"># File lib/inkblot/components/qr_code.rb, line 49</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">encode_message</span>&#x000A;  <span class="ruby-constant">RQRCode</span><span class="ruby-operator">::</span><span class="ruby-constant">QRCode</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">message</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
-</div>
-</div>
-<div class='method private-instance' id='method-method-i-png_data'>
-<a name='method-i-png_data'></a>
-<div class='synopsis'>
-<span class='name'>png_data</span>
-<span class='arguments'>()</span>
-
-</div>
-<div class='description'>
-
-<p>Converts the encoded message to png and emits it as a data url</p>
-
-</div>
-<div class='source'>
-<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-png_data-source&#39;); return false'>
-[show source]
-</a>
-<pre id='method-i-png_data-source'><span class="ruby-comment"># File lib/inkblot/components/qr_code.rb, line 44</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">png_data</span>&#x000A;  <span class="ruby-identifier">encode_message</span>.<span class="ruby-identifier">as_png</span>(<span class="ruby-value">size:</span> <span class="ruby-value">512</span>, <span class="ruby-value">border_modules:</span> <span class="ruby-value">0</span>).<span class="ruby-identifier">to_data_url</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-encode_message-source'><span class="ruby-comment"># File lib/inkblot/components/qr_code.rb, line 51</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">encode_message</span>&#x000A;  <span class="ruby-constant">Barby</span><span class="ruby-operator">::</span><span class="ruby-constant">QrCode</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">message</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>

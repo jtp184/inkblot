@@ -37,6 +37,9 @@ Inkblot
 <a href="../files/lib/inkblot/components_rb.html">lib/inkblot/components.rb</a>
 </li>
 <li class='other'>
+<a href="../files/lib/inkblot/components/bar_code_rb.html">lib/inkblot/components/bar_code.rb</a>
+</li>
+<li class='other'>
 <a href="../files/lib/inkblot/components/component_rb.html">lib/inkblot/components/component.rb</a>
 </li>
 <li class='other'>
@@ -44,6 +47,9 @@ Inkblot
 </li>
 <li class='other'>
 <a href="../files/lib/inkblot/components/helpers_rb.html">lib/inkblot/components/helpers.rb</a>
+</li>
+<li class='other'>
+<a href="../files/lib/inkblot/components/helpers/data_url_rb.html">lib/inkblot/components/helpers/data_url.rb</a>
 </li>
 <li class='other'>
 <a href="../files/lib/inkblot/components/helpers/multi_state_rb.html">lib/inkblot/components/helpers/multi_state.rb</a>
@@ -195,7 +201,7 @@ Inkblot
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-vendor_path-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-vendor_path-source'><span class="ruby-comment"># File lib/inkblot.rb, line 14</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">vendor_path</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">paths</span>)&#x000A;        <span class="ruby-ivar">@vendor_path</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;GEM_HOME&#39;</span>]).<span class="ruby-identifier">tap</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">str</span><span class="ruby-operator">|</span>&#x000A;                <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;/gems&quot;</span>&#x000A;                <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;/inkblot-#{Inkblot::VERSION}&quot;</span>&#x000A;                <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;/vendor&quot;</span>&#x000A;        <span class="ruby-keyword">end</span>&#x000A;&#x000A;        <span class="ruby-keyword">return</span> <span class="ruby-ivar">@vendor_path</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">empty?</span>&#x000A;&#x000A;        [<span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@vendor_path</span>)].<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">paths</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;/&#39;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-vendor_path-source'><span class="ruby-comment"># File lib/inkblot.rb, line 14</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">vendor_path</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">paths</span>)&#x000A;        <span class="ruby-ivar">@vendor_path</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;GEM_HOME&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Gem</span>.<span class="ruby-identifier">default_path</span>.<span class="ruby-identifier">last</span>).<span class="ruby-identifier">tap</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">str</span><span class="ruby-operator">|</span>&#x000A;                <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;/gems&quot;</span>&#x000A;                <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;/inkblot-#{Inkblot::VERSION}&quot;</span>&#x000A;                <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;/vendor&quot;</span>&#x000A;        <span class="ruby-keyword">end</span>&#x000A;&#x000A;        <span class="ruby-keyword">return</span> <span class="ruby-ivar">@vendor_path</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">empty?</span>&#x000A;&#x000A;        [<span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@vendor_path</span>)].<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">paths</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;/&#39;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>
