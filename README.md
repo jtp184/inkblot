@@ -89,21 +89,32 @@ Inkblot::Buttons.get_raw_input(3) # => [[], [0], [0, 1]...]
 Inkblot::Buttons.release
 ```
 
-Usually, you'll use the buttons with a display component. Components may have their own defined button actions, and the Buttons class can access them.
+Usually, you'll use the buttons with a display component. Components (and other classes) may have their own defined button actions, and the Buttons class can access them.
 
 ```ruby
-c = Inkblot::Components::ScrollMenu.new do |sc|
-  sc.div_height = sc.div_width = :full
-  sc.items = (1..10).to_a.map { |x| "Option #{x}" }
+class DummyComponent
+  def to_display
+    Inkblot::Components::SimpleText.new(text: "Dummy")
+  end
+
+  def button_actions
+    [
+      -> { puts "Key1" },
+      -> { puts "Key2" },
+      -> { puts "Key3" },
+      -> { puts "Key4" }
+    ]
+  end
 end
 
+c = DummyComponent.new
+
+# First we have to display the component
 Inkblot::Display.show(c)
 
-# Calling .get_press gets the input, then calls the associated proc on the
-# currently displayed object, defined under .button_actions
+# Gets input, and runs the proc at the associated index.
 Buttons.get_press
-
-Inkblot::Display.again
+# e.g. Pressing "Key1" on the HAT runs c.button_actions[0].call
 ```
 
 ### Converters
