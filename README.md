@@ -515,9 +515,9 @@ t.content_for_state(:yellow) # => "#FFFF00"
 t.content_for_state(:red) # => "#FF0000"
 
 t.state # => :red
-t.transition_state.state # => green
-t.transition_state.state # => yellow
-t.transition_state.state # => red
+t.transition_state.state # => :green
+t.transition_state.state # => :yellow
+t.transition_state.state # => :red
 ```
 
 ##### DataUrl
