@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+<head>
+<title>Inkblot::Components::BarCode</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<link href='../../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<script type='text/javascript'>
+  function popupCode(url) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+  
+  function toggleCode(id) {
+    var code = document.getElementById(id)
+  
+    code.style.display = code.style.display != 'block' ? 'block' : 'none'
+    return true
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+</script>
+</head>
+<body class='page'>
+<div class='class' id='wrapper'>
+<div class='header'>
+<h1 class='name'><span class='type'>class</span>
+Inkblot::Components::BarCode
+</h1>
+<ol class='paths'>
+<li>
+<a href="../../../files/lib/inkblot/components/bar_code_rb.html">lib/inkblot/components/bar_code.rb</a>
+</li>
+</ol>
+<div class='parent'>
+Superclass:
+<strong>Component</strong>
+</div>
+</div>
+<div id='content'>
+<div id='text'>
+<div id='description'>
+<p>For generating 1D UPC style codes</p>
+</div>
+<div id='method-list'>
+<h2>Methods</h2>
+<h3>Public Instance</h3>
+<ol>
+<li><a href="#method-i-code">code</a></li>
+</ol>
+<h3>Private Instance</h3>
+<ol>
+<li><a href="#method-i-computed">computed</a></li>
+<li><a href="#method-i-generate_code">generate_code</a></li>
+</ol>
+</div>
+<div id='context'>
+<div id='includes'>
+<h2>Included modules</h2>
+<ol>
+<li><a href="Helpers/DataUrl.html">Helpers::DataUrl</a></li>
+</ol>
+</div>
+</div>
+<div id='section'>
+<div id='methods'>
+<h2>Public Instance methods</h2>
+<div class='method public-instance' id='method-method-i-code'>
+<a name='method-i-code'></a>
+<div class='synopsis'>
+<span class='name'>code</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Sugar method for the code contents</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-code-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-code-source'><span class="ruby-comment"># File lib/inkblot/components/bar_code.rb, line 13</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">code</span>&#x000A;  <span class="ruby-identifier">options</span>[<span class="ruby-value">:code</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<h2>Private Instance methods</h2>
+<div class='method private-instance' id='method-method-i-computed'>
+<a name='method-i-computed'></a>
+<div class='synopsis'>
+<span class='name'>computed</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Handles sizing and margins, and creates the data url</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-computed-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-computed-source'><span class="ruby-comment"># File lib/inkblot/components/bar_code.rb, line 20</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">computed</span>&#x000A;  <span class="ruby-identifier">dta</span> = <span class="ruby-constant">OpenStruct</span>.<span class="ruby-identifier">new</span>&#x000A;&#x000A;  <span class="ruby-identifier">get_width</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">get_height</span>(<span class="ruby-identifier">dta</span>)&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_top</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:margin_top</span>, <span class="ruby-value">0</span>)&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_left</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:margin_left</span>, <span class="ruby-value">0</span>)&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margins</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_top</span>.<span class="ruby-identifier">zero?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_left</span>.<span class="ruby-identifier">zero?</span>&#x000A;                  <span class="ruby-string">&#39;&#39;</span>&#x000A;                <span class="ruby-keyword">else</span>&#x000A;                  <span class="ruby-identifier">m</span> = <span class="ruby-string">+&#39; &#39;</span>&#x000A;                  <span class="ruby-keyword">if</span> <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_top</span>&#x000A;                    <span class="ruby-identifier">m</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;margin-top: #{dta.margin_top}%; &quot;</span>&#x000A;                  <span class="ruby-keyword">end</span>&#x000A;&#x000A;                  <span class="ruby-keyword">if</span> <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">margin_left</span>&#x000A;                    <span class="ruby-identifier">m</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;margin-left: #{dta.margin_left}%;&quot;</span>&#x000A;                  <span class="ruby-keyword">end</span>&#x000A;&#x000A;                  <span class="ruby-identifier">m</span>&#x000A;                <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">data_url</span> = <span class="ruby-identifier">data_url_from_binary</span>(<span class="ruby-identifier">generate_code</span>.<span class="ruby-identifier">to_png</span>(<span class="ruby-value">height:</span> <span class="ruby-value">60</span>))&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">to_h</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method private-instance' id='method-method-i-generate_code'>
+<a name='method-i-generate_code'></a>
+<div class='synopsis'>
+<span class='name'>generate_code</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Uses Barby to encode the code as an EAN-13</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-generate_code-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-generate_code-source'><span class="ruby-comment"># File lib/inkblot/components/bar_code.rb, line 50</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">generate_code</span>&#x000A;  <span class="ruby-constant">Barby</span><span class="ruby-operator">::</span><span class="ruby-constant">EAN13</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">code</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div id='footer-push'></div>
+</div>
+<div id='footer'>
+<a href="https://github.com/rdoc/hanna-nouveau"><strong>Hanna Nouveau</strong> RDoc template</a>
+</div>
+</body>
+</html>
