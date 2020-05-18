@@ -152,6 +152,7 @@ class WeatherReporter
 end
 
 ##=== For Displaying on the EPD ===##
+# Inkblot::Buttons.init unless Inkblot::Buttons.ready?
 # @w = WeatherReporter.new(zip_code: '90210')
 
 # refresh_time = 15 * 60
