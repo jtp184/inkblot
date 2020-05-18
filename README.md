@@ -84,6 +84,9 @@ Inkblot::Buttons.get_multi_input(3, 10) # => nil || [0, 1, 3]
 # You can also record all button activity within a timeframe
 
 Inkblot::Buttons.get_raw_input(3) # => [[], [0], [0, 1]...]
+
+# Unexports GPIO and releases it for other use
+Inkblot::Buttons.release
 ```
 
 Usually, you'll use the buttons with a display component. Components may have their own defined button actions, and the Buttons class can access them.
