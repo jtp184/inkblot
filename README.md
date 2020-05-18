@@ -338,6 +338,17 @@ scroll_menu.answer # => One of the options, or nil if canceled
 
 Components are subclasses of `Inkblot::Components::Component`, which gives them all common behavior around generating their HTML representations. You can create subclasses of Component if you want to create customized views and behaviors, or if you want to go outside of the HTML template model but still use the Display / Buttons functions.
 
+Components optionally override the `#computed` method. This method allows options to be calculated at render time by returning a hash of program-defined options merged into the user defined ones.
+
+```ruby
+def computed
+  {
+    element_name: lookup_name(options[:element]),
+    element_weight: lookup_weight(options[:element])
+  }
+end
+```
+
 #### Templates
 
 A Template is an ERB file, like a rails view partial. The built-in components store their templates in a common directory within the gem's vendor directory, and name them after the class. You can load custom templates a couple of different ways.
