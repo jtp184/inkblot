@@ -340,7 +340,7 @@ Components are subclasses of `Inkblot::Components::Component`, which gives them 
 
 #### Templates
 
-A Template is an ERB file, like a rails view partial. The built-in components store their templates in a common directory within the gem's vendor directory. You can load custom templates a couple of different ways.
+A Template is an ERB file, like a rails view partial. The built-in components store their templates in a common directory within the gem's vendor directory, and name them after the class. You can load custom templates a couple of different ways.
 
 ```ruby
 # Pass it as a class option to a generic component
@@ -379,6 +379,20 @@ end
 MyFirstComponent.new.send(:template_path) # => "/path/to/my/templates/MyFirstComponent.html.erb"
 MySecondComponent.new.send(:template_path) # => "/path/to/my/templates/MySecondComponent.html.erb"
 
+```
+
+```ruby
+# Overriding the template_path method entirely
+class MyNewComponent < Inkblot::Components::Component
+  def template_path
+    "/path/to/my/templates/NewComponentTemplate.html.erb"
+  end
+end
+
+mnc_tmp = MyNewComponent.new.template
+fil = File.read("/path/to/my/templates/NewComponentTemplate.html.erb")
+
+mnc_tmp == fil # => true
 ```
 
 Components expect that they come with an HTML Template and should produce a bmp version of it for the display. If your components don't intend to use HTML templates, you can still output them to the screen by overriding the `#convert` function
