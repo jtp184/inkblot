@@ -464,8 +464,7 @@ s.prev_page && s.current_page # => 0
 
 s.prev_page && s.current_page # => 0, won't go negative
 
-# Can directly set as well
-s.current_page = s.page_count - 1
+s.current_page = s.page_count - 1 # Can directly set as well
 s.next_page && s.current_page # => 9, won't go out of bounds
 ```
 
