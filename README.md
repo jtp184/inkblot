@@ -427,6 +427,8 @@ Helper classes share common behavior across components. They're nothing more tha
 The `Paginated` helper deals with content that has multiple subsequent views. You must define a method which sets up this pagination, and returns an integer page count
 
 ```ruby
+require 'inkblot/components/helpers/paginated'
+
 class SlideShow < Inkblot::Components::Component
   include Inkblot::Components::Helpers::Paginated
 
@@ -473,6 +475,8 @@ s.next_page && s.current_page # => 9, won't go out of bounds
 The `DataUrl` helper helps turn binary image data into a data url suitable for the src attribute of an img tag.
 
 ```ruby
+require 'inkblot/components/helpers/data_url'
+
 class Lithograph < Inkblot::Components::Component
   include Inkblot::Components::Helpers::DataUrl
 
