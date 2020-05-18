@@ -1,9 +1,11 @@
-require 'base64'
+require_relative 'helpers/data_url'
 
 module Inkblot
   module Components
     # Displays an image on the screen
     class FullScreenImage < Component
+      include Helpers::DataUrl
+
       # Possible image sources
       IMG_SOURCES = %i[url path file binary].freeze
 
@@ -43,20 +45,12 @@ module Inkblot
                      when :path
                        File.absolute_path(options[:path])
                      when :file
-                       encode_binary(File.read(options[:file]))
+                       data_url_from_binary(File.read(options[:file]), filetype)
                      when :binary
-                       encode_binary(options[:binary])
+                       data_url_from_binary(options[:binary], filetype)
                      end
 
         dta.to_h
-      end
-
-      # Encodes the binary string +bs+ into a base64 data url
-      def encode_binary(bs)
-        data_url = +"" << 'data:image/'
-        data_url << filetype
-        data_url << ';base64,'
-        data_url << Base64.encode64(bs).gsub("\n", '')
       end
 
       # Determines whether we are using a url, path, or file
