@@ -470,6 +470,57 @@ s.next_page && s.current_page # => 9, won't go out of bounds
 ```
 
 ##### MultiState
+
+The `MultiState` helper assists with defining and transitioning between enumerated states for content. States are defined via a class method, and the current state can be read/written. A different collection is maintained for each state.
+
+```ruby
+require 'inkblot/components/helpers/multi_state'
+
+class TrafficLight < Inkblot::Components::Component
+  def_states :green, :yellow, :red
+  default_state :red
+
+  def initialize
+    super
+    # "Setter" mode, set the content to the block's return value
+    content_for_state(:green) { "#00FF00" }
+    content_for_state(:yellow) { "#FFFF00" }
+    content_for_state(:red) { "#FF0000" }
+  end
+
+  def transition_state
+    case state
+    when :green
+      state = :yellow
+    when :yellow
+      state = :red
+    when :red
+      state = :green
+    end
+
+    self
+  end
+
+  private
+
+  def computed
+    # "Getter" mode, implicitly uses the state method if no state is given
+    { hex_color: content_for_state }
+  end
+end
+
+t = TrafficLight.new
+
+t.content_for_state(:green) # => "#00FF00"
+t.content_for_state(:yellow) # => "#FFFF00"
+t.content_for_state(:red) # => "#FF0000"
+
+t.state # => :red
+t.transition_state.state # => green
+t.transition_state.state # => yellow
+t.transition_state.state # => red
+```
+
 ##### DataUrl
 
 The `DataUrl` helper helps turn binary image data into a data url suitable for the src attribute of an img tag.
