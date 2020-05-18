@@ -169,5 +169,6 @@ end
 #   end
 # rescue IndexError
 #   Inkblot::Display.clear
+#   Inkblot::Buttons.release
 #   exit
 # end
