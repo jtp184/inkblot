@@ -37,6 +37,11 @@ module Inkblot
           @current_page ||= self.class.starting_page
         end
 
+        # Directly sets the current page to the +nu_page+
+        def current_page=(nu_page)
+          @current_page = nu_page
+        end
+
         # Invokes the pagination method, sets the page count with its result
         def paginate
           @page_count ||= send(self.class.paginate_with_method)
