@@ -395,6 +395,56 @@ end
 
 #### Helpers
 
+Helper classes share common behavior across components. They're nothing more than modules, with extendable and inheritable methods for Components.
+
+##### Paginated
+
+The `Paginated` helper deals with content that has multiple subsequent views. You must define a method which sets up this pagination, and returns an integer page count
+
+```ruby
+class SlideShow < Inkblot::Components::Component
+  include Inkblot::Components::Helpers::Paginated
+
+  # Must return the page count
+  paginate_with :pagify
+  # Defaults to zero, but can be overridden
+  start_page 0
+
+  # More work could be done here to set up the pages themselves
+  def pagify
+    options[:slides].count
+  end
+
+  # Override to display different content depending on the page
+  def to_display
+    options[:slides][current_page]
+  end
+end
+
+s = SlideShow.new do |sh|
+  sh.fullscreen = true
+  sh.slides = Array.new(10) do |x|
+    Inkblot::Components::SimpleText.new(text: "Slide #{x}", border_size: 10, div_height: 95, div_width: 95)
+  end
+end
+
+s.page_count # => 10
+s.current_page # => 0
+
+# Page navigation
+s.next_page && s.current_page # => 1
+s.prev_page && s.current_page # => 0
+
+s.prev_page && s.current_page # => 0, won't go negative
+
+# Can directly set as well
+s.current_page = s.page_count - 1
+s.next_page && s.current_page # => 9, won't go out of bounds
+```
+
+##### MultiState
+##### DataUrl
+
 ## Contributing
 
 Bug reports, feature ideas, and pull requests are welcome on GitHub at https://github.com/jtp184/inkblot
