@@ -184,9 +184,9 @@ c.options[:text] # => "Text"
 Passing a second hash as a positional argument sets the keys/values as instance variables
 
 ```ruby
-i = Inkblot::Components::SimpleText.new({text: "I have a name"}, { name: "Rachel" })
+i = Inkblot::Components::Component.new({body: "I have a name"}, { name: "Rachel" })
 
-i.inspect # => #<Inkblot::Components::SimpleText:0x... @name="Rachel", @options={:text=>"I have a name"}>
+i.inspect # => #<Inkblot::Components::Component:0x... @name="Rachel", @options={:body=>"I have a name"}>
 ```
 
 You can also compose components by passing them to `Component.create` method, which will combine the fragments together into a single page, top to bottom.
