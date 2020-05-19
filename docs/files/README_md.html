@@ -30,7 +30,7 @@ README.md
 </div>
 <div class='last-update'>
 Last Update:
-<span class='datetime'>2020-05-17 19:35:59 -0700</span>
+<span class='datetime'>2020-05-19 00:11:16 -0700</span>
 </div>
 </div>
 <div id='content'>
@@ -51,6 +51,10 @@ Last Update:
 <pre>git clone https://github.com/jtp184/inkblot.git&#x000A;cd inkblot&#x000A;rake install</pre>
 
 <h2 id="label-Usage">Usage<span><a href="#label-Usage">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<h3 id="label-Documentation">Documentation<span><a href="#label-Documentation">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>All methods and classes are RDoc documented at <a href="https://jtp184.github.io/inkblot">jtp184.github.io/inkblot</a>/</p>
 
 <h3 id="label-Display">Display<span><a href="#label-Display">&para;</a> <a href="#top">&uarr;</a></span></h3>
 
@@ -106,7 +110,7 @@ Last Update:
 
 <p>Passing a second hash as a positional argument sets the keys/values as instance variables</p>
 
-<pre class="ruby"><span class="ruby-identifier">i</span> = <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Components</span><span class="ruby-operator">::</span><span class="ruby-constant">SimpleText</span>.<span class="ruby-identifier">new</span>({<span class="ruby-value">text:</span> <span class="ruby-string">&quot;I have a name&quot;</span>}, { <span class="ruby-value">name:</span> <span class="ruby-string">&quot;Rachel&quot;</span> })&#x000A;&#x000A;<span class="ruby-identifier">i</span>.<span class="ruby-identifier">inspect</span> <span class="ruby-comment"># =&gt; #&lt;Inkblot::Components::SimpleText:0x... @name=&quot;Rachel&quot;, @options={:text=&gt;&quot;I have a name&quot;}&gt;</span></pre>
+<pre class="ruby"><span class="ruby-identifier">i</span> = <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Components</span><span class="ruby-operator">::</span><span class="ruby-constant">Component</span>.<span class="ruby-identifier">new</span>({<span class="ruby-value">body:</span> <span class="ruby-string">&quot;I have a name&quot;</span>}, { <span class="ruby-value">name:</span> <span class="ruby-string">&quot;Rachel&quot;</span> })&#x000A;&#x000A;<span class="ruby-identifier">i</span>.<span class="ruby-identifier">inspect</span> <span class="ruby-comment"># =&gt; #&lt;Inkblot::Components::Component:0x... @name=&quot;Rachel&quot;, @options={:body=&gt;&quot;I have a name&quot;}&gt;</span></pre>
 
 <p>You can also compose components by passing them to <code>Component.create</code> method, which will combine the fragments together into a single page, top to bottom.</p>
 
