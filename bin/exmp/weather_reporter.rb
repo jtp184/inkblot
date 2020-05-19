@@ -155,23 +155,23 @@ class WeatherReporter
 end
 
 ##=== For Displaying on the EPD ===##
-# Inkblot::Buttons.init unless Inkblot::Buttons.ready?
-# @w = WeatherReporter.new(zip_code: '90210')
+Inkblot::Buttons.init unless Inkblot::Buttons.ready?
+@w = WeatherReporter.new(zip_code: '90210')
 
-# refresh_time = 15 * 60
+refresh_time = 15 * 60
 
-# begin
-#   loop do
-#     Inkblot::Display.show(@w)
-#     Inkblot::Buttons.get_press(refresh_time)
+begin
+  loop do
+    Inkblot::Display.show(@w)
+    Inkblot::Buttons.get_press(refresh_time)
 
-#     @w.refresh
+    @w.refresh
 
-#     puts
-#     puts Time.now, @w.latest_report
-#   end
-# rescue IndexError
-#   Inkblot::Display.clear
-#   Inkblot::Buttons.release
-#   exit
-# end
+    puts
+    puts Time.now, @w.latest_report
+  end
+rescue IndexError
+  Inkblot::Display.clear
+  Inkblot::Buttons.release
+  exit
+end
