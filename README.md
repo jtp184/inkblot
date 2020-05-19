@@ -18,6 +18,18 @@ cd inkblot
 rake install
 ```
 
+## Hardware
+
+This gem was developed using Waveshare's [2.7 inch e-Paper HAT](https://www.waveshare.com/wiki/2.7inch_e-Paper_HAT) on the Raspberry Pi 3+ and 4. Component aspect ratios and button pinouts are based on this screen size, but you can override them with module level writers. Be sure to set these before using any of the relevant functions.
+
+```ruby
+Inkblot.screen_size # => Defaults to { width: 264, height: 176 }
+Inkblot.screen_size = { width: 200, height: 200 }
+
+Inkblot.button_pinout # => Defaults to [5, 6, 13, 19]
+Inkblot.button_pinout = [6, 11, 12, 14] # Uses different pins
+```
+
 ## Usage
 
 ### Documentation
