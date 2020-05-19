@@ -20,6 +20,10 @@ rake install
 
 ## Usage
 
+### Documentation
+
+All methods and classes are RDoc documented at https://jtp184.github.io/inkblot/
+
 ### Display
 
 The `Display` class handles outputting to the screen. It accepts an argument to its `.show` method to output to the screen, which can be any number of displayable objects.
