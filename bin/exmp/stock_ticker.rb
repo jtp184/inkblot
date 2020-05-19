@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'inkblot'
+require 'net/http'
 
 ##=== For Displaying on the EPD ===##
 # Inkblot::Buttons.init unless Inkblot::Buttons.ready?
