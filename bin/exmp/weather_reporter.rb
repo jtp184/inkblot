@@ -3,6 +3,9 @@
 require 'inkblot'
 require 'net/http'
 
+# You'll need an OpenWeatherMap API key: https://home.openweathermap.org/users/sign_up
+# You can run this example with `OPEN_WEATHER_MAP_API_KEY="0123456789ABCDEFFEDCBA9876543210" ruby bin/exmp/weather_reporter.rb`
+
 # Can fetch weather from OpenWeatherMap and display it to the EPD
 class WeatherReporter
   # The URL to OWM's API
