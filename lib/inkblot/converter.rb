@@ -48,7 +48,17 @@ module Inkblot
 				img_file = input
 			elsif input.is_a?(String)
 				img_file = Tempfile.open('inkblot-convertimage') do |f|
-					f << Pathname.new(input).exist? ? File.read(input) : input
+					begin
+						fc = if Pathname.new(input).exist?
+							File.read(input)
+						else
+							input
+						end
+					rescue ArgumentError
+						fc = input
+					end
+
+					f << fc
 				end
 			end
 
