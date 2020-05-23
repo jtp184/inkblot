@@ -1,6 +1,6 @@
 module Inkblot
   module Components
-    # Display multiple icons as the primary content
+    # Displays a grid of content, either icons or other components
     class IconGrid < Component
       # Sets a default font_size if none exists
       def initialize(*args)
