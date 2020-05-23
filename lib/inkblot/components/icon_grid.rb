@@ -22,6 +22,8 @@ module Inkblot
         get_height(dta)
         get_width(dta)
 
+        dta.columns = options.fetch(:columns, 4)
+
         dta.grid_items = []
 
         options[:icons].each do |icn|
