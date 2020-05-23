@@ -52,6 +52,19 @@ end
   ip.frame_contents = Components::FullScreenImage.new(path: Inkblot.vendor_path('chris_kim.bmp'))
 end
 
+## IconGrid with various icons
+@g = x = Components::IconGrid.new do |ig|
+  ig.fullscreen = true
+  ig.icons = []
+
+  ig.icons << "A"
+  ig.icons << :swarr
+  ig.icons << Components::FullScreenImage.new(
+    path: Inkblot.vendor_path('chris_kim.bmp')
+  )
+  ig.icons << "vendor/qrtest.bmp"
+end
+
 ## IconPane with TableList frame
 @b = Components::IconPane.new do |ip|
   ip.fullscreen = true  
