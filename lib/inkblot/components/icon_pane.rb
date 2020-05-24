@@ -1,12 +1,28 @@
+require_relative 'helpers/material_icons'
+
 module Inkblot
   module Components
     # Displays two panes, one on the left with icons,
     # one on the right which can be a component
     class IconPane < Component
+      include Helpers::MaterialIcons
+
+      # Predefined icon groups
+      def self.icon_groups
+        {
+          arrows: %i[nwarr larr swarr swarr],
+          arrows_out: %i[nwarr larr swarr swarr],
+          arrows_in: Array.new(4) { :rarr },
+          select: %i[check times uarr darr],
+          confirm: %i[check times],
+          agree: [:check],
+          cancel: [:times]
+        }
+      end
+
       # Converts icon groups if given
       def initialize(*args)
         super
-        options[:icons] = replace_icon_groups
       end
 
       # Sugar to get to the icons options
@@ -22,12 +38,14 @@ module Inkblot
       private
 
       # Turns the frame contents into the frame, array-ifying and joining
-      # the fragments as needed.
+      # the fragments as needed, handles icon height and replacement.
       def computed
         dta = OpenStruct.new
 
         get_height(dta)
         get_width(dta)
+
+        dta.icons = replace_icon_groups
 
         dta.icon_size = case options[:icon_size]
                         when nil
@@ -41,8 +59,9 @@ module Inkblot
         dta.icon_height = if options[:fixed_height]
                             25
                           else
-                            (100 / icons.count)
+                            (100 / dta.icons.count)
                           end
+        dta.font = options.fetch(:font, "'Material Icons', monospace")
 
         fr = options.fetch(:frame_contents, [])
         
@@ -55,33 +74,36 @@ module Inkblot
         dta.to_h
       end
 
-      # Some default options for icons
-      # * :arrows, :arrows_out => Arrows which point offscreen to the keys
-      # * :arrows_in => Right arrows pointing to the frame
-      # * :select => Shows a check, cancel, up arrow, and down arrow
-      # * :confirm => 2 button, check and cancel
-      # * :agree => 1 button check
-      # * :cancel => 1 button cancel
+      # The default icons, html symbols for bubble numbers 1-4
+      def default_icons
+        (10112..10115).to_a.map { |n| :"##{n}" }
+      end
+
+      # Takes in the symbol +icn+ and converts it into a material icon
+      # or a basic HTML symbol if it isn't a material icon
+      def html_sym(icn)
+        mi = material_icon_sym(icn)
+        "&#{(mi ? mi : icn).to_s};"
+      end
+
+      # Handles the work of converting user input into display logic.
+      # * If no icons is given uses the default
+      # * If a single symbol is given, uses the icon_groups
+      # * If an array is given, runs sym args through html_sym
+      # * If anything else is given it's arrayified for simplicity
       def replace_icon_groups
-        case options[:icons]
-        when nil
-          (10112..10115).to_a.map { |n| :"##{n}" }
-        when :arrows, :arrows_out
-          %i[nwarr larr swarr swarr]
-        when :arrows_in
-          Array.new(4) { :rarr }
-        when :select
-          %i[check times uarr darr]
-        when :confirm
-          %i[check times]
-        when :agree
-          [:check]
-        when :cancel
-          [:times]
-        when ->(x) { x.is_a?(Array) }
-          options[:icons]
-        else
-          Array(options[:icons])
+        ig = if options[:icons].nil?
+               default_icons
+             elsif options[:icons].is_a?(Symbol)
+               self.class.icon_groups[options[:icons]]
+             elsif options[:icons].is_a?(Array)
+               options[:icons]
+             else
+               Array(options[:icons])
+             end
+
+        ig.map do |ic|
+          ic.is_a?(Symbol) ? html_sym(ic) : ic
         end
       end
     end
