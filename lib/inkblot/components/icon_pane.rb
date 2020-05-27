@@ -20,11 +20,6 @@ module Inkblot
         }
       end
 
-      # Converts icon groups if given
-      def initialize(*args)
-        super
-      end
-
       # Sugar to get to the icons options
       def icons
         options[:icons]
