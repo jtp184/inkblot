@@ -11,6 +11,7 @@ require "pry"
 
 include Inkblot # :nodoc:
 
+
 # Overrides this in development
 def Inkblot.vendor_path(*paths)
   @vendor_path ||= String.new(Dir.pwd).tap do |str|
@@ -21,6 +22,8 @@ def Inkblot.vendor_path(*paths)
 
   [String.new(@vendor_path)].concat(paths).join('/')
 end
+
+CHRIS_KIM = Inkblot.vendor_path('chris_kim.bmp')
 
 # Exports and sets pulls for pins
 if Gem.platforms.last.os == "linux"
@@ -49,19 +52,15 @@ end
 ## IconPane with a FullScreenImage in the frame
 @i = Components::IconPane.new do |ip|
   ip.fullscreen = true
-  ip.frame_contents = Components::FullScreenImage.new(path: Inkblot.vendor_path('chris_kim.bmp'))
+  ip.frame_contents = Components::FullScreenImage.new(path: CHRIS_KIM)
 end
 
 ## IconGrid with various icons
-@g = x = Components::IconGrid.new do |ig|
+@g = Components::IconGrid.new do |ig|
   ig.fullscreen = true
-  ig.icons = []
 
-  ig.icons << "A"
-  ig.icons << :swarr
-  ig.icons << Components::FullScreenImage.new(
-    path: Inkblot.vendor_path('chris_kim.bmp')
-  )
+  ig.icons = Array.new(2) { Components::Helpers::Icons.codepoints.keys.sample }
+  ig.icons << Components::FullScreenImage.new(path: CHRIS_KIM)
   ig.icons << "vendor/qrtest.bmp"
 end
 
