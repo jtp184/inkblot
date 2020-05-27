@@ -55,11 +55,11 @@ end
   ip.frame_contents = Components::FullScreenImage.new(path: CHRIS_KIM)
 end
 
-## IconGrid with various icons
+## IconGrid with random icons
 @g = Components::IconGrid.new do |ig|
   ig.fullscreen = true
-
   ig.icons = Array.new(2) { Components::Helpers::Icons.codepoints.keys.sample }
+
   ig.icons << Components::FullScreenImage.new(path: CHRIS_KIM)
   ig.icons << "vendor/qrtest.bmp"
 end

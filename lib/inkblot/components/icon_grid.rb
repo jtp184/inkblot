@@ -47,9 +47,11 @@ module Inkblot
 
       # Converts an object +icn+ into an icon representation
       def snippet_from_icn(icn)
+        icn_siz = options.fetch(:icon_size, 40)
+
         if icn.is_a?(Components::FullScreenImage)
           fs = icn.dup
-          fs.options[:div_height] = "#{options[:icon_size]}px"
+          fs.options[:div_height] = "#{icn_siz}px"
           fs.options[:div_width] = "initial"
 
           fs.to_html_frag
@@ -58,7 +60,7 @@ module Inkblot
         elsif icn.is_a?(String) && Pathname.new(icn).exist?
           fs = FullScreenImage.new(
             path: icn, 
-            div_height: "#{options[:icon_size]}px",
+            div_height: "#{icn_siz}px",
             div_width: "initial"
           )
 
@@ -70,7 +72,7 @@ module Inkblot
 
       # Returns a span tag with the font sizing applied
       def sized_span(content)
-        scaled = (options.fetch(:icon_size, 40) * 0.8).round
+        scaled = (icn_siz * 0.8).round
         %(<span style="font-size: #{scaled}px">#{content}</span>)
       end
     end
