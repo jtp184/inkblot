@@ -48,7 +48,7 @@ module Inkblot
         elsif icn.is_a?(Component)
           icn.to_html_frag
         elsif icn.is_a?(Symbol)
-          %(<span style="font-size: #{(options[:icon_size] * 0.8).round}px">&#{icn.to_s};</span>)
+          sized_span(html_icon_sym(icn))
         elsif icn.is_a?(String) && Pathname.new(icn).exist?
           fs = FullScreenImage.new(
             path: icn, 
@@ -58,8 +58,13 @@ module Inkblot
 
           snippet_from_icn(fs)
         else
-          %(<span style="font-size: #{(options[:icon_size] * 0.8).round}px">#{icn.to_s}</span>)
+          sized_span(icn.to_s)
         end
+      end
+
+      # Returns a span tag with the font sizing applied
+      def sized_span(content)
+        %(<span style="font-size: #{(options[:icon_size] * 0.8).round}px">#{content}</span>)
       end
     end
   end
