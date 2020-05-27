@@ -26,6 +26,8 @@ module Inkblot
         
         dta.font = options.fetch(:font, "'Material Icons', monospace")
 
+        dta.border_size = options.fetch(:border_size, 0)
+
         dta.grid_items = []
 
         dta.icons = replace_icon_groups
