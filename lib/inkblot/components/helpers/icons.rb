@@ -1,4 +1,4 @@
-require 'net/http'
+require 'psych'
 
 module Inkblot
   module Components
@@ -7,16 +7,12 @@ module Inkblot
       module Icons
         class << self
           # Keeps a hash of codepoints mapping friendly names of icons to their
-          # HTML symbol representation. Fetches from the web once per session.
+          # HTML symbol representation. Reads from a YAML file
           def codepoints
-            return @codepoints unless @codepoints.nil?
+            return @codepoints if @codepoints
 
-            raw = Net::HTTP.get(codepoints_uri)
-
-            @codepoints = raw.scan(/(\w+) (\w+)/)
-                             .to_h
-                             .transform_keys(&:to_sym)
-                             .transform_values { |v| :"#x#{v.upcase}" }
+            fp = Inkblot.vendor_path('codepoints.yml')
+            @codepoints = Psych.load(File.read(fp))
           end
 
           # Predefined icon groups
@@ -32,14 +28,6 @@ module Inkblot
               cancel: [:times]
             }.freeze
           end
-
-          private
-
-          # Where the codepoints file is hosted on github
-          def codepoints_uri
-            URI('https://raw.githubusercontent.com/google' \
-            '/material-design-icons/master/iconfont/codepoints').freeze
-          end
         end
 
         # Takes in the symbol +icn+ and converts it into a material icon
@@ -51,7 +39,14 @@ module Inkblot
 
         # Instance method that translates a symbol +icn+ into its codepoint
         def material_icon_sym(icn)
-          Icons.codepoints[icn]
+          ic = Icons.codepoints[icn]
+
+          if ic
+            mi = -'Material Icons'
+            options[:gfonts] ||= [mi]
+            options[:gfonts] << mi unless options[:gfonts].include?(mi)
+            ic
+          end
         end
 
         # Handles the work of converting user input into display logic.
