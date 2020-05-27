@@ -2,6 +2,8 @@ require "bundler/gem_tasks"
 require 'cucumber'
 require 'cucumber/rake/task'
 require 'git'
+require 'net/http'
+require 'psych'
 
 Cucumber::Rake::Task.new(:features) do |t|
   t.cucumber_opts = "--format pretty" # Any valid command line option can go here.
@@ -12,6 +14,20 @@ task :default => :features
 task :docs do
   rd_exclude = %w[bin tmp vendor/waveshare_epd coverage spec].map { |r| "--exclude=#{r}"}.join(' ')
   sh "rdoc --output=docs --format=hanna --all --main=README.md #{rd_exclude}"
+end
+
+task :codepoints do
+  codepoints_uri = 'https://raw.githubusercontent.com/google'
+  codepoints_uri << '/material-design-icons/master/iconfont/codepoints'
+  codepoints_uri = URI(codepoints_uri)
+  
+  codepoints = Net::HTTP.get(codepoints_uri)
+                        .scan(/(\w+) (\w+)/)
+                        .to_h
+                        .transform_keys(&:to_sym)
+                        .transform_values { |v| :"#x#{v.upcase}" }
+
+  File.open('vendor/codepoints.yml', 'w+') { |f| f << Psych.dump(codepoints) }
 end
 
 task :reinstall do
