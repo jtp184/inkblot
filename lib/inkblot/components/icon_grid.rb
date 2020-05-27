@@ -27,6 +27,9 @@ module Inkblot
         get_width(dta)
 
         dta.columns = options.fetch(:columns, 4)
+        
+        dta.gfonts = ['Material Icons']
+        dta.font = options.fetch(:font, "'Material Icons', monospace")
 
         dta.grid_items = []
 
