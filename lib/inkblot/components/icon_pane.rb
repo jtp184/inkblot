@@ -43,6 +43,7 @@ module Inkblot
                           else
                             (100 / dta.icons.count)
                           end
+                          
         dta.font = options.fetch(:font, "'Material Icons', monospace")
 
         fr = options.fetch(:frame_contents, [])
