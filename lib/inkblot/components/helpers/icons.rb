@@ -37,10 +37,8 @@ module Inkblot
 
           # Where the codepoints file is hosted on github
           def codepoints_uri
-            String.new('https://raw.githubusercontent.com/google').tap do |str|
-              str << '/material-design-icons/master/iconfont/codepoints'
-              URI(str)
-            end
+            URI('https://raw.githubusercontent.com/google' \
+            '/material-design-icons/master/iconfont/codepoints').freeze
           end
         end
 
