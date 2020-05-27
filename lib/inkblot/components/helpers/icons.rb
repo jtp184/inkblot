@@ -3,7 +3,7 @@ require 'net/http'
 module Inkblot
   module Components
     module Helpers
-      # Assists with using Google Material Design icons, and some standard html symbol icons
+      # Assists with using icons from familar ruby symbols
       module Icons
         class << self
           # Keeps a hash of codepoints mapping friendly names of icons to their
@@ -22,14 +22,14 @@ module Inkblot
           # Predefined icon groups
           def icon_groups
             {
-              default: (10112..10115).to_a.map { |n| :"##{n}" },
+              default: (10_112..10_115).map { |n| :"##{n}" },
               arrows: %i[nwarr larr swarr swarr],
               arrows_out: %i[nwarr larr swarr swarr],
               arrows_in: Array.new(4) { :rarr },
               select: %i[check times uarr darr],
               confirm: %i[check times],
               agree: [:check],
-              cancel: [:times],
+              cancel: [:times]
             }.freeze
           end
 
@@ -37,9 +37,10 @@ module Inkblot
 
           # Where the codepoints file is hosted on github
           def codepoints_uri
-            uri = 'https://raw.githubusercontent.com/google'
-            uri << '/material-design-icons/master/iconfont/codepoints'
-            URI(uri)
+            String.new('https://raw.githubusercontent.com/google').tap do |str|
+              str << '/material-design-icons/master/iconfont/codepoints'
+              URI(str)
+            end
           end
         end
 
@@ -47,7 +48,7 @@ module Inkblot
         # or a basic HTML symbol if it isn't a material icon
         def html_icon_sym(icn)
           mi = material_icon_sym(icn)
-          "&#{(mi ? mi : icn).to_s};"
+          "&#{(mi || icn)};"
         end
 
         # Instance method that translates a symbol +icn+ into its codepoint

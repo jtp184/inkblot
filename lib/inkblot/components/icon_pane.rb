@@ -46,13 +46,11 @@ module Inkblot
         dta.font = options.fetch(:font, "'Material Icons', monospace")
 
         fr = options.fetch(:frame_contents, [])
-        
-        unless fr.is_a?(Array)
-          fr = Array(fr)
-        end
+
+        fr = Array(fr) unless fr.is_a?(Array)
 
         dta.frame = fr.map(&:to_html_frag).join("\n")
-        
+
         dta.to_h
       end
     end
