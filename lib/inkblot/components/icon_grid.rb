@@ -28,7 +28,9 @@ module Inkblot
 
         dta.grid_items = []
 
-        options[:icons].each do |icn|
+        dta.icons = replace_icon_groups
+
+        dta.icons.each do |icn|
           dta.grid_items << snippet_from_icn(icn)
         end
 
@@ -45,8 +47,6 @@ module Inkblot
           fs.to_html_frag
         elsif icn.is_a?(Component)
           icn.to_html_frag
-        elsif icn.is_a?(Symbol)
-          sized_span(html_icon_sym(icn))
         elsif icn.is_a?(String) && Pathname.new(icn).exist?
           fs = FullScreenImage.new(
             path: icn, 
