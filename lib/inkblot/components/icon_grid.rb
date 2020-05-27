@@ -54,7 +54,7 @@ module Inkblot
             div_width: "initial"
           )
 
-          snippet_from_icn(fs)
+          fs.to_html_frag
         else
           sized_span(icn.to_s)
         end
@@ -62,7 +62,8 @@ module Inkblot
 
       # Returns a span tag with the font sizing applied
       def sized_span(content)
-        %(<span style="font-size: #{(options[:icon_size] * 0.8).round}px">#{content}</span>)
+        scaled = (options.fetch(:icon_size, 40) * 0.8).round
+        %(<span style="font-size: #{scaled}px">#{content}</span>)
       end
     end
   end
