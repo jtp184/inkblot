@@ -1,7 +1,11 @@
+require_relative 'helpers/icons'
+
 module Inkblot
   module Components
     # Displays a grid of content, either icons or other components
     class IconGrid < Component
+      include Helpers::Icons
+
       # Sets a default font_size if none exists
       def initialize(*args)
         super
