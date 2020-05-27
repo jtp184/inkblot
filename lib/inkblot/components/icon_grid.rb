@@ -6,12 +6,6 @@ module Inkblot
     class IconGrid < Component
       include Helpers::Icons
 
-      # Sets a default font_size if none exists
-      def initialize(*args)
-        super
-        options[:icon_size] ||= 40
-      end
-
       # Sugar method for the icons
       def icons
         options[:icons]
@@ -25,6 +19,8 @@ module Inkblot
         
         get_height(dta)
         get_width(dta)
+
+        dta.icon_size = options.fetch(:icon_size, 40)
 
         dta.columns = options.fetch(:columns, 4)
         
