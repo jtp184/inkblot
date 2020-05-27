@@ -72,7 +72,9 @@ module Inkblot
 
       # Returns a span tag with the font sizing applied
       def sized_span(content)
+        icn_siz = options.fetch(:icon_size, 40)
         scaled = (icn_siz * 0.8).round
+        
         %(<span style="font-size: #{scaled}px">#{content}</span>)
       end
     end
