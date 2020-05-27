@@ -1,24 +1,11 @@
-require_relative 'helpers/material_icons'
+require_relative 'helpers/icons'
 
 module Inkblot
   module Components
     # Displays two panes, one on the left with icons,
     # one on the right which can be a component
     class IconPane < Component
-      include Helpers::MaterialIcons
-
-      # Predefined icon groups
-      def self.icon_groups
-        {
-          arrows: %i[nwarr larr swarr swarr],
-          arrows_out: %i[nwarr larr swarr swarr],
-          arrows_in: Array.new(4) { :rarr },
-          select: %i[check times uarr darr],
-          confirm: %i[check times],
-          agree: [:check],
-          cancel: [:times]
-        }
-      end
+      include Helpers::Icons
 
       # Sugar to get to the icons options
       def icons
@@ -67,39 +54,6 @@ module Inkblot
         dta.frame = fr.map(&:to_html_frag).join("\n")
         
         dta.to_h
-      end
-
-      # The default icons, html symbols for bubble numbers 1-4
-      def default_icons
-        (10112..10115).to_a.map { |n| :"##{n}" }
-      end
-
-      # Takes in the symbol +icn+ and converts it into a material icon
-      # or a basic HTML symbol if it isn't a material icon
-      def html_sym(icn)
-        mi = material_icon_sym(icn)
-        "&#{(mi ? mi : icn).to_s};"
-      end
-
-      # Handles the work of converting user input into display logic.
-      # * If no icons is given uses the default
-      # * If a single symbol is given, uses the icon_groups
-      # * If an array is given, runs sym args through html_sym
-      # * If anything else is given it's arrayified for simplicity
-      def replace_icon_groups
-        ig = if options[:icons].nil?
-               default_icons
-             elsif options[:icons].is_a?(Symbol)
-               self.class.icon_groups[options[:icons]]
-             elsif options[:icons].is_a?(Array)
-               options[:icons]
-             else
-               Array(options[:icons])
-             end
-
-        ig.map do |ic|
-          ic.is_a?(Symbol) ? html_sym(ic) : ic
-        end
       end
     end
   end
