@@ -26,7 +26,13 @@ module Inkblot
         
         dta.font = options.fetch(:font, "'Material Icons', monospace")
 
-        dta.border_size = options.fetch(:border_size, 0)
+        dta.border_size = if options[:border_size].nil?
+                            Array.new(options[:icons].count, 0)
+                          elsif options[:border_size].is_a?(Integer)
+                            Array.new(options[:icons].count, options[:border_size])
+                          elsif options[:border_size].is_a?(Array)
+                            options[:border_size]
+                          end
 
         dta.grid_items = []
 
