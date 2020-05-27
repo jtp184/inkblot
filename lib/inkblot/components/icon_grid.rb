@@ -20,6 +20,8 @@ module Inkblot
         get_height(dta)
         get_width(dta)
 
+        dta.icons = replace_icon_groups
+
         dta.icon_size = options.fetch(:icon_size, 40)
 
         dta.columns = options.fetch(:columns, 4)
@@ -27,16 +29,15 @@ module Inkblot
         dta.font = options.fetch(:font, "'Material Icons', monospace")
 
         dta.border_size = if options[:border_size].nil?
-                            Array.new(options[:icons].count, 0)
+                            Array.new(dta.icons.count, 0)
                           elsif options[:border_size].is_a?(Integer)
-                            Array.new(options[:icons].count, options[:border_size])
+                            Array.new(dta.icons.count, options[:border_size])
                           elsif options[:border_size].is_a?(Array)
                             options[:border_size]
                           end
 
         dta.grid_items = []
 
-        dta.icons = replace_icon_groups
 
         dta.icons.each do |icn|
           dta.grid_items << snippet_from_icn(icn)
