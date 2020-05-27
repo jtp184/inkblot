@@ -46,7 +46,7 @@ module Inkblot
         # or a basic HTML symbol if it isn't a material icon
         def html_icon_sym(icn)
           mi = material_icon_sym(icn)
-          "&#{(mi || icn)};"
+          "&#{(mi || icn.to_s)};"
         end
 
         # Instance method that translates a symbol +icn+ into its codepoint
