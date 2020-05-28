@@ -16,7 +16,7 @@ module Inkblot
       # Sets width/height, and populates the grid_items with the icons
       def computed
         dta = OpenStruct.new
-        
+
         get_height(dta)
         get_width(dta)
 
@@ -25,7 +25,7 @@ module Inkblot
         dta.icon_size = options.fetch(:icon_size, 40)
 
         dta.columns = options.fetch(:columns, 4)
-        
+
         dta.font = options.fetch(:font, "'Material Icons', monospace")
 
         dta.border_size = if options[:border_size].nil?
@@ -37,7 +37,6 @@ module Inkblot
                           end
 
         dta.grid_items = []
-
 
         dta.icons.each do |icn|
           dta.grid_items << snippet_from_icn(icn)
@@ -53,16 +52,16 @@ module Inkblot
         if icn.is_a?(Components::FullScreenImage)
           fs = icn.dup
           fs.options[:div_height] = "#{icn_siz}px"
-          fs.options[:div_width] = "initial"
+          fs.options[:div_width] = 'initial'
 
           fs.to_html_frag
         elsif icn.is_a?(Component)
           icn.to_html_frag
         elsif icn.is_a?(String) && Pathname.new(icn).exist?
           fs = FullScreenImage.new(
-            path: icn, 
+            path: icn,
             div_height: "#{icn_siz}px",
-            div_width: "initial"
+            div_width: 'initial'
           )
 
           fs.to_html_frag
