@@ -74,8 +74,12 @@ module Inkblot
       def sized_span(content)
         icn_siz = options.fetch(:icon_size, 40)
         scaled = (icn_siz * 0.8).round
+        font = options.fetch(:font, 'Material Icons, monospace')
 
-        %(<span style="font-size: #{scaled}px;">#{content}</span>)
+        [
+          %(<span style="font-size: #{scaled}px; font-family: #{font};">),
+          %(#{content}</span>)
+        ].join
       end
     end
   end
