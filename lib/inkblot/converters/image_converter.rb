@@ -9,21 +9,20 @@ module Inkblot
       # creates tempfiles for strings or regular files
       def convert
         izza = ->(ft) { input.is_a?(ft) }
+        write_temp = proc do |cont|
+          Tempfile.open('inkblot-convertimage') do |f|
+            f << cont
+          end
+        end
 
         img_file = if izza[File]
-          Tempfile.open('inkblot-convertimage') do |f|
-            f << File.read(input.path)
-          end
+          write_temp[File.read(input.path)]
         elsif izza[Tempfile]
           input
         elsif izza[String] && input.ascii_only? && Pathname.new(input).exist?
-          Tempfile.open('inkblot-convertimage') do |f|
-            f << File.read(input)
-          end
+          write_temp[File.read(input)]
         elsif izza[String]
-          Tempfile.open('inkblot-convertimage') do |f|
-            f << input
-          end
+          write_temp[input]
         end
 
         resize(img_file)
