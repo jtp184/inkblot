@@ -4,12 +4,12 @@ module Inkblot
   module Converters
     # Converts HTML input into an image by passing it into an ImageConverter
     class HtmlConverter < Converter
-      # Uses Grover to create a page from passed input. 
+      # Uses Grover to create a page from passed input.
       # Returns a (closed) tempfile created from an ImageConverter
       def convert
         ImageConverter.new(
           input: Grover.new(input, viewport: Display.size).to_png
-          ).convert
+        ).convert
       end
 
       # Reads the tempfile and returns the contents. Converts if this has not been done

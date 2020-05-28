@@ -8,7 +8,7 @@ module Inkblot
       attr_reader :output
 
       # Take in +input+ and any other args
-      def initialize(opts={})
+      def initialize(opts = {})
         @input = opts.fetch(:input)
       end
 
@@ -26,6 +26,7 @@ module Inkblot
       # Override so that we can't call this without conversion
       def output
         return @output if @output
+
         convert!
         @output
       end

@@ -18,9 +18,9 @@ module Inkblot
           img_file = Tempfile.open('inkblot-convertimage') do |f|
             begin
               fc = if Pathname.new(input).exist?
-                File.read(input)
-              else
-                input
+                     File.read(input)
+                   else
+                     input
               end
             rescue ArgumentError
               fc = input
@@ -43,7 +43,7 @@ module Inkblot
           m << img.path
           m.depth(1)
           m.monochrome
-          m << ("bmp3:" << img.path)
+          m << ('bmp3:' << img.path)
         end
       end
 
@@ -54,7 +54,7 @@ module Inkblot
           m.gravity('center')
           m.resize(Display.size.values.join('x'))
           m.extent(Display.size.values.join('x'))
-          m << ("bmp3:" << img.path)
+          m << ('bmp3:' << img.path)
         end
       end
     end
