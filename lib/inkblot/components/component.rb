@@ -51,7 +51,7 @@ module Inkblot
 
       # Returns a new HtmlConverter with the result of #to_html
       def convert
-        HtmlConverter.new(input: to_html)
+        Converters::HtmlConverter.new(input: to_html)
       end
 
       # Lazily gets the template from +template_path+
