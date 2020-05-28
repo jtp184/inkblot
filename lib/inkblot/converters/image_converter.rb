@@ -8,25 +8,19 @@ module Inkblot
       # Reads input, and uses MiniMagick to modify. Modifies Tempfiles in place,
       # creates tempfiles for strings or regular files
       def convert
-        if input.is_a?(File)
-          img_file = Tempfile.open('inkblot-convertimage') do |f|
+        izza = ->(ft) { input.is_a?(ft) }
+        
+        img_file = if izza[File]
+          Tempfile.open('inkblot-convertimage') do |f|
             f << File.read(input.path)
           end
-        elsif input.is_a?(Tempfile)
-          img_file = input
-        elsif input.is_a?(String)
-          img_file = Tempfile.open('inkblot-convertimage') do |f|
-            begin
-              fc = if Pathname.new(input).exist?
-                     File.read(input)
-                   else
-                     input
-              end
-            rescue ArgumentError
-              fc = input
-            end
-
-            f << fc
+        elsif izza[Tempfile]
+          input
+        elsif izza[String] && input.ascii_only? && Pathname.new(input).exist?
+          File.read(input)
+        elsif izza[String]
+          Tempfile.open('inkblot-convertimage') do |f|
+            f << input
           end
         end
 
