@@ -2,8 +2,8 @@ require 'tempfile'
 require 'mini_magick'
 
 module Inkblot
-  # Converts images from other formats into grayscale bmps
   module Converters
+    # Converts images from other formats into grayscale bmps
     class ImageConverter < Converter
       # Reads input, and uses MiniMagick to modify. Modifies Tempfiles in place,
       # creates tempfiles for strings or regular files
@@ -49,7 +49,7 @@ module Inkblot
 
       # Resizes and extents image
       def resize(img)
-        convert = MiniMagick::Tool::Convert.new do |m|
+        MiniMagick::Tool::Convert.new do |m|
           m << img.path
           m.gravity('center')
           m.resize(Display.size.values.join('x'))
