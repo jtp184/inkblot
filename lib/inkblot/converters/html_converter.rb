@@ -12,7 +12,8 @@ module Inkblot
         ).convert
       end
 
-      # Reads the tempfile and returns the contents. Converts if this has not been done
+      # Reads the tempfile and returns the contents. 
+      # Converts if this has not been done
       def image_contents
         convert! unless output
         File.read(output.path)
