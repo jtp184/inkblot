@@ -26,8 +26,6 @@ module Inkblot
 
         dta.columns = options.fetch(:columns, 4)
 
-        dta.container_size = container_size(dta.icons, dta.columns, dta.icon_size)
-
         dta.font = options.fetch(:font, "'Material Icons', monospace")
 
         dta.border_size = if options[:border_size].nil?
@@ -82,13 +80,6 @@ module Inkblot
           %(<span style="font-size: #{scaled}px; font-family: #{font};">),
           %(#{content}</span>)
         ].join
-      end
-
-      def container_size(i, c, s)
-        itms = i.count.to_f
-        col = c.to_f
-
-        (itms / col).ceil * s
       end
     end
   end

@@ -1,5 +1,5 @@
 <div style="height: <%= data[:div_height] %>; width: <%= data[:div_width] %>; display: flex; flex-flow: row; align-items: center;">
-	<div class="icons" style="width: 100%; height: <%= data[:container_size] %>px; justify-content: space-around; display: grid; grid-template-columns: <%= (%w[auto] * data[:columns]).join(' ') %>;">
+	<div class="icons" style="width: 100%; justify-content: space-around; display: grid; grid-template-columns: <%= (%w[auto] * data[:columns]).join(' ') %>;">
 		<% data[:grid_items].each_with_index do |icn, ix| %>
 			<div style="width: <%= data[:icon_size] %>px; height: <%= data[:icon_size] %>px; border: <%= data[:border_size][ix] %>px solid black; margin-bottom: <%= data[:border_size][ix] %>px; display:flex; justify-content:center; align-items:center;">
 				<%= icn %>
