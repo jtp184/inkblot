@@ -88,14 +88,14 @@ Superclass:
 </div>
 <div class='description'>
 
-<p>Returns a <a href="DataUrl.html"><code>DataUrl</code></a> representation</p>
+<p>Returns a DataUrl representation</p>
 
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-data_url-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-data_url-source'><span class="ruby-comment"># File lib/inkblot/converters/html_converter.rb, line 15</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">data_url</span>&#x000A;  <span class="ruby-constant">DataUrl</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">input:</span> <span class="ruby-identifier">puppeteer</span>, <span class="ruby-value">base64:</span> <span class="ruby-keyword">true</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-data_url-source'><span class="ruby-comment"># File lib/inkblot/converters/html_converter.rb, line 15</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">data_url</span>&#x000A;  <span class="ruby-constant">DataUrlConverter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">input:</span> <span class="ruby-identifier">puppeteer</span>, <span class="ruby-value">format:</span> <span class="ruby-value">:base64</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-image_contents'>
@@ -107,7 +107,7 @@ Superclass:
 </div>
 <div class='description'>
 
-<p>Returns png data from a grover instance called on input</p>
+<p>Returns png data from puppeteer instance called on input</p>
 
 </div>
 <div class='source'>

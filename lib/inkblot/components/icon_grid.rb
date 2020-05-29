@@ -11,14 +11,17 @@ module Inkblot
         options[:icons]
       end
 
+      # Sugar method for the icon size, with default
       def icon_size
         options.fetch(:icon_size, 40)
       end
 
+      # Sugar method for the font, with default
       def font
         options.fetch(:font, 'Material Icons, monospace')
       end
 
+      # Sugar method for the columns count, with default
       def columns
         options.fetch(:columns, 4)
       end

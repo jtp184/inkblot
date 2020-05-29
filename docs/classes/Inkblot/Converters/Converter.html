@@ -45,6 +45,7 @@ Superclass:
 <h2>Methods</h2>
 <h3>Public Class</h3>
 <ol>
+<li><a href="#method-c-call">call</a></li>
 <li><a href="#method-c-new">new</a></li>
 </ol>
 <h3>Public Instance</h3>
@@ -52,7 +53,7 @@ Superclass:
 <li><a href="#method-i-convert">convert</a></li>
 <li><a href="#method-i-convert-21">convert!</a></li>
 <li><a href="#attribute-i-input">input</a></li>
-<li><a href="#attribute-i-output">output</a></li>
+<li><a href="#method-i-output">output</a></li>
 </ol>
 </div>
 <div id='context'>
@@ -71,20 +72,30 @@ Superclass:
 <p>The passed object to convert</p>
 </td>
 </tr>
-<tr class='top-aligned-row context-row'>
-<td class='context-item-name'>
-<a name='attribute-i-output'>output</a>
-</td>
-<td class='context-item-value'>[R]</td>
-<td class='context-item-desc'>
-<p>The bmp file to display on the device</p>
-</td>
-</tr>
 </table>
 </div>
 </div>
 <div id='methods'>
 <h2>Public Class methods</h2>
+<div class='method public-class' id='method-method-c-call'>
+<a name='method-c-call'></a>
+<div class='synopsis'>
+<span class='name'>call</span>
+<span class='arguments'>(opts = {})</span>
+
+</div>
+<div class='description'>
+
+<p>Shortcut for instantiating and getting the output of a converter</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-call-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-call-source'><span class="ruby-comment"># File lib/inkblot/converters/converter.rb, line 9</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">call</span>(<span class="ruby-identifier">opts</span> = {})&#x000A;  <span class="ruby-identifier">new</span>(<span class="ruby-identifier">opts</span>).<span class="ruby-identifier">output</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
 <div class='method public-class' id='method-method-c-new'>
 <a name='method-c-new'></a>
 <div class='synopsis'>
@@ -101,7 +112,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-new-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-new-source'><span class="ruby-comment"># File lib/inkblot/converters/converter.rb, line 11</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">opts</span> = {})&#x000A;  <span class="ruby-ivar">@input</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:input</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-new-source'><span class="ruby-comment"># File lib/inkblot/converters/converter.rb, line 14</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">opts</span> = {})&#x000A;  <span class="ruby-ivar">@input</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:input</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <h2>Public Instance methods</h2>
@@ -121,7 +132,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-convert-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-convert-source'><span class="ruby-comment"># File lib/inkblot/converters/converter.rb, line 22</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">convert</span>&#x000A;  <span class="ruby-ivar">@input</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-convert-source'><span class="ruby-comment"># File lib/inkblot/converters/converter.rb, line 25</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">convert</span>&#x000A;  <span class="ruby-ivar">@input</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-convert-21'>
@@ -140,7 +151,26 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-convert-21-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-convert-21-source'><span class="ruby-comment"># File lib/inkblot/converters/converter.rb, line 16</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">convert!</span>&#x000A;  <span class="ruby-ivar">@output</span> = <span class="ruby-identifier">convert</span>&#x000A;  <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-convert-21-source'><span class="ruby-comment"># File lib/inkblot/converters/converter.rb, line 19</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">convert!</span>&#x000A;  <span class="ruby-ivar">@output</span> = <span class="ruby-identifier">convert</span>&#x000A;  <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-output'>
+<a name='method-i-output'></a>
+<div class='synopsis'>
+<span class='name'>output</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>The bmp file to display on the device Override so that we can&#39;t call this without conversion</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-output-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-output-source'><span class="ruby-comment"># File lib/inkblot/converters/converter.rb, line 31</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">output</span>&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@output</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@output</span>&#x000A;&#x000A;  <span class="ruby-identifier">convert!</span>&#x000A;  <span class="ruby-ivar">@output</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>

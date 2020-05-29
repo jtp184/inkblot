@@ -111,7 +111,7 @@ Inkblot::Components::Helpers::Icons
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-html_icon_sym-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-html_icon_sym-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/icons.rb, line 35</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">html_icon_sym</span>(<span class="ruby-identifier">icn</span>)&#x000A;  <span class="ruby-identifier">mi</span> = <span class="ruby-identifier">material_icon_sym</span>(<span class="ruby-identifier">icn</span>)&#x000A;  <span class="ruby-node">&quot;&amp;#{(mi || icn)};&quot;</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-html_icon_sym-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/icons.rb, line 35</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">html_icon_sym</span>(<span class="ruby-identifier">icn</span>)&#x000A;  <span class="ruby-identifier">mi</span> = <span class="ruby-identifier">material_icon_sym</span>(<span class="ruby-identifier">icn</span>)&#x000A;  <span class="ruby-node">&quot;&amp;#{(mi || icn.to_s)};&quot;</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-material_icon_sym'>

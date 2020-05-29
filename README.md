@@ -522,6 +522,57 @@ end
 
 Helper classes share common behavior across components. They're nothing more than modules, with extendable and inheritable methods for Components.
 
+##### Icons
+
+The `Icons` helper assists with converting symbols to icons, both standard HTML symbols and [Google Material Design Icons](https://google.github.io/material-design-icons/) codepoints.
+
+```ruby
+require 'inkblot/components/helpers/icons'
+
+class AccessIndicator < Inkblot::Components::Component
+  include Inkblot::Components::Helpers::Icons
+
+  def to_display
+    Inkblot::Components::FullScreenImage.new do |im|
+      im.fullscreen = true
+      im.size = 80
+      im.font = 'Material Icons'
+      im.text = icon_span
+    end
+  end
+
+  def lock
+    options[:locked] = true
+    self
+  end
+
+  def unlock
+    options[:locked] = false
+    self
+  end
+
+  def locked?
+    !!options[:locked]
+  end
+
+  def display_icon
+    icn = locked? ? :lock : :lock_open
+  end
+
+  def icon_span
+    %(<span>#{html_icon_sym(display_icon)}</span>)
+  end
+end
+
+indi = AccessIndicator.new
+
+indi.locked? # => false
+indi.icon_span # => <span>&#xE898;</span>
+
+indi.lock.locked? # => true
+indi.icon_span # => <span>&#xE897;</span>
+```
+
 ##### Paginated
 
 The `Paginated` helper deals with content that has multiple subsequent views. You must define a method which sets up this pagination, and returns an integer page count
