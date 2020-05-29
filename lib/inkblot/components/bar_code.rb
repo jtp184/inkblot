@@ -37,7 +37,7 @@ module Inkblot
                         m
                       end
 
-        dta.data_url = Converters::DataUrl.new(input: generate_code.to_png(height: 60))
+        dta.data_url = Converters::DataUrlConverter.new(input: generate_code.to_png(height: 60))
 
         dta.to_h
       end
