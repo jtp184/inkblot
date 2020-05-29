@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+<head>
+<title>puppeteer.js</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<link href='../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<script type='text/javascript'>
+  function popupCode(url) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+  
+  function toggleCode(id) {
+    var code = document.getElementById(id)
+  
+    code.style.display = code.style.display != 'block' ? 'block' : 'none'
+    return true
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+</script>
+</head>
+<body class='page'>
+<div class='file' id='wrapper'>
+<div class='header'>
+<h1 class='name'>puppeteer.js
+</h1>
+<div class='paths'>
+vendor/puppeteer.js
+</div>
+<div class='last-update'>
+Last Update:
+<span class='datetime'>2020-05-28 22:57:28 -0700</span>
+</div>
+</div>
+<div id='content'>
+<div id='text'>
+<div id='description'>
+<p>const puppeteer = require(&#39;puppeteer&#39;);</p>
+
+<p>// Get ARGV const args = process.argv.slice(2); var viewWidth = 0; var viewheight = 0;</p>
+
+<p>// Set width based on ARGV if (<a href="0">args</a> === undefined) {</p>
+
+<pre class="ruby"><span class="ruby-identifier">viewWidth</span> = <span class="ruby-value">264</span>;</pre>
+
+<p>} else {</p>
+
+<pre class="ruby"><span class="ruby-identifier">viewWidth</span> = <span class="ruby-identifier">parseInt</span>(<span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>], <span class="ruby-value">10</span>);</pre>
+
+<p>}</p>
+
+<p>// Set height based on ARGV if (<a href="1">args</a> === undefined) {</p>
+
+<pre class="ruby"><span class="ruby-identifier">viewHeight</span> = <span class="ruby-value">176</span>;</pre>
+
+<p>} else {</p>
+
+<pre class="ruby"><span class="ruby-identifier">viewHeight</span> = <span class="ruby-identifier">parseInt</span>(<span class="ruby-identifier">args</span>[<span class="ruby-value">1</span>], <span class="ruby-value">10</span>);</pre>
+
+<p>}</p>
+
+<p>// Get HTML content from pipe var htmlContent = &#39;&#39;; process.stdin.setEncoding(&#39;utf-8&#39;);</p>
+
+<p>process.stdin.on(&#39;readable&#39;, function () {</p>
+
+<pre>var chunk;&#x000A;while (chunk = process.stdin.read()) {&#x000A;       htmlContent += chunk;&#x000A;}</pre>
+
+<p>});</p>
+
+<p>// Set Browser based on platform if(process.platform == &#39;linux&#39;) {</p>
+
+<pre class="ruby"><span class="ruby-identifier">var</span> <span class="ruby-identifier">browserArgs</span> = { <span class="ruby-value">executablePath:</span> <span class="ruby-string">&#39;chromium-browser&#39;</span> }</pre>
+
+<p>} else {</p>
+
+<pre class="ruby"><span class="ruby-identifier">var</span> <span class="ruby-identifier">browserArgs</span> = {}</pre>
+
+<p>}</p>
+
+<p>(async () =&gt; {</p>
+
+<pre>// Prep a browser&#x000A;const browser = await puppeteer.launch(browserArgs);&#x000A;const page = await browser.newPage();&#x000A;// Set viewport size&#x000A;await page.setViewport({&#x000A;      width: viewWidth,&#x000A;      height: viewHeight,&#x000A;      deviceScaleFactor: 1,&#x000A;});&#x000A;&#x000A;// Set page content&#x000A;await page.setContent(htmlContent, { waitUntil: [&#39;networkidle0&#39;, &#39;domcontentloaded&#39;] } );&#x000A;&#x000A;// Take screenshot and emit Base64 version of it&#x000A;const img = await page.screenshot();&#x000A;console.log(img.toString(&#39;base64&#39;));&#x000A;&#x000A;// Close browser&#x000A;await browser.close();</pre>
+
+<p>})();</p>
+</div>
+<div id='context'>
+</div>
+
+</div>
+</div>
+
+<div id='footer-push'></div>
+</div>
+<div id='footer'>
+<a href="https://github.com/rdoc/hanna-nouveau"><strong>Hanna Nouveau</strong> RDoc template</a>
+</div>
+</body>
+</html>

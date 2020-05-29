@@ -110,16 +110,16 @@ Inkblot::Display
 </div>
 <div class='description'>
 
-<p>Disambiguation function to take in an <code>obj</code> and try to display it. In order of resolution: </p>
+<p>Disambiguation function to take in an <code>obj</code> and try to display it. In order of resolution:</p>
 <ul><li>
 <p>Anything that responds to <code>to_display</code> will have that method called,</p>
 </li></ul>
 
 <p>and the result sent back to call</p>
 <ul><li>
-<p>Any <a href="Components/Component.html"><code>Components::Component</code></a> will be passed to an <a href="HtmlConverter.html"><code>HtmlConverter</code></a> and displayed</p>
+<p>Any <a href="Components/Component.html"><code>Components::Component</code></a> will be passed to an HtmlConverter and displayed</p>
 </li><li>
-<p>Any <a href="Converter.html"><code>Converter</code></a> will have its output displayed by path</p>
+<p>Any Converter will have its output displayed by path</p>
 </li><li>
 <p>Any File or Tempfile will have its output displayed by path</p>
 </li><li>
@@ -137,7 +137,7 @@ Inkblot::Display
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-call-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-call-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 21</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">call</span>(<span class="ruby-identifier">obj</span>)&#x000A;        <span class="ruby-keyword">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_display</span>)&#x000A;                <span class="ruby-identifier">call</span>(<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">to_display</span>)&#x000A;        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Components</span><span class="ruby-operator">::</span><span class="ruby-constant">Component</span>)&#x000A;                <span class="ruby-identifier">call</span>(<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">convert</span>)&#x000A;        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Converter</span>)&#x000A;                <span class="ruby-identifier">image</span>(<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">output</span>.<span class="ruby-identifier">path</span>)&#x000A;        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">File</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Tempfile</span>)&#x000A;                <span class="ruby-identifier">image</span>(<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">path</span>)&#x000A;        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Pathname</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">obj</span>).<span class="ruby-identifier">exist?</span>&#x000A;                <span class="ruby-identifier">image</span>(<span class="ruby-identifier">obj</span>)&#x000A;        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)&#x000A;                <span class="ruby-identifier">call</span>(<span class="ruby-constant">Components</span><span class="ruby-operator">::</span><span class="ruby-constant">SimpleText</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">text:</span> <span class="ruby-identifier">obj</span>))&#x000A;        <span class="ruby-keyword">else</span>&#x000A;                <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Cannot display #{obj.class.name}&quot;</span>&#x000A;        <span class="ruby-keyword">end</span>&#x000A;        &#x000A;        <span class="ruby-ivar">@current</span> = <span class="ruby-identifier">obj</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-call-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 21</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">call</span>(<span class="ruby-identifier">obj</span>)&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_display</span>)&#x000A;    <span class="ruby-identifier">call</span>(<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">to_display</span>)&#x000A;  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Components</span><span class="ruby-operator">::</span><span class="ruby-constant">Component</span>)&#x000A;    <span class="ruby-identifier">call</span>(<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">convert</span>)&#x000A;  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Converters</span><span class="ruby-operator">::</span><span class="ruby-constant">Converter</span>)&#x000A;    <span class="ruby-identifier">image</span>(<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">output</span>.<span class="ruby-identifier">path</span>)&#x000A;  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">File</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Tempfile</span>)&#x000A;    <span class="ruby-identifier">image</span>(<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">path</span>)&#x000A;  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Pathname</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">obj</span>).<span class="ruby-identifier">exist?</span>&#x000A;    <span class="ruby-identifier">image</span>(<span class="ruby-identifier">obj</span>)&#x000A;  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)&#x000A;    <span class="ruby-identifier">call</span>(<span class="ruby-constant">Components</span><span class="ruby-operator">::</span><span class="ruby-constant">SimpleText</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">text:</span> <span class="ruby-identifier">obj</span>))&#x000A;  <span class="ruby-keyword">else</span>&#x000A;    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Cannot display #{obj.class.name}&quot;</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-ivar">@current</span> = <span class="ruby-identifier">obj</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-class' id='method-method-c-clear'>
@@ -156,7 +156,7 @@ Inkblot::Display
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-clear-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-clear-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 52</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">clear</span>&#x000A;        <span class="ruby-node">%x(#{pyscript(&quot;clear&quot;)})</span>&#x000A;        <span class="ruby-ivar">@current</span> = <span class="ruby-keyword">nil</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-clear-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 52</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">clear</span>&#x000A;  <span class="ruby-node">`#{pyscript(&#39;clear&#39;)}`</span>&#x000A;  <span class="ruby-ivar">@current</span> = <span class="ruby-keyword">nil</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-class' id='method-method-c-empty-3F'>
@@ -175,7 +175,7 @@ Inkblot::Display
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-empty-3F-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-empty-3F-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 58</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">empty?</span>&#x000A;        <span class="ruby-identifier">current</span>.<span class="ruby-identifier">nil?</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-empty-3F-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 58</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">empty?</span>&#x000A;  <span class="ruby-identifier">current</span>.<span class="ruby-identifier">nil?</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-class' id='method-method-c-redisplay'>
@@ -194,7 +194,7 @@ Inkblot::Display
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-redisplay-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-redisplay-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 42</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">redisplay</span>&#x000A;        <span class="ruby-identifier">call</span> <span class="ruby-identifier">current</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-redisplay-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 42</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">redisplay</span>&#x000A;  <span class="ruby-identifier">call</span> <span class="ruby-identifier">current</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-class' id='method-method-c-size'>
@@ -213,7 +213,7 @@ Inkblot::Display
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-size-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-size-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 63</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">size</span>&#x000A;        <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">screen_size</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-size-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 63</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">size</span>&#x000A;  <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">screen_size</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-class' id='method-method-c-size_css'>
@@ -232,7 +232,7 @@ Inkblot::Display
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-size_css-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-size_css-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 68</span>&#x000A;            <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">size_css</span>&#x000A;                    <span class="ruby-identifier">size</span>.<span class="ruby-identifier">transform_values</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;#{n}px&quot;</span> }&#x000A;.<span class="ruby-identifier">to_a</span>&#x000A;.<span class="ruby-identifier">reverse</span>&#x000A;.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;#{k}: #{v};&quot;</span>}&#x000A;.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39; &#39;</span>)&#x000A;            <span class="ruby-keyword">end</span></pre>
+<pre id='method-c-size_css-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 68</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">size_css</span>&#x000A;  <span class="ruby-identifier">size</span>.<span class="ruby-identifier">transform_values</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;#{n}px&quot;</span> }&#x000A;      .<span class="ruby-identifier">to_a</span>&#x000A;      .<span class="ruby-identifier">reverse</span>&#x000A;      .<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;#{k}: #{v};&quot;</span> }&#x000A;      .<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39; &#39;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <h2>Private Class methods</h2>
@@ -245,14 +245,14 @@ Inkblot::Display
 </div>
 <div class='description'>
 
-<p>Takes in an image <code>img</code> to display on the device. Can be a File, filepath string, or a <a href="Converter.html"><code>Converter</code></a> subclass</p>
+<p>Takes in an image <code>img</code> to display on the device. Can be a File, filepath string, or a Converter subclass</p>
 
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-image-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-image-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 80</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">image</span>(<span class="ruby-identifier">img</span>)&#x000A;        <span class="ruby-node">%x(#{pyscript(&quot;display&quot;, img)})</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-image-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 80</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">image</span>(<span class="ruby-identifier">img</span>)&#x000A;  <span class="ruby-node">`#{pyscript(&#39;display&#39;, img)}`</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-class' id='method-method-c-pyscript'>
@@ -271,7 +271,7 @@ Inkblot::Display
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-pyscript-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-pyscript-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 86</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">pyscript</span>(<span class="ruby-identifier">skript</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)&#x000A;        <span class="ruby-identifier">cmd</span> = <span class="ruby-string">&quot;python &quot;</span>&#x000A;        <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>(<span class="ruby-node">&quot;#{skript}.py&quot;</span>)&#x000A;        <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; &quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>&#x000A;&#x000A;        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">empty?</span>&#x000A;                <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>&#x000A;                        <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; &quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">arg</span>&#x000A;                <span class="ruby-keyword">end</span>&#x000A;        <span class="ruby-keyword">end</span>&#x000A;&#x000A;        <span class="ruby-identifier">cmd</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-pyscript-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 86</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">pyscript</span>(<span class="ruby-identifier">skript</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)&#x000A;  <span class="ruby-identifier">cmd</span> = <span class="ruby-string">&#39;python &#39;</span>&#x000A;  <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>(<span class="ruby-node">&quot;#{skript}.py&quot;</span>)&#x000A;  <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39; &#39;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>&#x000A;&#x000A;  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">empty?</span>&#x000A;    <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39; &#39;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">arg</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">cmd</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>

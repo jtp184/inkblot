@@ -183,14 +183,14 @@ Superclass:
 </div>
 <div class='description'>
 
-<p>Returns a new <a href="../HtmlConverter.html"><code>HtmlConverter</code></a> with the result of <a href="Component.html#method-i-to_html"><code>to_html</code></a></p>
+<p>Returns a new HtmlConverter with the result of <a href="Component.html#method-i-to_html"><code>to_html</code></a></p>
 
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-convert-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-convert-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 53</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">convert</span>&#x000A;  <span class="ruby-constant">HtmlConverter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">input:</span> <span class="ruby-identifier">to_html</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-convert-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 53</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">convert</span>&#x000A;  <span class="ruby-constant">Converters</span><span class="ruby-operator">::</span><span class="ruby-constant">HtmlConverter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">input:</span> <span class="ruby-identifier">to_html</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-dup'>

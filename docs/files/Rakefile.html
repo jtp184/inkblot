@@ -30,13 +30,13 @@ Rakefile
 </div>
 <div class='last-update'>
 Last Update:
-<span class='datetime'>2020-05-16 20:19:59 -0700</span>
+<span class='datetime'>2020-05-27 02:29:06 -0700</span>
 </div>
 </div>
 <div id='content'>
 <div id='text'>
 <div id='description'>
-<p>require “bundler/gem_tasks” require &#39;cucumber&#39; require &#39;cucumber/rake/task&#39; require &#39;git&#39;</p>
+<p>require “bundler/gem_tasks” require &#39;cucumber&#39; require &#39;cucumber/rake/task&#39; require &#39;git&#39; require &#39;net/http&#39; require &#39;psych&#39;</p>
 
 <p>Cucumber::Rake::Task.new(:features) do |t|</p>
 
@@ -49,6 +49,12 @@ Last Update:
 <p>task :docs do</p>
 
 <pre class="ruby"><span class="ruby-identifier">rd_exclude</span> = <span class="ruby-node">%w[bin tmp vendor/waveshare_epd coverage spec]</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;--exclude=#{r}&quot;</span>}.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39; &#39;</span>)&#x000A;<span class="ruby-identifier">sh</span> <span class="ruby-node">&quot;rdoc --output=docs --format=hanna --all --main=README.md #{rd_exclude}&quot;</span></pre>
+
+<p>end</p>
+
+<p>task :codepoints do</p>
+
+<pre class="ruby"><span class="ruby-identifier">codepoints_uri</span> = <span class="ruby-string">&#39;https://raw.githubusercontent.com/google&#39;</span>&#x000A;<span class="ruby-identifier">codepoints_uri</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39;/material-design-icons/master/iconfont/codepoints&#39;</span>&#x000A;<span class="ruby-identifier">codepoints_uri</span> = <span class="ruby-constant">URI</span>(<span class="ruby-identifier">codepoints_uri</span>)&#x000A;&#x000A;<span class="ruby-identifier">codepoints</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">codepoints_uri</span>)&#x000A;                      .<span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/(\w+) (\w+)/</span>)&#x000A;                      .<span class="ruby-identifier">to_h</span>&#x000A;                      .<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>)&#x000A;                      .<span class="ruby-identifier">transform_values</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-value">:&quot;#x#{v.upcase}&quot;</span> }&#x000A;&#x000A;<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;vendor/codepoints.yml&#39;</span>, <span class="ruby-string">&#39;w+&#39;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Psych</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">codepoints</span>) }</pre>
 
 <p>end</p>
 
