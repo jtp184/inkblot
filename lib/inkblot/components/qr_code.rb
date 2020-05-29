@@ -2,14 +2,10 @@ require 'rqrcode'
 require 'barby/barcode/qr_code'
 require 'barby/outputter/png_outputter'
 
-require_relative 'helpers/data_url'
-
 module Inkblot
   module Components
     # Render and display QR Codes
     class QrCode < Component
-      include Helpers::DataUrl
-
       # Sugar method for the encoded message
       def message
         options[:message]
@@ -42,7 +38,7 @@ module Inkblot
                         m
                       end
 
-        dta.data_url = data_url_from_binary(encode_message.to_png)
+        dta.data_url = Converters::DataUrl.new(input: encode_message.to_png).output
 
         dta.to_h
       end
