@@ -24,7 +24,7 @@ module Inkblot
         get_width(dta)
 
         durl = proc do |inp|
-          Converters::DataUrlConverter.call(input: inp, filetype: filetype)
+          Converters::DataUrlConverter.call(input: inp)
         end
 
         dta.source = case img_src
