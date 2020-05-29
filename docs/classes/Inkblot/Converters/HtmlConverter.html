@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+<head>
+<title>Inkblot::Converters::HtmlConverter</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<link href='../../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<script type='text/javascript'>
+  function popupCode(url) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+  
+  function toggleCode(id) {
+    var code = document.getElementById(id)
+  
+    code.style.display = code.style.display != 'block' ? 'block' : 'none'
+    return true
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+</script>
+</head>
+<body class='page'>
+<div class='class' id='wrapper'>
+<div class='header'>
+<h1 class='name'><span class='type'>class</span>
+Inkblot::Converters::HtmlConverter
+</h1>
+<ol class='paths'>
+<li>
+<a href="../../../files/lib/inkblot/converters/html_converter_rb.html">lib/inkblot/converters/html_converter.rb</a>
+</li>
+</ol>
+<div class='parent'>
+Superclass:
+<strong><a href="Converter.html">Converter</a></strong>
+</div>
+</div>
+<div id='content'>
+<div id='text'>
+<div id='description'>
+<p>Converts HTML input into an image by passing it into an <a href="ImageConverter.html"><code>ImageConverter</code></a></p>
+</div>
+<div id='method-list'>
+<h2>Methods</h2>
+<h3>Public Instance</h3>
+<ol>
+<li><a href="#method-i-convert">convert</a></li>
+<li><a href="#method-i-data_url">data_url</a></li>
+<li><a href="#method-i-image_contents">image_contents</a></li>
+<li><a href="#method-i-save">save</a></li>
+</ol>
+<h3>Private Instance</h3>
+<ol>
+<li><a href="#method-i-puppeteer">puppeteer</a></li>
+</ol>
+</div>
+<div id='context'>
+</div>
+<div id='section'>
+<div id='methods'>
+<h2>Public Instance methods</h2>
+<div class='method public-instance' id='method-method-i-convert'>
+<a name='method-i-convert'></a>
+<div class='synopsis'>
+<span class='name'>convert</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Uses <a href="HtmlConverter.html#method-i-image_contents"><code>image_contents</code></a> to create a page from passed input. Returns a (closed) tempfile created from an <a href="ImageConverter.html"><code>ImageConverter</code></a></p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-convert-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-convert-source'><span class="ruby-comment"># File lib/inkblot/converters/html_converter.rb, line 10</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">convert</span>&#x000A;  <span class="ruby-constant">ImageConverter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">input:</span> <span class="ruby-identifier">image_contents</span>).<span class="ruby-identifier">convert</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-data_url'>
+<a name='method-i-data_url'></a>
+<div class='synopsis'>
+<span class='name'>data_url</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Returns a <a href="DataUrl.html"><code>DataUrl</code></a> representation</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-data_url-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-data_url-source'><span class="ruby-comment"># File lib/inkblot/converters/html_converter.rb, line 15</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">data_url</span>&#x000A;  <span class="ruby-constant">DataUrl</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">input:</span> <span class="ruby-identifier">puppeteer</span>, <span class="ruby-value">base64:</span> <span class="ruby-keyword">true</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-image_contents'>
+<a name='method-i-image_contents'></a>
+<div class='synopsis'>
+<span class='name'>image_contents</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Returns png data from a grover instance called on input</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-image_contents-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-image_contents-source'><span class="ruby-comment"># File lib/inkblot/converters/html_converter.rb, line 20</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">image_contents</span>&#x000A;  <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">decode64</span>(<span class="ruby-identifier">puppeteer</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-save'>
+<a name='method-i-save'></a>
+<div class='synopsis'>
+<span class='name'>save</span>
+<span class='arguments'>(path)</span>
+
+</div>
+<div class='description'>
+
+<p>Saves the converted image permanently to path. Converts if this has not been done</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-save-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-save-source'><span class="ruby-comment"># File lib/inkblot/converters/html_converter.rb, line 25</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">save</span>(<span class="ruby-identifier">path</span>)&#x000A;  <span class="ruby-identifier">convert!</span>&#x000A;&#x000A;  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">path</span>, <span class="ruby-string">&#39;w+b&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">f</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">output</span>.<span class="ruby-identifier">path</span>)&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<h2>Private Instance methods</h2>
+<div class='method private-instance' id='method-method-i-puppeteer'>
+<a name='method-i-puppeteer'></a>
+<div class='synopsis'>
+<span class='name'>puppeteer</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Constructs the command and passes the input to the <a href="../../../files/vendor/puppeteer_js.html">vendor/puppeteer.js</a> script for processing. Returns a base64 encoded string</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-puppeteer-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-puppeteer-source'><span class="ruby-comment"># File lib/inkblot/converters/html_converter.rb, line 37</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">puppeteer</span>&#x000A;  <span class="ruby-identifier">@@cmd</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">TTY</span><span class="ruby-operator">::</span><span class="ruby-constant">Command</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">printer:</span> <span class="ruby-value">:null</span>)&#x000A;&#x000A;  <span class="ruby-identifier">cmd</span> = <span class="ruby-string">+&#39;node &#39;</span>&#x000A;  <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>(<span class="ruby-string">&#39;puppeteer.js&#39;</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39; &#39;</span>&#x000A;  <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">screen_size</span>[<span class="ruby-value">:width</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39; &#39;</span>&#x000A;  <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">screen_size</span>[<span class="ruby-value">:height</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39; &#39;</span>&#x000A;&#x000A;  <span class="ruby-identifier">b64</span>, <span class="ruby-identifier">_err</span> = <span class="ruby-identifier">@@cmd</span>.<span class="ruby-identifier">run</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-value">in:</span> <span class="ruby-identifier">input</span>)&#x000A;  <span class="ruby-identifier">b64</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div id='footer-push'></div>
+</div>
+<div id='footer'>
+<a href="https://github.com/rdoc/hanna-nouveau"><strong>Hanna Nouveau</strong> RDoc template</a>
+</div>
+</body>
+</html>

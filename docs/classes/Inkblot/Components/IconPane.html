@@ -43,10 +43,6 @@ Superclass:
 </div>
 <div id='method-list'>
 <h2>Methods</h2>
-<h3>Public Class</h3>
-<ol>
-<li><a href="#method-c-new">new</a></li>
-</ol>
 <h3>Public Instance</h3>
 <ol>
 <li><a href="#method-i-frame_contents">frame_contents</a></li>
@@ -55,33 +51,18 @@ Superclass:
 <h3>Private Instance</h3>
 <ol>
 <li><a href="#method-i-computed">computed</a></li>
-<li><a href="#method-i-replace_icon_groups">replace_icon_groups</a></li>
 </ol>
 </div>
 <div id='context'>
+<div id='includes'>
+<h2>Included modules</h2>
+<ol>
+<li><a href="Helpers/Icons.html">Helpers::Icons</a></li>
+</ol>
+</div>
 </div>
 <div id='section'>
 <div id='methods'>
-<h2>Public Class methods</h2>
-<div class='method public-class' id='method-method-c-new'>
-<a name='method-c-new'></a>
-<div class='synopsis'>
-<span class='name'>new</span>
-<span class='arguments'>(*args)</span>
-
-</div>
-<div class='description'>
-
-<p>Converts icon groups if given</p>
-
-</div>
-<div class='source'>
-<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-new-source&#39;); return false'>
-[show source]
-</a>
-<pre id='method-c-new-source'><span class="ruby-comment"># File lib/inkblot/components/icon_pane.rb, line 7</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)&#x000A;  <span class="ruby-keyword">super</span>&#x000A;  <span class="ruby-identifier">options</span>[<span class="ruby-value">:icons</span>] = <span class="ruby-identifier">replace_icon_groups</span>&#x000A;<span class="ruby-keyword">end</span></pre>
-</div>
-</div>
 <h2>Public Instance methods</h2>
 <div class='method public-instance' id='method-method-i-frame_contents'>
 <a name='method-i-frame_contents'></a>
@@ -99,7 +80,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-frame_contents-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-frame_contents-source'><span class="ruby-comment"># File lib/inkblot/components/icon_pane.rb, line 18</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">frame_contents</span>&#x000A;  <span class="ruby-identifier">options</span>[<span class="ruby-value">:frame_contents</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-frame_contents-source'><span class="ruby-comment"># File lib/inkblot/components/icon_pane.rb, line 16</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">frame_contents</span>&#x000A;  <span class="ruby-identifier">options</span>[<span class="ruby-value">:frame_contents</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-icons'>
@@ -118,7 +99,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-icons-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-icons-source'><span class="ruby-comment"># File lib/inkblot/components/icon_pane.rb, line 13</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">icons</span>&#x000A;  <span class="ruby-identifier">options</span>[<span class="ruby-value">:icons</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-icons-source'><span class="ruby-comment"># File lib/inkblot/components/icon_pane.rb, line 11</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">icons</span>&#x000A;  <span class="ruby-identifier">options</span>[<span class="ruby-value">:icons</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <h2>Private Instance methods</h2>
@@ -131,46 +112,14 @@ Superclass:
 </div>
 <div class='description'>
 
-<p>Turns the frame contents into the frame, array-ifying and joining the fragments as needed.</p>
+<p>Turns the frame contents into the frame, array-ifying and joining the fragments as needed, handles icon height and replacement.</p>
 
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-computed-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-computed-source'><span class="ruby-comment"># File lib/inkblot/components/icon_pane.rb, line 26</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">computed</span>&#x000A;  <span class="ruby-identifier">dta</span> = <span class="ruby-constant">OpenStruct</span>.<span class="ruby-identifier">new</span>&#x000A;&#x000A;  <span class="ruby-identifier">get_height</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">get_width</span>(<span class="ruby-identifier">dta</span>)&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">icon_size</span> = <span class="ruby-keyword">case</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:icon_size</span>]&#x000A;                  <span class="ruby-keyword">when</span> <span class="ruby-keyword">nil</span>&#x000A;                    <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">4</span>, <span class="ruby-value">30</span>)&#x000A;                  <span class="ruby-keyword">when</span> <span class="ruby-operator">-&gt;</span>(<span class="ruby-identifier">x</span>) { <span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>) }&#x000A;                    <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">4</span>, <span class="ruby-identifier">options</span>[<span class="ruby-value">:icon_size</span>])&#x000A;                  <span class="ruby-keyword">when</span> <span class="ruby-operator">-&gt;</span>(<span class="ruby-identifier">x</span>) { <span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>) }&#x000A;                    <span class="ruby-identifier">options</span>[<span class="ruby-value">:icon_size</span>]&#x000A;                  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">icon_height</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:fixed_height</span>]&#x000A;                      <span class="ruby-value">25</span>&#x000A;                    <span class="ruby-keyword">else</span>&#x000A;                      (<span class="ruby-value">100</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">icons</span>.<span class="ruby-identifier">count</span>)&#x000A;                    <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">fr</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:frame_contents</span>, [])&#x000A;  &#x000A;  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">fr</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)&#x000A;    <span class="ruby-identifier">fr</span> = <span class="ruby-constant">Array</span>(<span class="ruby-identifier">fr</span>)&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">frame</span> = <span class="ruby-identifier">fr</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_html_frag</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span>)&#x000A;  &#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">to_h</span>&#x000A;<span class="ruby-keyword">end</span></pre>
-</div>
-</div>
-<div class='method private-instance' id='method-method-i-replace_icon_groups'>
-<a name='method-i-replace_icon_groups'></a>
-<div class='synopsis'>
-<span class='name'>replace_icon_groups</span>
-<span class='arguments'>()</span>
-
-</div>
-<div class='description'>
-
-<p>Some default options for icons</p>
-<ul><li>
-<p>:arrows, :arrows_out =&gt; Arrows which point offscreen to the keys</p>
-</li><li>
-<p>:arrows_in =&gt; Right arrows pointing to the frame</p>
-</li><li>
-<p>:select =&gt; Shows a check, cancel, up arrow, and down arrow</p>
-</li><li>
-<p>:confirm =&gt; 2 button, check and cancel</p>
-</li><li>
-<p>:agree =&gt; 1 button check</p>
-</li><li>
-<p>:cancel =&gt; 1 button cancel</p>
-</li></ul>
-
-</div>
-<div class='source'>
-<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-replace_icon_groups-source&#39;); return false'>
-[show source]
-</a>
-<pre id='method-i-replace_icon_groups-source'><span class="ruby-comment"># File lib/inkblot/components/icon_pane.rb, line 65</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">replace_icon_groups</span>&#x000A;  <span class="ruby-keyword">case</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:icons</span>]&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-keyword">nil</span>&#x000A;    (<span class="ruby-value">10112</span><span class="ruby-operator">..</span><span class="ruby-value">10115</span>).<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span> <span class="ruby-value">:&quot;##{n}&quot;</span> }&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:arrows</span>, <span class="ruby-value">:arrows_out</span>&#x000A;    <span class="ruby-node">%i[nwarr larr swarr swarr]</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:arrows_in</span>&#x000A;    <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">4</span>) { <span class="ruby-value">:rarr</span> }&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:select</span>&#x000A;    <span class="ruby-node">%i[check times uarr darr]</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:confirm</span>&#x000A;    <span class="ruby-node">%i[check times]</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:agree</span>&#x000A;    [<span class="ruby-value">:check</span>]&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:cancel</span>&#x000A;    [<span class="ruby-value">:times</span>]&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-operator">-&gt;</span>(<span class="ruby-identifier">x</span>) { <span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>) }&#x000A;    <span class="ruby-identifier">options</span>[<span class="ruby-value">:icons</span>]&#x000A;  <span class="ruby-keyword">else</span>&#x000A;    <span class="ruby-constant">Array</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:icons</span>])&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-computed-source'><span class="ruby-comment"># File lib/inkblot/components/icon_pane.rb, line 24</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">computed</span>&#x000A;  <span class="ruby-identifier">dta</span> = <span class="ruby-constant">OpenStruct</span>.<span class="ruby-identifier">new</span>&#x000A;&#x000A;  <span class="ruby-identifier">get_height</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">get_width</span>(<span class="ruby-identifier">dta</span>)&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">icons</span> = <span class="ruby-identifier">replace_icon_groups</span>&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">icon_size</span> = <span class="ruby-keyword">case</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:icon_size</span>]&#x000A;                  <span class="ruby-keyword">when</span> <span class="ruby-keyword">nil</span>&#x000A;                    <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">4</span>, <span class="ruby-value">30</span>)&#x000A;                  <span class="ruby-keyword">when</span> <span class="ruby-operator">-&gt;</span>(<span class="ruby-identifier">x</span>) { <span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>) }&#x000A;                    <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">4</span>, <span class="ruby-identifier">options</span>[<span class="ruby-value">:icon_size</span>])&#x000A;                  <span class="ruby-keyword">when</span> <span class="ruby-operator">-&gt;</span>(<span class="ruby-identifier">x</span>) { <span class="ruby-identifier">x</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>) }&#x000A;                    <span class="ruby-identifier">options</span>[<span class="ruby-value">:icon_size</span>]&#x000A;                  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">icon_height</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:fixed_height</span>]&#x000A;                      <span class="ruby-value">25</span>&#x000A;                    <span class="ruby-keyword">else</span>&#x000A;                      (<span class="ruby-value">100</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">icons</span>.<span class="ruby-identifier">count</span>)&#x000A;                    <span class="ruby-keyword">end</span>&#x000A;                    &#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">font</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:font</span>, <span class="ruby-string">&quot;&#39;Material Icons&#39;, monospace&quot;</span>)&#x000A;&#x000A;  <span class="ruby-identifier">fr</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:frame_contents</span>, [])&#x000A;&#x000A;  <span class="ruby-identifier">fr</span> = <span class="ruby-constant">Array</span>(<span class="ruby-identifier">fr</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">fr</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">frame</span> = <span class="ruby-identifier">fr</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_html_frag</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span>)&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">to_h</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>

@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+<head>
+<title>Inkblot::Components::Helpers::Icons</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<link href='../../../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<script type='text/javascript'>
+  function popupCode(url) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+  
+  function toggleCode(id) {
+    var code = document.getElementById(id)
+  
+    code.style.display = code.style.display != 'block' ? 'block' : 'none'
+    return true
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+</script>
+</head>
+<body class='page'>
+<div class='class' id='wrapper'>
+<div class='header'>
+<h1 class='name'><span class='type'>module</span>
+Inkblot::Components::Helpers::Icons
+</h1>
+<ol class='paths'>
+<li>
+<a href="../../../../files/lib/inkblot/components/helpers/icons_rb.html">lib/inkblot/components/helpers/icons.rb</a>
+</li>
+</ol>
+</div>
+<div id='content'>
+<div id='text'>
+<div id='description'>
+<p>Assists with using icons from familar ruby symbols</p>
+</div>
+<div id='method-list'>
+<h2>Methods</h2>
+<h3>Public Class</h3>
+<ol>
+<li><a href="#method-c-codepoints">codepoints</a></li>
+<li><a href="#method-c-icon_groups">icon_groups</a></li>
+</ol>
+<h3>Public Instance</h3>
+<ol>
+<li><a href="#method-i-html_icon_sym">html_icon_sym</a></li>
+<li><a href="#method-i-material_icon_sym">material_icon_sym</a></li>
+<li><a href="#method-i-replace_icon_groups">replace_icon_groups</a></li>
+</ol>
+</div>
+<div id='context'>
+</div>
+<div id='section'>
+<div id='methods'>
+<h2>Public Class methods</h2>
+<div class='method public-class' id='method-method-c-codepoints'>
+<a name='method-c-codepoints'></a>
+<div class='synopsis'>
+<span class='name'>codepoints</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Keeps a hash of codepoints mapping friendly names of icons to their HTML symbol representation. Reads from a YAML file</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-codepoints-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-codepoints-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/icons.rb, line 11</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">codepoints</span>&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@codepoints</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@codepoints</span>&#x000A;&#x000A;  <span class="ruby-identifier">fp</span> = <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>(<span class="ruby-string">&#39;codepoints.yml&#39;</span>)&#x000A;  <span class="ruby-ivar">@codepoints</span> = <span class="ruby-constant">Psych</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">fp</span>))&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-class' id='method-method-c-icon_groups'>
+<a name='method-c-icon_groups'></a>
+<div class='synopsis'>
+<span class='name'>icon_groups</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Predefined icon groups</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-icon_groups-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-icon_groups-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/icons.rb, line 19</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">icon_groups</span>&#x000A;  {&#x000A;    <span class="ruby-value">default:</span> (<span class="ruby-value">10_112</span><span class="ruby-operator">..</span><span class="ruby-value">10_115</span>).<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span> <span class="ruby-value">:&quot;##{n}&quot;</span> },&#x000A;    <span class="ruby-value">arrows:</span> <span class="ruby-node">%i[nwarr larr swarr swarr]</span>,&#x000A;    <span class="ruby-value">arrows_out:</span> <span class="ruby-node">%i[nwarr larr swarr swarr]</span>,&#x000A;    <span class="ruby-value">arrows_in:</span> <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">4</span>) { <span class="ruby-value">:rarr</span> },&#x000A;    <span class="ruby-value">select:</span> <span class="ruby-node">%i[check times uarr darr]</span>,&#x000A;    <span class="ruby-value">confirm:</span> <span class="ruby-node">%i[check times]</span>,&#x000A;    <span class="ruby-value">agree:</span> [<span class="ruby-value">:check</span>],&#x000A;    <span class="ruby-value">cancel:</span> [<span class="ruby-value">:times</span>]&#x000A;  }.<span class="ruby-identifier">freeze</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<h2>Public Instance methods</h2>
+<div class='method public-instance' id='method-method-i-html_icon_sym'>
+<a name='method-i-html_icon_sym'></a>
+<div class='synopsis'>
+<span class='name'>html_icon_sym</span>
+<span class='arguments'>(icn)</span>
+
+</div>
+<div class='description'>
+
+<p>Takes in the symbol <code>icn</code> and converts it into a material icon or a basic HTML symbol if it isn&#39;t a material icon</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-html_icon_sym-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-html_icon_sym-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/icons.rb, line 35</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">html_icon_sym</span>(<span class="ruby-identifier">icn</span>)&#x000A;  <span class="ruby-identifier">mi</span> = <span class="ruby-identifier">material_icon_sym</span>(<span class="ruby-identifier">icn</span>)&#x000A;  <span class="ruby-node">&quot;&amp;#{(mi || icn)};&quot;</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-material_icon_sym'>
+<a name='method-i-material_icon_sym'></a>
+<div class='synopsis'>
+<span class='name'>material_icon_sym</span>
+<span class='arguments'>(icn)</span>
+
+</div>
+<div class='description'>
+
+<p>Instance method that translates a symbol <code>icn</code> into its codepoint</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-material_icon_sym-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-material_icon_sym-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/icons.rb, line 41</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">material_icon_sym</span>(<span class="ruby-identifier">icn</span>)&#x000A;  <span class="ruby-identifier">ic</span> = <span class="ruby-constant">Icons</span>.<span class="ruby-identifier">codepoints</span>[<span class="ruby-identifier">icn</span>]&#x000A;&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">ic</span>&#x000A;    <span class="ruby-identifier">mi</span> = <span class="ruby-string">-&#39;Material Icons&#39;</span>&#x000A;    <span class="ruby-identifier">options</span>[<span class="ruby-value">:gfonts</span>] <span class="ruby-operator">||=</span> [<span class="ruby-identifier">mi</span>]&#x000A;    <span class="ruby-identifier">options</span>[<span class="ruby-value">:gfonts</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mi</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:gfonts</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">mi</span>)&#x000A;    <span class="ruby-identifier">ic</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-replace_icon_groups'>
+<a name='method-i-replace_icon_groups'></a>
+<div class='synopsis'>
+<span class='name'>replace_icon_groups</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Handles the work of converting user input into display logic.</p>
+<ul><li>
+<p>If no icons is given uses the default</p>
+</li><li>
+<p>If a single symbol is given, uses the <a href="Icons.html#method-c-icon_groups"><code>icon_groups</code></a></p>
+</li><li>
+<p>If an array is given, runs sym args through html_sym</p>
+</li><li>
+<p>If anything else is given it&#39;s arrayified for simplicity</p>
+</li></ul>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-replace_icon_groups-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-replace_icon_groups-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/icons.rb, line 57</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">replace_icon_groups</span>&#x000A;  <span class="ruby-identifier">ig</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:icons</span>].<span class="ruby-identifier">nil?</span>&#x000A;         <span class="ruby-constant">Icons</span>.<span class="ruby-identifier">icon_groups</span>[<span class="ruby-value">:default</span>]&#x000A;       <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:icons</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>)&#x000A;         <span class="ruby-constant">Icons</span>.<span class="ruby-identifier">icon_groups</span>[<span class="ruby-identifier">options</span>[<span class="ruby-value">:icons</span>]]&#x000A;       <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:icons</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)&#x000A;         <span class="ruby-identifier">options</span>[<span class="ruby-value">:icons</span>]&#x000A;       <span class="ruby-keyword">else</span>&#x000A;         <span class="ruby-constant">Array</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:icons</span>])&#x000A;       <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">ig</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ic</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">ic</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">html_icon_sym</span>(<span class="ruby-identifier">ic</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">ic</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div id='footer-push'></div>
+</div>
+<div id='footer'>
+<a href="https://github.com/rdoc/hanna-nouveau"><strong>Hanna Nouveau</strong> RDoc template</a>
+</div>
+</body>
+</html>
