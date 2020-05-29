@@ -1,15 +1,12 @@
 require "bundler/gem_tasks"
-require 'cucumber'
-require 'cucumber/rake/task'
+require 'rspec/core/rake_task'
 require 'git'
 require 'net/http'
 require 'psych'
 
-Cucumber::Rake::Task.new(:features) do |t|
-  t.cucumber_opts = "--format pretty" # Any valid command line option can go here.
-end
+RSpec::Core::RakeTask.new(:spec)
 
-task :default => :features
+task :default => :spec
 
 task :docs do
   rd_exclude = %w[bin tmp vendor/waveshare_epd coverage spec].map { |r| "--exclude=#{r}"}.join(' ')
