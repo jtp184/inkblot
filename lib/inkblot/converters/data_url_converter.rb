@@ -7,7 +7,7 @@ module Inkblot
       # Possible source formats
       FORMATS = %i[path file binary base64].freeze
       # Matches base64 strings for guessing
-      BASE64_MATCHER = %r'[^-A-Za-z0-9+/=]|=[^=]|={3,}$'
+      BASE64_MATCHER = %r'[^-A-Za-z0-9+/=]|=[^=]|={3,}$'.freeze
 
       # Takes in additional +opts+ for filetype and base64
       def initialize(opts = {})
@@ -46,7 +46,7 @@ module Inkblot
         when :path
           File.extname(input).gsub(/^\./, '')
         when :base64
-          input.match(%r|data:image/(\w+);base64|)[1]
+          input.match(%r{data:image/(\w+);base64})[1]
         else
           'png'
         end

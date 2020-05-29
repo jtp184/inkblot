@@ -4,9 +4,7 @@ module Inkblot
     class Converter
       # The passed object to convert
       attr_accessor :input
-      # The bmp file to display on the device
-      attr_reader :output
-      
+
       # Shortcut for instantiating and getting the output of a converter
       def self.call(opts = {})
         new(opts).output
@@ -28,6 +26,7 @@ module Inkblot
         @input
       end
 
+      # The bmp file to display on the device
       # Override so that we can't call this without conversion
       def output
         return @output if @output
