@@ -1,11 +1,7 @@
-require_relative 'helpers/data_url'
-
 module Inkblot
   module Components
     # Displays an image on the screen
     class FullScreenImage < Component
-      include Helpers::DataUrl
-
       # Possible image sources
       IMG_SOURCES = %i[url path file binary].freeze
 
@@ -45,9 +41,15 @@ module Inkblot
                      when :path
                        File.absolute_path(options[:path])
                      when :file
-                       data_url_from_binary(File.read(options[:file]), filetype)
+                       Converters::DataUrl.new(
+                        input: File.read(options[:file]),
+                        filetype: filetype
+                       ).output
                      when :binary
-                       data_url_from_binary(options[:binary], filetype)
+                       Converters::DataUrl.new(
+                        input: options[:binary],
+                        filetype: filetype
+                       ).output
                      end
 
         dta.to_h

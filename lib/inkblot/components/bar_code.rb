@@ -1,14 +1,10 @@
 require 'barby/barcode/ean_13'
 require 'barby/outputter/png_outputter'
 
-require_relative 'helpers/data_url'
-
 module Inkblot
   module Components
     # For generating 1D UPC style codes
     class BarCode < Component
-      include Helpers::DataUrl
-
       # Sugar method for the code contents
       def code
         options[:code]
@@ -41,7 +37,7 @@ module Inkblot
                         m
                       end
 
-        dta.data_url = data_url_from_binary(generate_code.to_png(height: 60))
+        dta.data_url = Converters::DataUrl.new(input: generate_code.to_png(height: 60))
 
         dta.to_h
       end
