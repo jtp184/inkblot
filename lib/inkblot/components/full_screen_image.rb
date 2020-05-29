@@ -14,18 +14,6 @@ module Inkblot
         end
       end
 
-      # Returns the extension type of the image
-      def filetype
-        case img_src
-        when :url
-          options[:url].split('.').last
-        when :path, :file
-          File.extname(options[img_src]).gsub(/[^a-z]/i, '')
-        when :binary
-          options[:filetype] || 'png'
-        end
-      end
-
       private
 
       # Computes data variables, height, width, and source
@@ -43,11 +31,28 @@ module Inkblot
                      when :url
                        options[:url]
                      when :path
+<<<<<<< HEAD
                        durl[File.read(File.absolute_path(options[:path]))]
                      when :file
                        durl[File.read(options[:file])]
                      when :binary
                        durl[options[:binary]]
+=======
+                       Converters::DataUrlConverter.call(
+                         input: File.absolute_path(options[:path]),
+                         format: :path
+                       )
+                     when :file
+                       Converters::DataUrlConverter.call(
+                        input: File.read(options[:file]),
+                        format: :file
+                       )
+                     when :binary
+                       Converters::DataUrlConverter.call(
+                        input: options[:binary],
+                        format: :binary
+                       )
+>>>>>>> origin
                      end
 
         dta.to_h
