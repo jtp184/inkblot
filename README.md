@@ -147,13 +147,53 @@ The `ImageConverter` class can take images on disk, and through ImageMagick resi
 
 ```ruby
 # Paths
-i = ImageConverter.new(input: "/home/pi/img.png")
+i = Inkblot::Converters::ImageConverter.new(
+  input: "/home/pi/img.png"
+)
+
 # File and Tempfile objects
-j = ImageConverter.new(input: File.new("/home/pi/img.png"))
+j = Inkblot::Converters::ImageConverter.new(
+  input: File.new("/home/pi/img.png")
+)
+
 # Binary image data
-k = ImageConverter.new(input: File.read("/home/pi/img.png"))
+k = Inkblot::Converters::ImageConverter.new(
+  input: File.read("/home/pi/img.png")
+)
 
 i.convert! && i.output # => Tempfile
+```
+
+#### DataUrlConverter
+
+The `DataUrlConverter` converts an image input into a base64 encoded data url
+
+```ruby
+# Paths
+d = Inkblot::Converters::DataUrlConverter.new(
+  input: "/home/pi/img.png",
+  format: :path
+)
+
+# File and Tempfile objects
+e = Inkblot::Converters::DataUrlConverter.new(
+  input: File.new("/home/pi/img.png"),
+  format: :file
+)
+
+# Binary image data
+f = Inkblot::Converters::DataUrlConverter.new(
+  input: File.read("/home/pi/img.png"),
+  format: :binary
+)
+
+# Base64 image data
+g = Inkblot::Converters::DataUrlConverter.new(
+  input: SomeCode.base64_image,
+  format: :base64
+)
+
+d.convert! && d.output # => "data:image/png;base64,tldxz+pjHnQRDPFjkUUo3A..."
 ```
 
 #### HtmlConverter
@@ -170,7 +210,7 @@ html_doc = <<DOC
 </html>
 DOC
 
-h = HtmlConverter.new(input: html_doc)
+h = Inkblot::Converters::HtmlConverter.new(input: html_doc)
 
 h.image_contents # => \"BM\\xFE\\u0018\\u0000\\u0000\\u0000..."
 ```
@@ -552,23 +592,6 @@ t.state # => :red
 t.transition_state.state # => :green
 t.transition_state.state # => :yellow
 t.transition_state.state # => :red
-```
-
-##### DataUrl
-
-The `DataUrl` helper helps turn binary image data into a data url suitable for the src attribute of an img tag.
-
-```ruby
-require 'inkblot/components/helpers/data_url'
-
-class Lithograph < Inkblot::Components::Component
-  include Inkblot::Components::Helpers::DataUrl
-
-  def image_contents
-    data_url_from_binary(File.read(options[:image_path]))
-  end
-end
-
 ```
 
 ## Contributing

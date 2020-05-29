@@ -41,12 +41,12 @@ module Inkblot
                      when :path
                        File.absolute_path(options[:path])
                      when :file
-                       Converters::DataUrl.new(
+                       Converters::DataUrlConverter.new(
                         input: File.read(options[:file]),
                         filetype: filetype
                        ).output
                      when :binary
-                       Converters::DataUrl.new(
+                       Converters::DataUrlConverter.new(
                         input: options[:binary],
                         filetype: filetype
                        ).output
