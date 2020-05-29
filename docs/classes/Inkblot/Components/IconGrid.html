@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+<head>
+<title>Inkblot::Components::IconGrid</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<link href='../../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<script type='text/javascript'>
+  function popupCode(url) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+  
+  function toggleCode(id) {
+    var code = document.getElementById(id)
+  
+    code.style.display = code.style.display != 'block' ? 'block' : 'none'
+    return true
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+</script>
+</head>
+<body class='page'>
+<div class='class' id='wrapper'>
+<div class='header'>
+<h1 class='name'><span class='type'>class</span>
+Inkblot::Components::IconGrid
+</h1>
+<ol class='paths'>
+<li>
+<a href="../../../files/lib/inkblot/components/icon_grid_rb.html">lib/inkblot/components/icon_grid.rb</a>
+</li>
+</ol>
+<div class='parent'>
+Superclass:
+<strong><a href="Component.html">Component</a></strong>
+</div>
+</div>
+<div id='content'>
+<div id='text'>
+<div id='description'>
+<p>Displays a grid of content, either icons or other components</p>
+</div>
+<div id='method-list'>
+<h2>Methods</h2>
+<h3>Public Instance</h3>
+<ol>
+<li><a href="#method-i-columns">columns</a></li>
+<li><a href="#method-i-font">font</a></li>
+<li><a href="#method-i-icon_size">icon_size</a></li>
+<li><a href="#method-i-icons">icons</a></li>
+</ol>
+<h3>Private Instance</h3>
+<ol>
+<li><a href="#method-i-computed">computed</a></li>
+<li><a href="#method-i-sized_span">sized_span</a></li>
+<li><a href="#method-i-snippet_from_icn">snippet_from_icn</a></li>
+</ol>
+</div>
+<div id='context'>
+<div id='includes'>
+<h2>Included modules</h2>
+<ol>
+<li><a href="Helpers/Icons.html">Helpers::Icons</a></li>
+</ol>
+</div>
+</div>
+<div id='section'>
+<div id='methods'>
+<h2>Public Instance methods</h2>
+<div class='method public-instance' id='method-method-i-columns'>
+<a name='method-i-columns'></a>
+<div class='synopsis'>
+<span class='name'>columns</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Sugar method for the columns count, with default</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-columns-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-columns-source'><span class="ruby-comment"># File lib/inkblot/components/icon_grid.rb, line 25</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">columns</span>&#x000A;  <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:columns</span>, <span class="ruby-value">4</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-font'>
+<a name='method-i-font'></a>
+<div class='synopsis'>
+<span class='name'>font</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Sugar method for the font, with default</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-font-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-font-source'><span class="ruby-comment"># File lib/inkblot/components/icon_grid.rb, line 20</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">font</span>&#x000A;  <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:font</span>, <span class="ruby-string">&#39;Material Icons, monospace&#39;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-icon_size'>
+<a name='method-i-icon_size'></a>
+<div class='synopsis'>
+<span class='name'>icon_size</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Sugar method for the icon size, with default</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-icon_size-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-icon_size-source'><span class="ruby-comment"># File lib/inkblot/components/icon_grid.rb, line 15</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">icon_size</span>&#x000A;  <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:icon_size</span>, <span class="ruby-value">40</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-icons'>
+<a name='method-i-icons'></a>
+<div class='synopsis'>
+<span class='name'>icons</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Sugar method for the icons</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-icons-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-icons-source'><span class="ruby-comment"># File lib/inkblot/components/icon_grid.rb, line 10</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">icons</span>&#x000A;  <span class="ruby-identifier">options</span>[<span class="ruby-value">:icons</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<h2>Private Instance methods</h2>
+<div class='method private-instance' id='method-method-i-computed'>
+<a name='method-i-computed'></a>
+<div class='synopsis'>
+<span class='name'>computed</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Sets width/height, and populates the grid_items with the icons</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-computed-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-computed-source'><span class="ruby-comment"># File lib/inkblot/components/icon_grid.rb, line 32</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">computed</span>&#x000A;  <span class="ruby-identifier">dta</span> = <span class="ruby-constant">OpenStruct</span>.<span class="ruby-identifier">new</span>&#x000A;&#x000A;  <span class="ruby-identifier">get_height</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">get_width</span>(<span class="ruby-identifier">dta</span>)&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">icons</span> = <span class="ruby-identifier">replace_icon_groups</span>&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">border_size</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:border_size</span>].<span class="ruby-identifier">nil?</span>&#x000A;                      <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">dta</span>.<span class="ruby-identifier">icons</span>.<span class="ruby-identifier">count</span>, <span class="ruby-value">0</span>)&#x000A;                    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:border_size</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>)&#x000A;                      <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">dta</span>.<span class="ruby-identifier">icons</span>.<span class="ruby-identifier">count</span>, <span class="ruby-identifier">options</span>[<span class="ruby-value">:border_size</span>])&#x000A;                    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:border_size</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)&#x000A;                      <span class="ruby-identifier">options</span>[<span class="ruby-value">:border_size</span>]&#x000A;                    <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-node">%i[icon_size font columns]</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span> <span class="ruby-identifier">dta</span>[<span class="ruby-identifier">a</span>] = <span class="ruby-identifier">send</span>(<span class="ruby-identifier">a</span>) }&#x000A;  &#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">grid_items</span> = []&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">icons</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">icn</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">grid_items</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">snippet_from_icn</span>(<span class="ruby-identifier">icn</span>)&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">to_h</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method private-instance' id='method-method-i-sized_span'>
+<a name='method-i-sized_span'></a>
+<div class='synopsis'>
+<span class='name'>sized_span</span>
+<span class='arguments'>(content)</span>
+
+</div>
+<div class='description'>
+
+<p>Returns a span tag with the font sizing applied</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-sized_span-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-sized_span-source'><span class="ruby-comment"># File lib/inkblot/components/icon_grid.rb, line 83</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">sized_span</span>(<span class="ruby-identifier">content</span>)&#x000A;  <span class="ruby-identifier">scaled</span> = (<span class="ruby-identifier">icon_size</span> <span class="ruby-operator">*</span> <span class="ruby-value">0.8</span>).<span class="ruby-identifier">round</span>&#x000A;&#x000A;  [&#x000A;    <span class="ruby-node">%(&lt;span style=&quot;font-size: #{scaled}px; font-family: #{font};&quot;&gt;)</span>,&#x000A;    <span class="ruby-node">%(#{content}&lt;/span&gt;)</span>&#x000A;  ].<span class="ruby-identifier">join</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method private-instance' id='method-method-i-snippet_from_icn'>
+<a name='method-i-snippet_from_icn'></a>
+<div class='synopsis'>
+<span class='name'>snippet_from_icn</span>
+<span class='arguments'>(icn)</span>
+
+</div>
+<div class='description'>
+
+<p>Converts an object <code>icn</code> into an icon representation</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-snippet_from_icn-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-snippet_from_icn-source'><span class="ruby-comment"># File lib/inkblot/components/icon_grid.rb, line 60</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">snippet_from_icn</span>(<span class="ruby-identifier">icn</span>)&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">icn</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Components</span><span class="ruby-operator">::</span><span class="ruby-constant">FullScreenImage</span>)&#x000A;    <span class="ruby-identifier">fs</span> = <span class="ruby-identifier">icn</span>.<span class="ruby-identifier">dup</span>&#x000A;    <span class="ruby-identifier">fs</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:div_height</span>] = <span class="ruby-node">&quot;#{icon_size}px&quot;</span>&#x000A;    <span class="ruby-identifier">fs</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:div_width</span>] = <span class="ruby-string">&#39;initial&#39;</span>&#x000A;&#x000A;    <span class="ruby-identifier">fs</span>.<span class="ruby-identifier">to_html_frag</span>&#x000A;  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">icn</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Component</span>)&#x000A;    <span class="ruby-identifier">icn</span>.<span class="ruby-identifier">to_html_frag</span>&#x000A;  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">icn</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Pathname</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">icn</span>).<span class="ruby-identifier">exist?</span>&#x000A;    <span class="ruby-identifier">fs</span> = <span class="ruby-constant">FullScreenImage</span>.<span class="ruby-identifier">new</span>(&#x000A;      <span class="ruby-value">path:</span> <span class="ruby-identifier">icn</span>,&#x000A;      <span class="ruby-value">div_height:</span> <span class="ruby-node">&quot;#{icon_size}px&quot;</span>,&#x000A;      <span class="ruby-value">div_width:</span> <span class="ruby-string">&#39;initial&#39;</span>&#x000A;    )&#x000A;&#x000A;    <span class="ruby-identifier">fs</span>.<span class="ruby-identifier">to_html_frag</span>&#x000A;  <span class="ruby-keyword">else</span>&#x000A;    <span class="ruby-identifier">sized_span</span>(<span class="ruby-identifier">icn</span>.<span class="ruby-identifier">to_s</span>)&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div id='footer-push'></div>
+</div>
+<div id='footer'>
+<a href="https://github.com/rdoc/hanna-nouveau"><strong>Hanna Nouveau</strong> RDoc template</a>
+</div>
+</body>
+</html>
