@@ -365,6 +365,26 @@ end
 
 ```
 
+#### IconGroup
+
+`An IconGroup` is a grid of icons / images to display horizontally next to each other. Column count is customizable, rows are subsequently determined by amount of content.
+```ruby
+Inkblot::Components::IconGroup.new do |ig|
+  ig.icons = []
+  
+  ig.icons << :uarr # Standard HTML symbols work
+  ig.icons << :android # Google Material Icons
+  ig.icons << 'A' # Characters
+  ig.icons << Inkblot::Components::FullScreenImage.new(
+    path: Inkblot.vendor_path('chris_kim.bmp')
+  )
+
+  ig.icon_size = 40 # Default
+  ig.font = 'Material Icons, monospace' # Default
+  ig.columns = 4 # Default
+end
+```
+
 #### IconPane
 
 An `IconPane` is a two-column layout with icons on the left, and a large rectangular frame on the right. Other components can be placed in the right-hand frame. 
