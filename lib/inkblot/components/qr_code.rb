@@ -38,7 +38,7 @@ module Inkblot
                         m
                       end
 
-        dta.data_url = Converters::DataUrl.new(input: encode_message.to_png).output
+        dta.data_url = Converters::DataUrlConverter.new(input: encode_message.to_png).output
 
         dta.to_h
       end
