@@ -372,9 +372,13 @@ end
 Inkblot::Components::IconGroup.new do |ig|
   ig.icons = []
   
-  ig.icons << :uarr # Standard HTML symbols work
-  ig.icons << :android # Google Material Icons
-  ig.icons << 'A' # Characters
+  # Standard HTML symbols work
+  ig.icons << :uarr 
+  # Google Material Icons symbols as well
+  ig.icons << :android 
+  # Simple strings work
+  ig.icons << 'A' 
+  # As do components, especially FullScreenImages
   ig.icons << Inkblot::Components::FullScreenImage.new(
     path: Inkblot.vendor_path('chris_kim.bmp')
   )
