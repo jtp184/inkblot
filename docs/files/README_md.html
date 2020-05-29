@@ -30,11 +30,7 @@ README.md
 </div>
 <div class='last-update'>
 Last Update:
-<<<<<<< HEAD
 <span class='datetime'>2020-05-19 16:20:42 -0700</span>
-=======
-<span class='datetime'>2020-05-29 01:02:27 -0700</span>
->>>>>>> origin
 </div>
 </div>
 <div id='content'>
@@ -102,7 +98,7 @@ Last Update:
 
 <h4 id="label-HtmlConverter">HtmlConverter<span><a href="#label-HtmlConverter">&para;</a> <a href="#top">&uarr;</a></span></h4>
 
-<p>The <code>HtmlConverter</code> takes in an HTML doc as input, and transforms it into an image using <a href="https://https://github.com/puppeteer/puppeteer">puppeteer</a>. This image is then piped through an <code>ImageConverter</code> so that it can be rendered on the EPD</p>
+<p>The <code>HtmlConverter</code> takes in an HTML doc as input, and transforms it into an image using <a href="https://wkhtmltopdf.org/">wkhtmltopdf</a>. This image is then piped through an <code>ImageConverter</code> so that it can be rendered on the EPD</p>
 
 <pre class="ruby"><span class="ruby-identifier">html_doc</span> = <span class="ruby-identifier">&lt;&lt;DOC</span>&#x000A;<span class="ruby-value">&lt;html&gt;&#x000A;  &lt;head&gt;&lt;/head&gt;&#x000A;  &lt;body&gt;&#x000A;    &lt;p&gt;Happy Meal with Extra Happy&lt;/p&gt;&#x000A;  &lt;/body&gt;&#x000A;&lt;/html&gt;&#x000A;</span><span class="ruby-identifier">DOC</span>&#x000A;&#x000A;<span class="ruby-identifier">h</span> = <span class="ruby-constant">HtmlConverter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">input:</span> <span class="ruby-identifier">html_doc</span>)&#x000A;&#x000A;<span class="ruby-identifier">h</span>.<span class="ruby-identifier">image_contents</span> <span class="ruby-comment"># =&gt; \&quot;BM\\xFE\\u0018\\u0000\\u0000\\u0000...&quot;</span></pre>
 

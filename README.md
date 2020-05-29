@@ -158,7 +158,7 @@ i.convert! && i.output # => Tempfile
 
 #### HtmlConverter
 
-The `HtmlConverter` takes in an HTML doc as input, and transforms it into an image using [puppeteer](https://https://github.com/puppeteer/puppeteer). This image is then piped through an `ImageConverter` so that it can be rendered on the EPD
+The `HtmlConverter` takes in an HTML doc as input, and transforms it into an image using [wkhtmltopdf](https://wkhtmltopdf.org/). This image is then piped through an `ImageConverter` so that it can be rendered on the EPD
 
 ```ruby
 html_doc = <<DOC
