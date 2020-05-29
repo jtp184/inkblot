@@ -13,7 +13,7 @@ module Inkblot
 
       # Returns a DataUrl representation
       def data_url
-        DataUrl.new(input: puppeteer, base64: true)
+        DataUrlConverter.new(input: puppeteer, format: :base64)
       end
 
       # Returns png data from puppeteer instance called on input
