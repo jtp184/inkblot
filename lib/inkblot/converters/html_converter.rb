@@ -16,7 +16,7 @@ module Inkblot
         DataUrl.new(input: puppeteer, base64: true)
       end
 
-      # Returns png data from a grover instance called on input
+      # Returns png data from puppeteer instance called on input
       def image_contents
         Base64.decode64(puppeteer)
       end

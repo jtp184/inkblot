@@ -14,18 +14,6 @@ module Inkblot
         end
       end
 
-      # Returns the extension type of the image
-      def filetype
-        case img_src
-        when :url
-          options[:url].split('.').last
-        when :path, :file
-          File.extname(options[img_src]).gsub(/[^a-z]/i, '')
-        when :binary
-          options[:filetype] || 'png'
-        end
-      end
-
       private
 
       # Computes data variables, height, width, and source
@@ -36,7 +24,7 @@ module Inkblot
         get_width(dta)
 
         durl = proc do |inp|
-          Converters::DataUrl.new(input: inp, filetype: filetype).convert
+          Converters::DataUrlConverter.call(input: inp, filetype: filetype)
         end
 
         dta.source = case img_src
