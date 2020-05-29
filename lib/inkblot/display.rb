@@ -23,7 +23,7 @@ module Inkblot
 					call(obj.to_display)
 				elsif obj.is_a?(Components::Component)
 					call(obj.convert)
-				elsif obj.is_a?(Converter)
+				elsif obj.is_a?(Converters::Converter)
 					image(obj.output.path)
 				elsif obj.is_a?(File) || obj.is_a?(Tempfile)
 					image(obj.path)
