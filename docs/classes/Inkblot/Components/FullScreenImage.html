@@ -47,10 +47,6 @@ Superclass:
 <ol>
 <li><a href="#method-c-new">new</a></li>
 </ol>
-<h3>Public Instance</h3>
-<ol>
-<li><a href="#method-i-filetype">filetype</a></li>
-</ol>
 <h3>Private Instance</h3>
 <ol>
 <li><a href="#method-i-computed">computed</a></li>
@@ -97,26 +93,6 @@ Superclass:
 <pre id='method-c-new-source'><span class="ruby-comment"># File lib/inkblot/components/full_screen_image.rb, line 10</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)&#x000A;  <span class="ruby-keyword">super</span>&#x000A;  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">any?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-constant">IMG_SOURCES</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">k</span>) }&#x000A;    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
-<h2>Public Instance methods</h2>
-<div class='method public-instance' id='method-method-i-filetype'>
-<a name='method-i-filetype'></a>
-<div class='synopsis'>
-<span class='name'>filetype</span>
-<span class='arguments'>()</span>
-
-</div>
-<div class='description'>
-
-<p>Returns the extension type of the image</p>
-
-</div>
-<div class='source'>
-<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-filetype-source&#39;); return false'>
-[show source]
-</a>
-<pre id='method-i-filetype-source'><span class="ruby-comment"># File lib/inkblot/components/full_screen_image.rb, line 18</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">filetype</span>&#x000A;  <span class="ruby-keyword">case</span> <span class="ruby-identifier">img_src</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:url</span>&#x000A;    <span class="ruby-identifier">options</span>[<span class="ruby-value">:url</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;.&#39;</span>).<span class="ruby-identifier">last</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:path</span>, <span class="ruby-value">:file</span>&#x000A;    <span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-identifier">options</span>[<span class="ruby-identifier">img_src</span>]).<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/[^a-z]/i</span>, <span class="ruby-string">&#39;&#39;</span>)&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">:binary</span>&#x000A;    <span class="ruby-identifier">options</span>[<span class="ruby-value">:filetype</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&#39;png&#39;</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
-</div>
-</div>
 <h2>Private Instance methods</h2>
 <div class='method private-instance' id='method-method-i-computed'>
 <a name='method-i-computed'></a>
@@ -134,7 +110,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-computed-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-computed-source'><span class="ruby-comment"># File lib/inkblot/components/full_screen_image.rb, line 32</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">computed</span>&#x000A;  <span class="ruby-identifier">dta</span> = <span class="ruby-constant">OpenStruct</span>.<span class="ruby-identifier">new</span>&#x000A;&#x000A;  <span class="ruby-identifier">get_height</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">get_width</span>(<span class="ruby-identifier">dta</span>)&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">source</span> = <span class="ruby-keyword">case</span> <span class="ruby-identifier">img_src</span>&#x000A;               <span class="ruby-keyword">when</span> <span class="ruby-value">:url</span>&#x000A;                 <span class="ruby-identifier">options</span>[<span class="ruby-value">:url</span>]&#x000A;               <span class="ruby-keyword">when</span> <span class="ruby-value">:path</span>&#x000A;                 <span class="ruby-constant">File</span>.<span class="ruby-identifier">absolute_path</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:path</span>])&#x000A;               <span class="ruby-keyword">when</span> <span class="ruby-value">:file</span>&#x000A;                 <span class="ruby-constant">Converters</span><span class="ruby-operator">::</span><span class="ruby-constant">DataUrl</span>.<span class="ruby-identifier">new</span>(&#x000A;                  <span class="ruby-value">input:</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:file</span>]),&#x000A;                  <span class="ruby-value">filetype:</span> <span class="ruby-identifier">filetype</span>&#x000A;                 ).<span class="ruby-identifier">output</span>&#x000A;               <span class="ruby-keyword">when</span> <span class="ruby-value">:binary</span>&#x000A;                 <span class="ruby-constant">Converters</span><span class="ruby-operator">::</span><span class="ruby-constant">DataUrl</span>.<span class="ruby-identifier">new</span>(&#x000A;                  <span class="ruby-value">input:</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:binary</span>],&#x000A;                  <span class="ruby-value">filetype:</span> <span class="ruby-identifier">filetype</span>&#x000A;                 ).<span class="ruby-identifier">output</span>&#x000A;               <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">to_h</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-computed-source'><span class="ruby-comment"># File lib/inkblot/components/full_screen_image.rb, line 20</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">computed</span>&#x000A;  <span class="ruby-identifier">dta</span> = <span class="ruby-constant">OpenStruct</span>.<span class="ruby-identifier">new</span>&#x000A;&#x000A;  <span class="ruby-identifier">get_height</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">get_width</span>(<span class="ruby-identifier">dta</span>)&#x000A;&#x000A;  <span class="ruby-identifier">durl</span> = <span class="ruby-identifier">proc</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">inp</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-constant">Converters</span><span class="ruby-operator">::</span><span class="ruby-constant">DataUrlConverter</span>.<span class="ruby-identifier">call</span>(<span class="ruby-value">input:</span> <span class="ruby-identifier">inp</span>)&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">source</span> = <span class="ruby-keyword">case</span> <span class="ruby-identifier">img_src</span>&#x000A;               <span class="ruby-keyword">when</span> <span class="ruby-value">:url</span>&#x000A;                 <span class="ruby-identifier">options</span>[<span class="ruby-value">:url</span>]&#x000A;               <span class="ruby-keyword">when</span> <span class="ruby-value">:path</span>&#x000A;                 <span class="ruby-identifier">durl</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">absolute_path</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:path</span>]))]&#x000A;               <span class="ruby-keyword">when</span> <span class="ruby-value">:file</span>&#x000A;                 <span class="ruby-identifier">durl</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:file</span>])]&#x000A;               <span class="ruby-keyword">when</span> <span class="ruby-value">:binary</span>&#x000A;                 <span class="ruby-identifier">durl</span>[<span class="ruby-identifier">options</span>[<span class="ruby-value">:binary</span>]]&#x000A;               <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>.<span class="ruby-identifier">to_h</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-img_src'>
@@ -153,7 +129,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-img_src-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-img_src-source'><span class="ruby-comment"># File lib/inkblot/components/full_screen_image.rb, line 59</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">img_src</span>&#x000A;  <span class="ruby-identifier">options</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">o</span><span class="ruby-operator">|</span> <span class="ruby-constant">IMG_SOURCES</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">o</span>) }&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-img_src-source'><span class="ruby-comment"># File lib/inkblot/components/full_screen_image.rb, line 45</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">img_src</span>&#x000A;  <span class="ruby-identifier">options</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">o</span><span class="ruby-operator">|</span> <span class="ruby-constant">IMG_SOURCES</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">o</span>) }&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>
