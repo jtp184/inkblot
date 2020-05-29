@@ -2,7 +2,7 @@ require "inkblot/version"
 require "inkblot/gpio"
 require "inkblot/buttons"
 require "inkblot/display"
-require "inkblot/converter"
+require "inkblot/converters"
 require "inkblot/components"
 
 # Ruby gem for interacting with waveshare e-Paper display
