@@ -35,21 +35,19 @@ module Inkblot
         get_height(dta)
         get_width(dta)
 
+        durl = proc do |inp|
+          Converters::DataUrl.new(input: inp, filetype: filetype).convert
+        end
+
         dta.source = case img_src
                      when :url
                        options[:url]
                      when :path
-                       File.absolute_path(options[:path])
+                       durl[File.read(File.absolute_path(options[:path]))]
                      when :file
-                       Converters::DataUrl.new(
-                        input: File.read(options[:file]),
-                        filetype: filetype
-                       ).output
+                       durl[File.read(options[:file])]
                      when :binary
-                       Converters::DataUrl.new(
-                        input: options[:binary],
-                        filetype: filetype
-                       ).output
+                       durl[options[:binary]]
                      end
 
         dta.to_h
