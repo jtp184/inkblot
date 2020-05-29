@@ -156,6 +156,34 @@ k = ImageConverter.new(input: File.read("/home/pi/img.png"))
 i.convert! && i.output # => Tempfile
 ```
 
+#### DataUrlConverter
+
+The `DataUrlConverter` converts an image input into a base64 encoded data url
+
+```ruby
+# Paths
+d = Converters::DataUrlConverter.new(
+  input: "/home/pi/img.png",
+  format: :path
+)
+# File and Tempfile objects
+e = Converters::DataUrlConverter.new(
+  input: File.new("/home/pi/img.png"),
+  format: :file
+)
+# Binary image data
+f = Converters::DataUrlConverter.new(
+  input:,
+  format:
+)
+# Base64 image data
+g = Converters::DataUrlConverter.new(
+  input:,
+  format:
+)
+
+```
+
 #### HtmlConverter
 
 The `HtmlConverter` takes in an HTML doc as input, and transforms it into an image using [wkhtmltopdf](https://wkhtmltopdf.org/). This image is then piped through an `ImageConverter` so that it can be rendered on the EPD
@@ -552,23 +580,6 @@ t.state # => :red
 t.transition_state.state # => :green
 t.transition_state.state # => :yellow
 t.transition_state.state # => :red
-```
-
-##### DataUrl
-
-The `DataUrl` helper helps turn binary image data into a data url suitable for the src attribute of an img tag.
-
-```ruby
-require 'inkblot/components/helpers/data_url'
-
-class Lithograph < Inkblot::Components::Component
-  include Inkblot::Components::Helpers::DataUrl
-
-  def image_contents
-    data_url_from_binary(File.read(options[:image_path]))
-  end
-end
-
 ```
 
 ## Contributing
