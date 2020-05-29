@@ -31,7 +31,7 @@ module Inkblot
           :file
         elsif izza[String] && input.ascii_only? && Pathname.new(input).exist?
           :path
-        elsif izza[String] && input.match?(BASE64_MATCHER)
+        elsif izza[String] && input.valid_encoding? && input.match?(BASE64_MATCHER)
           :base64
         else
           :binary
