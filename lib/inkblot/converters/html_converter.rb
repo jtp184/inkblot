@@ -11,6 +11,7 @@ module Inkblot
         ImageConverter.new(input: image_contents).convert
       end
 
+      # Returns a DataUrl representation
       def data_url
         DataUrl.new(input: image_contents)
       end
@@ -31,10 +32,12 @@ module Inkblot
 
       private
 
+      # Constructs the command and passes the input to the vendor/puppeteer.js
+      # script for processing. Returns a base64 encoded string
       def puppeteer
         @@cmd ||= TTY::Command.new(printer: :null)
         
-        cmd = "node "
+        cmd = +"node "
         cmd << Inkblot.vendor_path('puppeteer.js') << " "
         cmd << Inkblot.screen_size[:width].to_s << " "
         cmd << Inkblot.screen_size[:height].to_s << " "
