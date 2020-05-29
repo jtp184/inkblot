@@ -30,17 +30,21 @@ Rakefile
 </div>
 <div class='last-update'>
 Last Update:
-<span class='datetime'>2020-05-28 23:33:49 -0700</span>
+<span class='datetime'>2020-05-27 02:29:06 -0700</span>
 </div>
 </div>
 <div id='content'>
 <div id='text'>
 <div id='description'>
-<p>require “bundler/gem_tasks” require &#39;rspec/core/rake_task&#39; require &#39;git&#39; require &#39;net/http&#39; require &#39;psych&#39;</p>
+<p>require “bundler/gem_tasks” require &#39;cucumber&#39; require &#39;cucumber/rake/task&#39; require &#39;git&#39; require &#39;net/http&#39; require &#39;psych&#39;</p>
 
-<p>RSpec::Core::RakeTask.new(:spec)</p>
+<p>Cucumber::Rake::Task.new(:features) do |t|</p>
 
-<p>task :default =&gt; :spec</p>
+<pre class="ruby"><span class="ruby-identifier">t</span>.<span class="ruby-identifier">cucumber_opts</span> = <span class="ruby-string">&quot;--format pretty&quot;</span> <span class="ruby-comment"># Any valid command line option can go here.</span></pre>
+
+<p>end</p>
+
+<p>task :default =&gt; :features</p>
 
 <p>task :docs do</p>
 
