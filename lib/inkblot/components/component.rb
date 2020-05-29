@@ -86,19 +86,19 @@ module Inkblot
         dim_div = :"div_#{dim}"
         dim_sym = dim.to_sym
 
-        if options.key?(:fullscreen)
-          dta[dim_div] = Display.size[dim_sym].to_s + 'px'
-        elsif options.key?(dim_div)
-          dta[dim_div] = if options[dim_div] == :full
-                              Display.size[dim_sym].to_s + 'px'
-                            elsif options[dim_div].is_a?(Integer)
-                              options[dim_div].to_s + '%'
-                            else
-                              options[dim_div].to_s
-          end
-        else
-          dta[dim_div] = '100%'
-        end
+        dta[dim_div] = if options.key?(:fullscreen)
+                         Display.size[dim_sym].to_s + 'px'
+                       elsif options.key?(dim_div)
+                         if options[dim_div] == :full
+                           Display.size[dim_sym].to_s + 'px'
+                         elsif options[dim_div].is_a?(Integer)
+                           options[dim_div].to_s + '%'
+                         else
+                           options[dim_div].to_s
+                         end
+                       else
+                         '100%'
+                       end
       end
 
       # Allows for virtual attributes passed to templates. Child classes should
@@ -120,8 +120,8 @@ module Inkblot
 
       # Joins the base path with the converted class name and appends extension
       def template_path
-        fn = self.class.name.split('::').last + (-'.html.erb')
-        [template_base_path, fn].join("/")
+        fn = self.class.name.split('::').last + -'.html.erb'
+        [template_base_path, fn].join('/')
       end
 
       # Generates HTML from the ERB template. Adds the start / end component blocks

@@ -11,24 +11,22 @@ module Inkblot
       # The selected choice
       attr_reader :answer
 
-      # Defines the possible states 
+      # Defines the possible states
       def_states :scroll, :select, :answered, :canceled
 
       # Defines the method to page by
       paginate_with :pad_list
 
       # Start codon for list
-      LIST_START = "/--".freeze
+      LIST_START = '/--'.freeze
       # Stop codon for list
-      LIST_END = "--/".freeze
+      LIST_END = '--/'.freeze
 
       # Sets the instance vars, validates the items list, and paginates
       def initialize(*args)
         super
 
-        unless options[:items]
-          raise ArgumentError, "No items given"
-        end
+        raise ArgumentError, 'No items given' unless options[:items]
 
         paginate
       end
@@ -49,14 +47,14 @@ module Inkblot
             -> { self.next_page }
           ]
         when :select
-          Array.new(4) do |i| 
+          Array.new(4) do |i|
             lambda do
               ch = choice(i)
               return unless ch
-              
+
               @answer = ch
               self.state = :answered
-            end 
+            end
           end
         else
           []
@@ -90,7 +88,7 @@ module Inkblot
       # states with different icons.
       def pad_list
         pg = [LIST_START]
-        
+
         pg += items
 
         pg << LIST_END
