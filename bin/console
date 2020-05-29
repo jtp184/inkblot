@@ -58,10 +58,7 @@ end
 ## IconGrid with random icons
 @g = Components::IconGrid.new do |ig|
   ig.fullscreen = true
-  ig.icons = Array.new(2) { Components::Helpers::Icons.codepoints.keys.sample }
-
-  ig.icons << Components::FullScreenImage.new(path: CHRIS_KIM)
-  ig.icons << "vendor/qrtest.bmp"
+  ig.icons = Array.new(4) { Components::Helpers::Icons.codepoints.keys.sample }
 end
 
 ## IconPane with TableList frame
