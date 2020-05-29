@@ -6,6 +6,11 @@ module Inkblot
       attr_accessor :input
       # The bmp file to display on the device
       attr_reader :output
+      
+      # Shortcut for instantiating and getting the output of a converter
+      def self.call(opts = {})
+        new(opts).output
+      end
 
       # Take in +input+ and any other args
       def initialize(opts = {})
