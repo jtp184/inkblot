@@ -16,13 +16,13 @@ module Inkblot
         end
 
         img_file = if izza[File]
-          write_temp[File.read(input.path)]
-        elsif izza[Tempfile]
-          input
-        elsif izza[String] && input.ascii_only? && Pathname.new(input).exist?
-          write_temp[File.read(input)]
-        elsif izza[String]
-          write_temp[input]
+                     write_temp[File.read(input.path)]
+                   elsif izza[Tempfile]
+                     input
+                   elsif izza[String] && input.ascii_only? && Pathname.new(input).exist?
+                     write_temp[File.read(input)]
+                   elsif izza[String]
+                     write_temp[input]
         end
 
         resize(img_file)

@@ -36,12 +36,12 @@ module Inkblot
       # script for processing. Returns a base64 encoded string
       def puppeteer
         @@cmd ||= TTY::Command.new(printer: :null)
-        
-        cmd = +"node "
-        cmd << Inkblot.vendor_path('puppeteer.js') << " "
-        cmd << Inkblot.screen_size[:width].to_s << " "
-        cmd << Inkblot.screen_size[:height].to_s << " "
-        
+
+        cmd = +'node '
+        cmd << Inkblot.vendor_path('puppeteer.js') << ' '
+        cmd << Inkblot.screen_size[:width].to_s << ' '
+        cmd << Inkblot.screen_size[:height].to_s << ' '
+
         b64, _err = @@cmd.run(cmd, in: input)
         b64
       end
