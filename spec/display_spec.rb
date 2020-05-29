@@ -77,7 +77,7 @@ RSpec.describe 'Display' do
     end
 
     it 'Can display Converters' do
-      item = Inkblot::ImageConverter.new(path: Inkblot.vendor_path('qrtest.bmp'))
+      item = Inkblot::Converters::ImageConverter.new(input: Inkblot.vendor_path('qrtest.bmp'))
       Inkblot::Display.show(item)
 
       expect(Inkblot::Display.current).to be(item)
