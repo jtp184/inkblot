@@ -2,6 +2,71 @@
 
 require 'inkblot'
 require 'net/http'
+require 'json'
+require 'pry'
+
+# You'll need an IEXCloud API key: https://iexcloud.io/cloud-login#/register
+# You can run this example with `IEX_CLOUD_API_KEY="aa_0123456789abcdeffedcba9876543210" ruby bin/exmp/stock_ticker.rb`
+
+# Can fetch stock quotes from IEXCloud and display them to the EPD
+class StockTicker
+	# The Base URL for the IEX api
+	API_URL = 'https://sandbox.iexapis.com/stable/stock/market/batch'
+
+	attr_reader :symbols
+
+	# Set the instance variables to the +opts+, get API key from ENV if present
+	def initialize(opts = {})
+		opts.each_pair { |k, v| instance_variable_set(:"@#{k}", v) }
+		@api_key ||= ENV['IEX_CLOUD_API_KEY']
+	end
+
+	def to_display
+	end
+
+	def button_actions
+	end
+
+	def refresh
+		fetch_api_data
+		self
+	end
+
+	def latest_report
+		@latest_report || fetch_api_data
+	end
+
+	private
+
+	def fetch_api_data
+		addr = URI(API_URL)
+		addr.query = URI.encode_www_form(form_params.transform_keys(&:to_s))
+
+		@latest_report = JSON.parse(Net::HTTP.get(addr))
+										     .transform_values! { |qt| qt['quote']}
+									       .transform_values! { |qt| qt.slice(*quote_fields.keys) }
+										     .transform_values! { |v| v.transform_keys { |j| quote_fields[j] } }
+	end
+
+	def form_params
+		{ 
+			symbols: @symbols.map(&:to_s).join(','),
+			types: 'quote',
+			token: @api_key
+		}
+	end
+
+	def quote_fields
+		{
+			'latestPrice' => :price,
+			'change' => :change
+		}
+	end
+end
+
+@s = StockTicker.new(symbols: ['AAPL', 'FB'])
+
+binding.pry
 
 ##=== For Displaying on the EPD ===##
 # Inkblot::Buttons.init unless Inkblot::Buttons.ready?
