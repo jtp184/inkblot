@@ -77,9 +77,9 @@ binding.pry
 
 ##=== For Displaying on the EPD ===##
 # Inkblot::Buttons.init unless Inkblot::Buttons.ready?
-# @t = 
+# @t = StockTicker.new(symbols: ['AAPL', 'FB'])
 
-# refresh_time = 60
+# refresh_time = 30
 
 # begin
 #   loop do
