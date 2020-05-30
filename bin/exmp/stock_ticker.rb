@@ -13,6 +13,7 @@ class StockTicker
 	# The Base URL for the IEX api
 	API_URL = 'https://sandbox.iexapis.com/stable/stock/market/batch'
 
+	# The stock symbols to search for
 	attr_reader :symbols
 
 	# Set the instance variables to the +opts+, get API key from ENV if present
@@ -27,17 +28,20 @@ class StockTicker
 	def button_actions
 	end
 
+	# Fetch api data and return self
 	def refresh
 		fetch_api_data
 		self
 	end
 
+	# Returns the latest report, fetching if none exists
 	def latest_report
 		@latest_report || fetch_api_data
 	end
 
 	private
 
+	# Fetches and manipulates API data into report format
 	def fetch_api_data
 		addr = URI(API_URL)
 		addr.query = URI.encode_www_form(form_params.transform_keys(&:to_s))
@@ -48,6 +52,7 @@ class StockTicker
 										     .transform_values! { |v| v.transform_keys { |j| quote_fields[j] } }
 	end
 
+	# The query params for the API request
 	def form_params
 		{ 
 			symbols: @symbols.map(&:to_s).join(','),
@@ -56,6 +61,8 @@ class StockTicker
 		}
 	end
 
+	# The fields on the quote responses to include in the report, and how to
+	# transform them later
 	def quote_fields
 		{
 			'latestPrice' => :price,
