@@ -43,8 +43,8 @@ module Inkblot
         end
 
         # Invokes the pagination method, sets the page count with its result
-        def paginate
-          @page_count ||= send(self.class.paginate_with_method)
+        def paginate(over=nil)
+          @page_count ||= over || send(self.class.paginate_with_method)
         end
 
         # The number of pages, set after paginate has run
