@@ -50,17 +50,17 @@ class StockTicker
   def table_for(rpt)
     Inkblot::Components::TableList.new do |tl|
       tl.fullscreen = true
-      tl.font_size = 18
+      tl.font_size = [30, 18, 12, 18]
       tl.items = []
 
       tl.items << rpt[:symbol]
       tl.items << "$#{rpt[:latest_price]}"
 
-      pt = %i[open high low].map { |pr| "#{pr.to_s.capitalize}: $#{rpt[pr]}" }
-                            .join(' ' * 5)
+      pt = %i[open high low].map { |pr| "$#{rpt[pr]}" }
+                            .join("  /  ")
 
       tl.items << pt
-      tl.items << "#{rpt[:change_percent] * 100}%"
+      tl.items << "#{(rpt[:change_percent] * 100).round(3)}%"
     end
   end
 
