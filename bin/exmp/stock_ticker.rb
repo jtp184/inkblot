@@ -10,68 +10,95 @@ require 'pry'
 
 # Can fetch stock quotes from IEXCloud and display them to the EPD
 class StockTicker
-	# The Base URL for the IEX api
-	API_URL = 'https://sandbox.iexapis.com/stable/stock/market/batch'
+  include Inkblot::Components::Helpers::Paginated
 
-	# The stock symbols to search for
-	attr_reader :symbols
+  # The Base URL for the IEX api
+  API_URL = 'https://sandbox.iexapis.com/stable/stock/market/batch'
 
-	# Set the instance variables to the +opts+, get API key from ENV if present
-	def initialize(opts = {})
-		opts.each_pair { |k, v| instance_variable_set(:"@#{k}", v) }
-		@api_key ||= ENV['IEX_CLOUD_API_KEY']
-	end
+  # The stock symbols to search for
+  attr_reader :symbols
 
-	def to_display
-	end
+  # Set the instance variables to the +opts+, get API key from ENV if present
+  def initialize(opts = {})
+    opts.each_pair { |k, v| instance_variable_set(:"@#{k}", v) }
+    @api_key ||= ENV['IEX_CLOUD_API_KEY']
+    paginate(symbols.count)
+  end
 
-	def button_actions
-	end
+  # Generates a table for the report designated by the current page
+  def to_display
+    table_for(latest_report.values[current_page])
+  end
 
-	# Fetch api data and return self
-	def refresh
-		fetch_api_data
-		self
-	end
+  def button_actions
+  end
 
-	# Returns the latest report, fetching if none exists
-	def latest_report
-		@latest_report || fetch_api_data
-	end
+  # Fetch api data and return self
+  def refresh
+    fetch_api_data
+    self
+  end
 
-	private
+  # Returns the latest report, fetching if none exists
+  def latest_report
+    @latest_report || fetch_api_data
+  end
 
-	# Fetches and manipulates API data into report format
-	def fetch_api_data
-		addr = URI(API_URL)
-		addr.query = URI.encode_www_form(form_params.transform_keys(&:to_s))
+  private
 
-		@latest_report = JSON.parse(Net::HTTP.get(addr))
-										     .transform_values! { |qt| qt['quote']}
-									       .transform_values! { |qt| qt.slice(*quote_fields.keys) }
-										     .transform_values! { |v| v.transform_keys { |j| quote_fields[j] } }
-	end
+  # Generate a TableList for a given report
+  def table_for(rpt)
+    Inkblot::Components::TableList.new do |tl|
+      tl.fullscreen = true
+      tl.items = []
 
-	# The query params for the API request
-	def form_params
-		{ 
-			symbols: @symbols.map(&:to_s).join(','),
-			types: 'quote',
-			token: @api_key
-		}
-	end
+      tl.items << rpt[:symbol]
+      tl.items << "$#{rpt[:latest_price]}"
 
-	# The fields on the quote responses to include in the report, and how to
-	# transform them later
-	def quote_fields
-		{
-			'latestPrice' => :price,
-			'change' => :change
-		}
-	end
+      pt = %i[open high low].map { |pr| "#{pr.to_s.capitalize}: $#{rpt[pr]}" }
+                            .join(' ' * 5)
+
+      tl.items << pt
+      tl.items << "#{rpt[:change_percent] * 100}%"
+    end
+  end
+
+  # Fetches and manipulates API data into report format
+  def fetch_api_data
+    addr = URI(API_URL)
+    addr.query = URI.encode_www_form(form_params.transform_keys(&:to_s))
+
+    @latest_report = JSON.parse(Net::HTTP.get(addr))
+                         .transform_values! { |qt| qt['quote'] }
+                         .transform_values! { |qt| qt.slice(*quote_fields.keys) }
+                         .transform_values! { |v| v.transform_keys { |j| quote_fields[j] } }
+  end
+
+  # The query params for the API request
+  def form_params
+    {
+      symbols: @symbols.map(&:to_s).join(','),
+      types: 'quote',
+      token: @api_key
+    }
+  end
+
+  # The fields on the quote responses to include in the report, and how to
+  # transform them later
+  def quote_fields
+    {
+      'symbol' => :symbol,
+      'latestPrice' => :latest_price,
+      'change' => :change,
+      'changePercent' => :change_percent,
+      'open' => :open,
+      'high' => :high,
+      'low' => :low
+    }
+  end
 end
 
-@s = StockTicker.new(symbols: ['AAPL', 'FB'])
+@s = StockTicker.new(symbols: %w[AAPL FB])
 
 binding.pry
 
