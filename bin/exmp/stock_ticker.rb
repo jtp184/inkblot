@@ -35,10 +35,28 @@ class StockTicker
   	when :symbol
 	    table_for(latest_report.values[current_page])
 	  when :overview
+	  	stock_overview
 	  end
   end
 
+  # Defines the button actions for the reporter
+  # - 1: Next Stock
+  # - 2: Previous Stock
+  # - 3: Overview (TODO)
+  # - 4: Abort display
   def button_actions
+    return @button_actions if @button_actions
+
+    @button_actions = []
+
+    @button_actions << proc { next_page }
+    @button_actions << proc { prev_page }
+
+    @button_actions << proc {}
+
+    @button_actions << proc do
+    	raise IndexError, 'Cancel button was pressed'
+    end
   end
 
   # Fetch api data and return self
@@ -72,6 +90,8 @@ class StockTicker
       tl.items << "#{(rpt[:change_percent] * 100).round(3)}%"
     end
   end
+
+  def stock_overview; end
 
   # Fetches and manipulates API data into report format
   def fetch_api_data
