@@ -2,12 +2,12 @@
 	<table style="width:100%; height: 96%; border: <%= data[:border_size] %>px solid black; font-family: monospace; justify-content: center; align-items: center;">
 		<% data[:items].each_with_index do |btn, ix| %>
 		<tr>
-			<td style="border: 1px solid black;  font-size: <%= data[:font_size][ix] %>px; padding-left: 5%"><%= btn %></td>
+			<td style="border: 1px solid black;  font-size: <%= data[:font_size][ix] %>px; text-align: <%= data[:text_align][ix] %>; padding-left: 5%"><%= btn %></td>
 		</tr>
 		<% end %>
-		<% (4 - data[:items].count).times do %>
+		<% (data[:rows] - data[:items].count).times do |ix| %>
 		<tr>
-			<td style="border: 1px solid black;  font-size: 14px; padding-left: 5%">-</td>
+			<td style="border: 1px solid black;  font-size: <%= data[:font_size][ix] %>px; text-align: <%= data[:text_align][ix] %>; padding-left: 5%">-</td>
 		</tr>
 		<% end %>
 	</table>
