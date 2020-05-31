@@ -31,7 +31,7 @@ class StockTicker
 
   # Generates a table for the report designated by the current page
   def to_display
-  	case current_state
+  	case state
   	when :symbol
 	    table_for(latest_report.values[current_page])
 	  when :overview
