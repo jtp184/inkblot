@@ -11,12 +11,16 @@ require 'pry'
 # Can fetch stock quotes from IEXCloud and display them to the EPD
 class StockTicker
   include Inkblot::Components::Helpers::Paginated
+  include Inkblot::Components::Helpers::MultiState
 
   # The Base URL for the IEX api
   API_URL = 'https://sandbox.iexapis.com/stable/stock/market/batch'
 
   # The stock symbols to search for
   attr_reader :symbols
+
+  # Defines states
+  def_states :symbol, :overview
 
   # Set the instance variables to the +opts+, get API key from ENV if present
   def initialize(opts = {})
@@ -27,7 +31,11 @@ class StockTicker
 
   # Generates a table for the report designated by the current page
   def to_display
-    table_for(latest_report.values[current_page])
+  	case current_state
+  	when :symbol
+	    table_for(latest_report.values[current_page])
+	  when :overview
+	  end
   end
 
   def button_actions
