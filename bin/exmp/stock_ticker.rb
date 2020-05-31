@@ -50,6 +50,7 @@ class StockTicker
   def table_for(rpt)
     Inkblot::Components::TableList.new do |tl|
       tl.fullscreen = true
+      tl.font_size = 18
       tl.items = []
 
       tl.items << rpt[:symbol]
