@@ -8,13 +8,18 @@ module Inkblot
         super
 
         if !options.key?(:items)
-          options[:items] = Array.new(4) { |x| "Key #{x}" }
+          options[:items] = Array.new(rows) { |x| "Key #{x}" }
         end
       end
 
       # Sugar to get to the items
       def items
         options[:items]
+      end
+
+      # Sugar for the rows option, with default
+      def rows
+        options.fetch(:rows, 4)
       end
 
       private
