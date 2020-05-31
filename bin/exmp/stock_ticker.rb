@@ -51,6 +51,7 @@ class StockTicker
     Inkblot::Components::TableList.new do |tl|
       tl.fullscreen = true
       tl.font_size = [30, 18, 12, 18]
+      tl.text_align = :center
       tl.items = []
 
       tl.items << rpt[:symbol]
