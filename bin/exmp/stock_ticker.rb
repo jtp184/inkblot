@@ -142,9 +142,9 @@ begin
     Inkblot::Buttons.get_press(refresh_time)
 
     @t.refresh
+    puts Time.now, @t.state, @t.current_page @t.latest_report
 
     puts
-    puts Time.now, @t.latest_report
   end
 rescue IndexError
   Inkblot::Display.clear
