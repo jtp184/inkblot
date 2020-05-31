@@ -32,7 +32,7 @@ module Inkblot
                             Array.new(items.count, 14)
                           elsif options[:font_size].is_a?(Integer)
                             [
-                              Array.new(items.count, options[:border_size])
+                              Array.new(items.count, options[:border_size]),
                               Array.new(4 - items.count, 14)
                             ].reduce(:+)
                           elsif options[:font_size].is_a?(Array)
