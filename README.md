@@ -2,6 +2,8 @@
 
 Inkblot is a gem for interacting with Waveshare's line of E-paper displays on the Raspberry Pi using ruby. It includes components for outputting images, text, and menus to the EPD as well as reading input from HAT buttons on the side.
 
+<details><summary>Table of Contents</summary>
+<p>
 * [Inkblot](#inkblot)
 * [Installation](#installation)
 * [Hardware](#hardware)
@@ -32,6 +34,8 @@ Inkblot is a gem for interacting with Waveshare's line of E-paper displays on th
          * [Paginated](#paginated)
          * [MultiState](#multistate)
 * [Contributing](#contributing)
+</p>
+</details>
 
 ## Installation
 
