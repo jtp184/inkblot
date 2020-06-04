@@ -10,14 +10,17 @@ gemfile do
   gem 'tty-prompt'
 end
 
+# Ensure hostname is present, prompt if not
 unless File.exist?('.raspi-hostname')
   File.open('.raspi-hostname', 'w+') do |f|
     f << TTY::Prompt.new.ask("What is your Pi's hostname?")
   end
 end
 
+# Read this guranteed hostname file
 rpi = File.read('.raspi-hostname')
 
+# Connect directly or run a command
 if ARGV.empty?
   exec("ssh pi@#{rpi}")
 else
