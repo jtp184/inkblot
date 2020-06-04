@@ -8,7 +8,6 @@ gemfile do
 
   gem 'colorize'
   gem 'tty-prompt'
-  gem 'pry'
 end
 
 # Set up the prompt for user input
