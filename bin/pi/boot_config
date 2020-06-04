@@ -50,7 +50,7 @@ File.open(config_path, 'a') { |c| c << "dtparam=spi=on\n" }
 if File.exist?('wpa_supplicant.conf')
   FileUtils.cp(boot_path, './wpa_supplicant.conf')
 else
-  puts 'No WPA Supplicant was found, please run ./bin/pi/wpa_config'
+  puts 'No WPA Supplicant was found, please run ./bin/pi/wpa_config'.yellow
 end
 
 # Report success
