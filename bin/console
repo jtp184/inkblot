@@ -1,21 +1,20 @@
 #!/usr/bin/env ruby
 
-require "bundler/setup"
-require "inkblot"
+require 'bundler/setup'
+require 'inkblot'
 
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
 
 # (If you use this, don't forget to add pry to your Gemfile!)
-require "pry"
+require 'pry'
 
 include Inkblot # :nodoc:
-
 
 # Overrides this in development
 def Inkblot.vendor_path(*paths)
   @vendor_path ||= String.new(Dir.pwd).tap do |str|
-    str << "/vendor"
+    str << '/vendor'
   end
 
   return @vendor_path if paths.empty?
@@ -26,7 +25,7 @@ end
 CHRIS_KIM = Inkblot.vendor_path('chris_kim.bmp')
 
 # Exports and sets pulls for pins
-if Gem.platforms.last.os == "linux"
+if Gem.platforms.last.os == 'linux'
   Buttons.init unless Buttons.ready?
 end
 
@@ -37,7 +36,7 @@ end
   st.div_height = st.div_width = 95
   st.gfonts = ['Dancing Script', 'Oswald', 'Pacifico', 'Arvo', 'Righteous']
   st.font = st.gfonts.sample
-  st.text = "Hello"
+  st.text = 'Hello'
   st.size = 60
   st.border_size = 10
 end
@@ -46,7 +45,7 @@ end
 @q = Components::QrCode.new do |qr|
   qr.fullscreen = true
   # qr.margin_top = qr.margin_left = -5
-  qr.message = "https://youtu.be/zt2uIhAvQZ8"
+  qr.message = 'https://youtu.be/zt2uIhAvQZ8'
 end
 
 ## IconPane with a FullScreenImage in the frame
@@ -63,12 +62,12 @@ end
 
 ## IconPane with TableList frame
 @b = Components::IconPane.new do |ip|
-  ip.fullscreen = true  
+  ip.fullscreen = true
   ip.icons = :arrows
-  
+
   ip.frame_contents = Components::TableList.new(
-    items: ["Apples", "Oranges", "Pears", "Peaches"],
-    div_height: (Inkblot::Display.size[:height].to_f * 0.95).floor.to_s + "px"
+    items: %w[Apples Oranges Pears Peaches],
+    div_height: (Inkblot::Display.size[:height].to_f * 0.95).floor.to_s + 'px'
   )
 end
 
@@ -100,7 +99,7 @@ def test_scroll
   Display[scr]
   Buttons.get_input
   Display.clear
-  
+
   @s.answer
 end
 
