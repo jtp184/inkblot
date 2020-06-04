@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org/'
+
+  gem 'colorize'
+  gem 'tty-prompt'
+  gem 'pry'
+  gem 'net-ssh'
+end
+
+# Set up the prompt for user input
+prompt = TTY::Prompt.new(
+  interrupt: -> { puts 'x'.light_black; puts 'Goodbye'.red; abort }
+)
+
+# Figure out if we have hosts set up
+host = if File.exist?('.raspi-hostname')
+         File.read('.raspi-hostname')
+       else
+         prompt.ask('Pi hostname', default: 'raspberry').tap do |answ|
+           File.open('.raspi-hostname', 'w+') { |f| f << answ }
+         end
+       end
+
+Net::SSH.start(host, 'pi') do |ssh|
+end
