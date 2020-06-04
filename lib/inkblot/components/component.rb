@@ -56,19 +56,23 @@ module Inkblot
 
       # Lazily gets the template from +template_path+
       def template
-        @template ||= File.read(template_path)
+        @template ||= File.read(template_full_path)
       end
 
       private
 
       # The HTML head/body wrapper start snippet
       def self.start_component_template
-        @start_component_template ||= File.read(Inkblot.vendor_path('templates', 'startComponent.html.erb'))
+        @start_component_template ||= File.read(
+          Inkblot.vendor_path('templates', 'startComponent.html.erb')
+        )
       end
 
       # The HTML head/body wrapper end snippet
       def self.end_component_template
-        @end_component_template ||= File.read(Inkblot.vendor_path('templates', 'endComponent.html.erb'))
+        @end_component_template ||= File.read(
+          Inkblot.vendor_path('templates', 'endComponent.html.erb')
+        )
       end
 
       # Generic access to a height setting method
@@ -86,19 +90,19 @@ module Inkblot
         dim_div = :"div_#{dim}"
         dim_sym = dim.to_sym
 
-        if options.key?(:fullscreen)
-          dta[dim_div] = Display.size[dim_sym].to_s + 'px'
-        elsif options.key?(dim_div)
-          dta[dim_div] = if options[dim_div] == :full
-                              Display.size[dim_sym].to_s + 'px'
-                            elsif options[dim_div].is_a?(Integer)
-                              options[dim_div].to_s + '%'
-                            else
-                              options[dim_div].to_s
-          end
-        else
-          dta[dim_div] = '100%'
-        end
+        dta[dim_div] = if options.key?(:fullscreen)
+                         Display.size[dim_sym].to_s + 'px'
+                       elsif options.key?(dim_div)
+                         if options[dim_div] == :full
+                           Display.size[dim_sym].to_s + 'px'
+                         elsif options[dim_div].is_a?(Integer)
+                           options[dim_div].to_s + '%'
+                         else
+                           options[dim_div].to_s
+                         end
+                       else
+                         '100%'
+                       end
       end
 
       # Allows for virtual attributes passed to templates. Child classes should
@@ -113,15 +117,20 @@ module Inkblot
         options.merge(computed)
       end
 
+      # The resolved path to the template file, broken out so both parts
+      # can be overridden
+      def template_full_path
+        @template_full_path ||= [template_base_path, template_filename].join('/')
+      end
+
       # Overridable, returns the vendor path templates directory
       def template_base_path
         @template_base_path ||= Inkblot.vendor_path('templates')
       end
 
-      # Joins the base path with the converted class name and appends extension
-      def template_path
-        fn = self.class.name.split('::').last + (-'.html.erb')
-        [template_base_path, fn].join("/")
+      # Yields the overridable instance variable, or sets it to the class name
+      def template_filename
+        @template_filename ||= self.class.name.split('::').last + -'.html.erb'
       end
 
       # Generates HTML from the ERB template. Adds the start / end component blocks

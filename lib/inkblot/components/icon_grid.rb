@@ -46,7 +46,7 @@ module Inkblot
                           end
 
         %i[icon_size font columns].each { |a| dta[a] = send(a) }
-        
+
         dta.grid_items = []
 
         dta.icons.each do |icn|

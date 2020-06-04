@@ -7,7 +7,7 @@ module Inkblot
       def initialize(*args)
         super
 
-        if !options.key?(:items)
+        unless options.key?(:items)
           options[:items] = Array.new(4) { |x| "Key #{x}" }
         end
       end
@@ -22,10 +22,10 @@ module Inkblot
       # Allows for border size, and sets height and width standardly
       def computed
         dta = OpenStruct.new
-        
+
         get_height(dta)
         get_width(dta)
-        
+
         dta.border_size = options.fetch(:border_size, 0)
 
         dta.to_h

@@ -72,7 +72,8 @@ Superclass:
 <li><a href="#method-i-get_height">get_height</a></li>
 <li><a href="#method-i-get_width">get_width</a></li>
 <li><a href="#method-i-template_base_path">template_base_path</a></li>
-<li><a href="#method-i-template_path">template_path</a></li>
+<li><a href="#method-i-template_filename">template_filename</a></li>
+<li><a href="#method-i-template_full_path">template_full_path</a></li>
 </ol>
 </div>
 <div id='context'>
@@ -151,7 +152,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-end_component_template-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-end_component_template-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 70</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">end_component_template</span>&#x000A;  <span class="ruby-ivar">@end_component_template</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>(<span class="ruby-string">&#39;templates&#39;</span>, <span class="ruby-string">&#39;endComponent.html.erb&#39;</span>))&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-end_component_template-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 72</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">end_component_template</span>&#x000A;  <span class="ruby-ivar">@end_component_template</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(&#x000A;    <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>(<span class="ruby-string">&#39;templates&#39;</span>, <span class="ruby-string">&#39;endComponent.html.erb&#39;</span>)&#x000A;  )&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-class' id='method-method-c-start_component_template'>
@@ -170,7 +171,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-start_component_template-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-start_component_template-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 65</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">start_component_template</span>&#x000A;  <span class="ruby-ivar">@start_component_template</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>(<span class="ruby-string">&#39;templates&#39;</span>, <span class="ruby-string">&#39;startComponent.html.erb&#39;</span>))&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-start_component_template-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 65</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">start_component_template</span>&#x000A;  <span class="ruby-ivar">@start_component_template</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(&#x000A;    <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>(<span class="ruby-string">&#39;templates&#39;</span>, <span class="ruby-string">&#39;startComponent.html.erb&#39;</span>)&#x000A;  )&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <h2>Public Instance methods</h2>
@@ -228,7 +229,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-template-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-template-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 58</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">template</span>&#x000A;  <span class="ruby-ivar">@template</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">template_path</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-template-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 58</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">template</span>&#x000A;  <span class="ruby-ivar">@template</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">template_full_path</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-to_html'>
@@ -305,7 +306,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-build-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-build-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 129</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">build</span>(<span class="ruby-identifier">wrap</span> = <span class="ruby-keyword">true</span>)&#x000A;  <span class="ruby-identifier">h</span> = []&#x000A;&#x000A;  <span class="ruby-identifier">h</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">start_component_template</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">wrap</span>&#x000A;  <span class="ruby-identifier">h</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">template</span>&#x000A;  <span class="ruby-identifier">h</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">end_component_template</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">wrap</span>&#x000A;&#x000A;  <span class="ruby-identifier">h</span> = <span class="ruby-identifier">h</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span>)&#x000A;&#x000A;  <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">h</span>).<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-build-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 138</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">build</span>(<span class="ruby-identifier">wrap</span> = <span class="ruby-keyword">true</span>)&#x000A;  <span class="ruby-identifier">h</span> = []&#x000A;&#x000A;  <span class="ruby-identifier">h</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">start_component_template</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">wrap</span>&#x000A;  <span class="ruby-identifier">h</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">template</span>&#x000A;  <span class="ruby-identifier">h</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">end_component_template</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">wrap</span>&#x000A;&#x000A;  <span class="ruby-identifier">h</span> = <span class="ruby-identifier">h</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span>)&#x000A;&#x000A;  <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">h</span>).<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-computed'>
@@ -324,7 +325,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-computed-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-computed-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 106</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">computed</span>&#x000A;  {}&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-computed-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 110</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">computed</span>&#x000A;  {}&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-data'>
@@ -343,7 +344,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-data-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-data-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 112</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">data</span>&#x000A;  <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">computed</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-data-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 116</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">data</span>&#x000A;  <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">computed</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-get_dimension'>
@@ -362,7 +363,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-get_dimension-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-get_dimension-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 85</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_dimension</span>(<span class="ruby-identifier">dim</span>, <span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">dim_div</span> = <span class="ruby-value">:&quot;div_#{dim}&quot;</span>&#x000A;  <span class="ruby-identifier">dim_sym</span> = <span class="ruby-identifier">dim</span>.<span class="ruby-identifier">to_sym</span>&#x000A;&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value">:fullscreen</span>)&#x000A;    <span class="ruby-identifier">dta</span>[<span class="ruby-identifier">dim_div</span>] = <span class="ruby-constant">Display</span>.<span class="ruby-identifier">size</span>[<span class="ruby-identifier">dim_sym</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39;px&#39;</span>&#x000A;  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-identifier">dim_div</span>)&#x000A;    <span class="ruby-identifier">dta</span>[<span class="ruby-identifier">dim_div</span>] = <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">dim_div</span>] <span class="ruby-operator">==</span> <span class="ruby-value">:full</span>&#x000A;                        <span class="ruby-constant">Display</span>.<span class="ruby-identifier">size</span>[<span class="ruby-identifier">dim_sym</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39;px&#39;</span>&#x000A;                      <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">dim_div</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>)&#x000A;                        <span class="ruby-identifier">options</span>[<span class="ruby-identifier">dim_div</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39;%&#39;</span>&#x000A;                      <span class="ruby-keyword">else</span>&#x000A;                        <span class="ruby-identifier">options</span>[<span class="ruby-identifier">dim_div</span>].<span class="ruby-identifier">to_s</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">else</span>&#x000A;    <span class="ruby-identifier">dta</span>[<span class="ruby-identifier">dim_div</span>] = <span class="ruby-string">&#39;100%&#39;</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-get_dimension-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 89</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_dimension</span>(<span class="ruby-identifier">dim</span>, <span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">dim_div</span> = <span class="ruby-value">:&quot;div_#{dim}&quot;</span>&#x000A;  <span class="ruby-identifier">dim_sym</span> = <span class="ruby-identifier">dim</span>.<span class="ruby-identifier">to_sym</span>&#x000A;&#x000A;  <span class="ruby-identifier">dta</span>[<span class="ruby-identifier">dim_div</span>] = <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value">:fullscreen</span>)&#x000A;                   <span class="ruby-constant">Display</span>.<span class="ruby-identifier">size</span>[<span class="ruby-identifier">dim_sym</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39;px&#39;</span>&#x000A;                 <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-identifier">dim_div</span>)&#x000A;                   <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">dim_div</span>] <span class="ruby-operator">==</span> <span class="ruby-value">:full</span>&#x000A;                     <span class="ruby-constant">Display</span>.<span class="ruby-identifier">size</span>[<span class="ruby-identifier">dim_sym</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39;px&#39;</span>&#x000A;                   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">dim_div</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>)&#x000A;                     <span class="ruby-identifier">options</span>[<span class="ruby-identifier">dim_div</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39;%&#39;</span>&#x000A;                   <span class="ruby-keyword">else</span>&#x000A;                     <span class="ruby-identifier">options</span>[<span class="ruby-identifier">dim_div</span>].<span class="ruby-identifier">to_s</span>&#x000A;                   <span class="ruby-keyword">end</span>&#x000A;                 <span class="ruby-keyword">else</span>&#x000A;                   <span class="ruby-string">&#39;100%&#39;</span>&#x000A;                 <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-get_height'>
@@ -381,7 +382,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-get_height-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-get_height-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 75</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_height</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">get_dimension</span>(<span class="ruby-string">&#39;height&#39;</span>, <span class="ruby-identifier">dta</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-get_height-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 79</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_height</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">get_dimension</span>(<span class="ruby-string">&#39;height&#39;</span>, <span class="ruby-identifier">dta</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-get_width'>
@@ -400,7 +401,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-get_width-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-get_width-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 80</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_width</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">get_dimension</span>(<span class="ruby-string">&#39;width&#39;</span>, <span class="ruby-identifier">dta</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-get_width-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 84</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_width</span>(<span class="ruby-identifier">dta</span>)&#x000A;  <span class="ruby-identifier">get_dimension</span>(<span class="ruby-string">&#39;width&#39;</span>, <span class="ruby-identifier">dta</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-template_base_path'>
@@ -419,26 +420,45 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-template_base_path-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-template_base_path-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 117</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">template_base_path</span>&#x000A;  <span class="ruby-ivar">@template_base_path</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>(<span class="ruby-string">&#39;templates&#39;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-template_base_path-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 127</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">template_base_path</span>&#x000A;  <span class="ruby-ivar">@template_base_path</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>(<span class="ruby-string">&#39;templates&#39;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
-<div class='method private-instance' id='method-method-i-template_path'>
-<a name='method-i-template_path'></a>
+<div class='method private-instance' id='method-method-i-template_filename'>
+<a name='method-i-template_filename'></a>
 <div class='synopsis'>
-<span class='name'>template_path</span>
+<span class='name'>template_filename</span>
 <span class='arguments'>()</span>
 
 </div>
 <div class='description'>
 
-<p>Joins the base path with the converted class name and appends extension</p>
+<p>Yields the overridable instance variable, or sets it to the class name</p>
 
 </div>
 <div class='source'>
-<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-template_path-source&#39;); return false'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-template_filename-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-template_path-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 122</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">template_path</span>&#x000A;  <span class="ruby-identifier">fn</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;::&#39;</span>).<span class="ruby-identifier">last</span> <span class="ruby-operator">+</span> (<span class="ruby-string">-&#39;.html.erb&#39;</span>)&#x000A;  [<span class="ruby-identifier">template_base_path</span>, <span class="ruby-identifier">fn</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;/&quot;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-template_filename-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 132</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">template_filename</span>&#x000A;  <span class="ruby-ivar">@template_filename</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;::&#39;</span>).<span class="ruby-identifier">last</span> <span class="ruby-operator">+</span> <span class="ruby-string">-&#39;.html.erb&#39;</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method private-instance' id='method-method-i-template_full_path'>
+<a name='method-i-template_full_path'></a>
+<div class='synopsis'>
+<span class='name'>template_full_path</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>The resolved path to the template file, broken out so both parts can be overridden</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-template_full_path-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-template_full_path-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 122</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">template_full_path</span>&#x000A;  <span class="ruby-ivar">@template_full_path</span> <span class="ruby-operator">||=</span> [<span class="ruby-identifier">template_base_path</span>, <span class="ruby-identifier">template_filename</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;/&#39;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>
