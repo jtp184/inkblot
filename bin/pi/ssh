@@ -4,22 +4,22 @@
 require 'bundler/inline'
 
 gemfile do
-	source 'https://rubygems.org/'
+  source 'https://rubygems.org/'
 
-	gem 'colorize'
-	gem 'tty-prompt'
+  gem 'colorize'
+  gem 'tty-prompt'
 end
 
 unless File.exist?('.raspi-hostname')
-	File.open('.raspi-hostname', 'w+') do |f| 
-		f << TTY::Prompt.new.ask("What is your Pi's hostname?")
-	end
+  File.open('.raspi-hostname', 'w+') do |f|
+    f << TTY::Prompt.new.ask("What is your Pi's hostname?")
+  end
 end
 
 rpi = File.read('.raspi-hostname')
 
 if ARGV.empty?
-	exec("ssh pi@#{rpi}")
+  exec("ssh pi@#{rpi}")
 else
-	exec("ssh pi@#{rpi} #{ARGV.join(' ')}")
+  exec("ssh pi@#{rpi} #{ARGV.join(' ')}")
 end
