@@ -38,19 +38,23 @@ end
 
 # Create ssh file
 FileUtils.touch(boot_path.join('ssh'))
+puts 'Enabled SSH'.cyan
 
 # Locate / create config file and append SPI line to bottom
 config_path = boot_path.join('config.txt')
 
 FileUtils.touch(config_path) unless File.exist?(config_path)
-
 File.open(config_path, 'a') { |c| c << "dtparam=spi=on\n" }
+
+puts 'Enabled SPI'.cyan
 
 # Copy WPA Supplicant if it exists
 if File.exist?('wpa_supplicant.conf')
   FileUtils.cp(boot_path, './wpa_supplicant.conf')
+  puts 'Copied WPA Supplicant'.cyan
 else
   puts 'No WPA Supplicant was found, please run ./bin/pi/wpa_config'.yellow
+  puts 'No WPA Supplicant was found, please run bin/pi/wpa_config'.yellow
 end
 
 # Report success
