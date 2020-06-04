@@ -11,6 +11,7 @@ gemfile do
   gem 'pry'
 end
 
+# Set up the prompt for user input
 prompt = TTY::Prompt.new(
   interrupt: -> { puts 'x'.light_black; puts 'Goodbye'.red; abort }
 )
@@ -58,7 +59,7 @@ class WifiConfig
     str += "country=#{country_code}"
     str += "\n"
     str += "\n"
-    str += networks.map(&:to_s).join("\n\n")
+    str + networks.map(&:to_s).join("\n\n")
   end
 
   # Two opening lines present in a wpa_config
@@ -70,13 +71,16 @@ class WifiConfig
   end
 end
 
+# Create the config holder
 @conf = WifiConfig.new(
   country_code: prompt.ask('Country Code:', default: 'US')
 )
 
+# Perform this once, repeat if prompted
 1.times do
   puts
 
+  # Get a network name / password
   cred = prompt.collect do
     key(:ssid).ask('Network Name:')
     key(:password).mask('Network password:')
@@ -84,15 +88,19 @@ end
 
   puts
 
+  # Add the credentials to the config
   @conf.networks << WifiConfig::WifiCredentials.new(
     cred[:ssid],
     cred[:password]
   )
 
+  # Redo if prompted
   redo if prompt.yes?('Add another network?')
 end
 
+# Path to save to
 filepath = 'wpa_config.conf'
 
+# Save out and report success
 File.open(filepath, 'w+') { |f| f << @conf.prioritize_networks.to_s }
-puts ('Saved to '.green + filepath)
+puts 'Saved to '.green + filepath
