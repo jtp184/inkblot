@@ -451,10 +451,10 @@ end
 
 #### Templates
 
-A Template is an ERB file, like a rails view partial. The built-in components store their templates in a common directory within the gem's vendor directory, and name them after the class. You can load custom templates a couple of different ways.
+A Template is an ERB file, like a rails view partial. The built-in components store their templates in a common directory within the gem's vendor directory, and name them after the class. You can load custom templates either by passing them in as class arguments
 
 ```ruby
-# Pass it as a class option to a generic component
+# Pass a base folder as a class option to a generic component
 class MyUniqueComponent < Inkblot::Components::Component
   # ...
 end
@@ -465,11 +465,30 @@ muc = MyUniqueComponent.new(user_info, { template_base_path: "/path/to/my/templa
   mc.full_name = [mc.first_name, mc.last_name].join(' ')
 end
 
-muc.send(:template_path) # => "/path/to/my/templates/MyUniqueComponent.html.erb"
+muc.send(:template_full_path) # => "/path/to/my/templates/MyUniqueComponent.html.erb"
+
+# You can also override the filename
+
+muc2 = MyUniqueComponent.new(
+  {}, 
+  {
+    template_base_path: "/new/templates"
+    template_filename: "BetterTemplate.html.erb"
+  }
+)
+
+muc2.send(:template_full_path) # => "/new/templates/BetterTemplate.html.erb"
+
+# You can also override the file path directly
+muc3 = MyUniqueComponent.new({}, template_full_path: "/somewhere/else/UniqueTemplate.html.erb")
+
+muc2.send(:template_full_path) # => "/somewhere/else/UniqueTemplate.html.erb"
+
 ```
 
+Or by creating a new root object to base your components off of
+
 ```ruby
-# Create a new root object for Components to be based off of 
 class ParentComponent < Inkblot::Components::Component
   
   private
@@ -490,10 +509,13 @@ end
 MyFirstComponent.new.send(:template_path) # => "/path/to/my/templates/MyFirstComponent.html.erb"
 MySecondComponent.new.send(:template_path) # => "/path/to/my/templates/MySecondComponent.html.erb"
 
+MyFirstComponent.new({}, { template_filename: "SpecialComponent.html.erb"}).send(:template_path)
+# => "/path/to/my/templates/SpecialComponent.html.erb"
+
 ```
 
 ```ruby
-# Overriding the template_path method entirely
+# Overriding the template_full_path method entirely
 class MyNewComponent < Inkblot::Components::Component
   def template_path
     "/path/to/my/templates/NewComponentTemplate.html.erb"
