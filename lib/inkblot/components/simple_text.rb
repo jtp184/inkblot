@@ -6,7 +6,7 @@ module Inkblot
       def text
         options[:text]
       end
-      
+
       private
 
       # Derives the tag to wrap text in from the size option,
@@ -25,9 +25,9 @@ module Inkblot
       # defaults if needed
       def optionals(dta)
         dta[:border_size] = options.fetch(:border_size, 0)
-        dta[:font] = options.fetch(:font, "monospace")
+        dta[:font] = options.fetch(:font, 'monospace')
         dta[:size] = options.fetch(:size, :large)
-        dta[:text_align] = options.fetch(:text_align, "center")
+        dta[:text_align] = options.fetch(:text_align, 'center')
       end
 
       # Set an html tag based on the provided size
@@ -41,7 +41,7 @@ module Inkblot
           'h2'
         when :large
           'h1'
-        when nil 
+        when nil
           auto_scale_tag
         when ->(x) { x.is_a?(Integer) }
           'h1'
@@ -52,7 +52,8 @@ module Inkblot
       def size_value
         return nil if options[:size].is_a?(Symbol)
         return "#{options[:size]}px" if options[:size].is_a?(Integer)
-        return options[:size]
+
+        options[:size]
       end
 
       # Return a tag based on text length

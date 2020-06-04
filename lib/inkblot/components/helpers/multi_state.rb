@@ -45,25 +45,27 @@ module Inkblot
 
         # Sets the current state to +st+ if it exists within the states
         def state=(st)
-          raise ArgumentError, "Not a valid state" unless states.include?(st)
+          raise ArgumentError, 'Not a valid state' unless states.include?(st)
+
           @state = st
         end
 
         # Holds a hash of states and their content
         def state_content
           return @state_content if @state_content
+
           @state_content = states.map { |s| [s, nil] }.to_h
         end
 
         # Convinience method. If +st+ is given it returns the data for
         # that state, and if not it uses the current state. Providing a block
         # sets the content into the array instead of retrieving it
-        def content_for_state(st=nil)
+        def content_for_state(st = nil)
           if !st.nil? && !states.include?(st)
-            raise ArgumentError, "Not a valid state"
+            raise ArgumentError, 'Not a valid state'
           end
 
-          st = st ? st : state
+          st ||= state
 
           if block_given?
             state_content[st] = yield

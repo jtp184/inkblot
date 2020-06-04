@@ -56,6 +56,7 @@ module Inkblot
         # then returns self
         def prev_page
           return current_page if current_page.zero?
+
           @current_page -= 1
           self
         end
@@ -64,6 +65,7 @@ module Inkblot
         # then returns self
         def next_page
           return current_page if current_page == (@page_count - 1)
+
           @current_page += 1
           self
         end
