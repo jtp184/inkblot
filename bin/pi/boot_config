@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'fileutils'
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org/'
+
+  gem 'colorize'
+  gem 'tty-prompt'
+end
+
+# Set up the prompt for user input
+prompt = TTY::Prompt.new(
+  interrupt: -> { puts 'x'.light_black; puts 'Goodbye'.red; abort }
+)
+
+# Set some user ease defaults for OSes
+os_defaults = case Gem.platforms.last.os
+							when 'darwin'
+								'/Volumes/boot'
+							when 'linux'
+								'/mnt/boot'
+							else
+								'E/'
+							end
+
+# Get the boot path
+boot_path = [prompt.ask('Path to /boot drive:', default: os_defaults)]
+boot_path = boot_path.map { |x| Pathname.new(x) }.first
+
+# Abort if it is nonexistent
+unless boot_path.exist?
+	puts "ERROR: Path #{boot_path} does not exist".red
+	abort
+end
+
+# Create ssh file
+FileUtils.touch(boot_path.join('ssh'))
+
+# Locate / create config file and append SPI line to bottom
+config_path = boot_path.join('config.txt')
+
+FileUtils.touch(config_path) unless File.exist?(config_path)
+File.open(config_path, 'a') { |c| c << "dtparam=spi=on\n" }
+
+# Report success
+puts "Boot volume configured successfully".green
+
