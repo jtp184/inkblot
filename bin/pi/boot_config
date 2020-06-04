@@ -28,7 +28,7 @@ os_defaults = case Gem.platforms.last.os
 
 # Get the boot path
 boot_path = [prompt.ask('Path to /boot drive:', default: os_defaults)]
-boot_path.map! { |x| Pathname.new(x) }.first
+boot_path = boot_path.map { |x| Pathname.new(x) }.first
 
 # Abort if it is nonexistent
 unless boot_path.exist?
