@@ -98,8 +98,9 @@ end
 end
 
 # Path to save to
-filepath = 'wpa_config.conf'
+file_abs_name = Pathname.new(prompt.ask('Path to save to:', default: './'))
+                        .join('wpa_supplicant.conf')
 
 # Save out and report success
-File.open(filepath, 'w+') { |f| f << @conf.prioritize_networks.to_s }
-puts 'Saved to '.green + filepath
+File.open(file_abs_name, 'w+') { |f| f << @conf.prioritize_networks.to_s }
+puts 'Saved to '.green + file_abs_name.to_s
