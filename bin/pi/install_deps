@@ -24,7 +24,37 @@ host = if File.exist?('.raspi-hostname')
          prompt.ask('Pi hostname', default: 'raspberry').tap do |answ|
            File.open('.raspi-hostname', 'w+') { |f| f << answ }
          end
-       end
+end
+
+options = {
+  ruby: 'Install Ruby',
+  image_magick: 'Install ImageMagick',
+  nodejs: 'Install NodeJS/NPM',
+  inkblot: 'Install Inkblot'
+}
+
+tasks = prompt.multi_select('What should be installed?', options.values)
+              .map { |t| options.key(t) }
+
+cmds = []
+
+apt_cmd = +'sudo apt-get install '
+
+apt_cmd << 'ruby-full ' if tasks.include?(:ruby)
+apt_cmd << 'imagemagick ' if tasks.include?(:image_magick)
+apt_cmd << 'nodejs npm ' if tasks.include?(:nodejs)
+apt_cmd << '-y'
+
+unless tasks.none? { |t| options.keys.first(3).include?(t) }
+  cmds.append(apt_cmd)
+end
+
+if tasks.include?(:inkblot)
+  cmds.append('git clone https://github.com/jtp184/inkblot.git ~/')
+end
 
 Net::SSH.start(host, 'pi') do |ssh|
+  cmds.each do |com|
+    ssh.exec!(com)
+  end
 end
