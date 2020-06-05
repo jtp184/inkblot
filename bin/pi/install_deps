@@ -30,7 +30,7 @@ host = if File.exist?('.raspi-hostname')
 ic = {
   ruby: 'Ruby',
   image_magick: 'ImageMagick',
-  nodejs: 'NodeJS/NPM',
+  nodejs: 'Node / NPM / Puppeteer',
   inkblot: 'Inkblot'
 }
 
@@ -57,6 +57,12 @@ cmds.append(apt_cmd) unless tasks.none? { |t| ic.keys.first(3).include?(t) }
 if tasks.include?(:inkblot)
   cmds.append('git clone https://github.com/jtp184/inkblot.git ~/')
   cmds.append('cd ~/inkblot && rake install')
+end
+
+# Make sure to install puppeteer globally
+if tasks.include?(:nodejs)
+  cmds.append("echo 'prefix = ${HOME}/lib/npm' > ~/.npmrc")
+  cmds.append('npm install -g puppeteer')
 end
 
 # Run the commands on the remote device
