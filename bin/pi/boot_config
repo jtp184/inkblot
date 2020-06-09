@@ -52,17 +52,16 @@ if File.exist?(config_path)
              .named_captures
              .transform_keys(&:to_sym)
 
-  # Break out early if the line is already uncommented
-  return unless line[:commented]
-
   # Uncomment the line if it needs to be
-  new_conf = conf.map do |ln|
-    next ln unless ln.match?(srch)
+  unless line[:commented]
+    new_conf = conf.map do |ln|
+      next ln unless ln.match?(srch)
 
-    line[:param]
+      line[:param]
+    end
+
+    File.open(config_path, 'w+') { |c| c << new_conf.join("\n") }
   end
-
-  File.open(config_path, 'w+') { |c| c << new_conf.join("\n") }
 else
   # Generate an empty config text if none exists
   File.open(config_path, 'w+') { |c| c << "dtparam=spi=on\n" }
