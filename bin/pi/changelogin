@@ -1,0 +1,86 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org/'
+
+  gem 'colorize'
+  gem 'tty-prompt'
+  gem 'pry'
+  gem 'net-ssh'
+end
+
+# Set up the prompt for user input
+prompt = TTY::Prompt.new(
+  interrupt: -> { puts 'x'.light_black; puts 'Goodbye'.red; abort }
+)
+
+data = OpenStruct.new
+
+data[:current_hostname] = if File.exist?('.raspi-hostname')
+                            File.read('.raspi-hostname')
+                          else
+                            'raspberrypi.local'
+                          end
+
+if prompt.yes?('Change hostname?')
+  data[:hostname_change?] = true
+  data[:new_hostname] = prompt.ask('New Hostname for pi:')
+  data[:hostname_cmd] = "sudo hostnamectl set-hostname #{data.new_hostname}"
+end
+
+if prompt.yes?('Change password?')
+  data[:password_change?] = true
+
+  data[:current_password] = prompt.mask('Current password for pi:')
+  data[:new_password] = prompt.mask('New password for pi:')
+
+  if data.current_password == data.new_password
+    puts 'ERROR: Same password entered for current and new'.red
+    abort
+  end
+end
+
+data[:restart?] = true if prompt.yes?('Restart afterwards?')
+
+# Run the commands on the remote device
+Net::SSH.start(data.current_hostname, 'pi') do |ssh|
+  if data.hostname_change?
+    ssh.exec!(data[:hostname_cmd])
+    File.open('.raspi-hostname', 'w+') { |f| f << (data[:new_hostname] + '.local') }
+
+    puts 'Hostname changed'.cyan
+  end
+
+  if data.password_change?
+    ssh.open_channel do |channel|
+      channel.exec('passwd') do |_ch, success|
+        abort 'Could not execute command'.red unless success
+
+        channel.on_extended_data do |_ch, _type, stream|
+          if stream =~ /Current password:/
+            channel.send_data(data.current_password + "\n")
+          elsif stream =~ /new password:/i
+            channel.send_data(data.new_password + "\n")
+          elsif stream =~ /updated successfully/i
+          else
+            puts "ERROR: #{stream}".red
+            abort
+          end
+        end
+      end
+    end.wait
+
+    puts 'Password changed'.cyan
+  end
+end
+
+if data.restart?
+  `ssh pi@#{data.current_hostname} sudo reboot 1>/dev/null 2>/dev/null`
+
+  puts 'Rebooted device'.cyan
+end
+
+puts 'Finished'.green.bold
