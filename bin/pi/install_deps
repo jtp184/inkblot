@@ -87,7 +87,7 @@ end
 
 # Clone the repo if requested
 if tasks.include?(:inkblot)
-  cmds.append('rm -rf ~/inkblot')
+  cmds.append('sudo rm -rf ~/inkblot')
   cmds.append('git clone https://github.com/jtp184/inkblot.git ~/inkblot')
   cmds.append('cd ~/inkblot && bundle')
   cmds.append('cd ~/inkblot && sudo rake install')
