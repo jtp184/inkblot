@@ -75,11 +75,8 @@ if %i[ruby image_magick nodejs].any? { |t| tasks.include?(t) }
   cmds.append(apt_cmd)
 end
 
-# Install ruby deps
-if tasks.include?(:ruby)
-  cmds.append('sudo gem install bundler')
-  cmds.append('sudo gem install rake')
-end
+# Install ruby basic gems
+cmds.append('sudo gem install bundler rake') if tasks.include?(:ruby)
 
 # Make sure to install puppeteer globally
 if tasks.include?(:nodejs)
