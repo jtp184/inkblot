@@ -9,7 +9,15 @@ RSpec::Core::RakeTask.new(:spec)
 task default: :spec
 
 task :docs do
-  rd_exclude = %w[bin tmp vendor/waveshare_epd coverage spec].map { |r| "--exclude=#{r}" }.join(' ')
+  rd_exclude = %w[
+    bin
+    tmp
+    vendor/waveshare_epd
+    coverage
+    spec
+    wpa_supplicant.conf
+  ].map { |r| "--exclude=#{r}" }.join(' ')
+
   sh "rdoc --output=docs --format=hanna --all --main=README.md #{rd_exclude}"
 end
 
@@ -35,7 +43,7 @@ end
 task :bump do
   repo = Git.open('.')
   version_file = './lib/inkblot/version.rb'
-  matcher = /VERSION = "(.*)"\.freeze/
+  matcher = /VERSION = '(.*)'\.freeze/
 
   file_contents = File.read(version_file)
 

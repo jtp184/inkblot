@@ -12,7 +12,7 @@ module Inkblot
     # assets like python code and html templates.
     # If +paths+ are appended, joins them to the base with '/'
     def vendor_path(*paths)
-      @vendor_path ||= String.new(ENV['GEM_HOME'] || Gem.default_path.last).tap do |str|
+      @vendor_path ||= String.new(locate_gem_folder).tap do |str|
         str << '/gems'
         str << "/inkblot-#{Inkblot::VERSION}"
         str << '/vendor'
@@ -40,6 +40,19 @@ module Inkblot
     # Which pins are assigned to which of the four buttons, from top down
     def button_pinout
       @button_pinout ||= [5, 6, 13, 19].freeze
+    end
+
+    private
+
+    # Figures out where to look for gems using Gem.path
+    def locate_gem_folder
+      looks, _nopes = Gem.path.partition { |pth| Dir.exist?(pth) }
+
+      has_them, _doesnt = looks.partition do |pth|
+        Dir.entries(pth).include?('gems')
+      end
+
+      has_them.first
     end
   end
 end

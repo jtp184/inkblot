@@ -1,0 +1,121 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org/'
+
+  gem 'colorize'
+  gem 'tty-prompt'
+  gem 'duration'
+  gem 'net-ssh'
+end
+
+# Simple timer class
+class Timer
+  class << self
+    def start
+      @stop = nil
+      @start = Time.now
+    end
+
+    def stop
+      @stop = Time.now
+    end
+
+    def duration
+      dur = Duration.new(@stop - @start).to_s
+      dur.empty? ? '0 seconds' : dur
+    end
+  end
+end
+
+# Set up the prompt for user input
+prompt = TTY::Prompt.new(
+  interrupt: -> { puts 'x'.light_black; puts 'Goodbye'.red; abort }
+)
+
+# Figure out if we have hosts set up
+host = if File.exist?('.raspi-hostname')
+         File.read('.raspi-hostname')
+       else
+         prompt.ask('Pi hostname', default: 'raspberry').tap do |answ|
+           File.open('.raspi-hostname', 'w+') { |f| f << answ }
+         end
+       end
+
+# Possible install choices
+ic = {
+  ruby: 'Ruby',
+  image_magick: 'ImageMagick',
+  nodejs: 'Node / NPM / Puppeteer',
+  inkblot: 'Inkblot'
+}
+
+# Ask for what should be installed
+tasks = prompt.multi_select('What should be installed?', ic.values)
+              .map { |t| ic.key(t) }
+
+# Empty array of commands to run
+cmds = []
+
+if %i[ruby image_magick nodejs].any? { |t| tasks.include?(t) }
+  # Updated our apt repos
+  cmds << 'sudo apt-get update'
+  # Build the system level install command
+  apt_cmd = +'sudo apt-get install '
+
+  # Determine what to install
+  apt_cmd << 'ruby-full ' if tasks.include?(:ruby)
+  apt_cmd << 'imagemagick ' if tasks.include?(:image_magick)
+  apt_cmd << 'nodejs npm ' if tasks.include?(:nodejs)
+  apt_cmd << '-y'
+
+  cmds.append(apt_cmd)
+end
+
+# Install ruby basic gems
+cmds.append('sudo gem install bundler rake') if tasks.include?(:ruby)
+
+# Make sure to install puppeteer globally
+if tasks.include?(:nodejs)
+  cmds.append("echo 'prefix = ${HOME}/lib/npm' > ~/.npmrc")
+  cmds.append(%(echo "export NODE_PATH=${HOME}/lib/npm/lib/node_modules" >> ~/.bashrc))
+  cmds.append('npm install -g puppeteer')
+end
+
+# Clone the repo if requested
+if tasks.include?(:inkblot)
+  cmds.append('sudo rm -rf ~/inkblot')
+  cmds.append('git clone https://github.com/jtp184/inkblot.git ~/inkblot')
+  cmds.append('cd ~/inkblot && bundle')
+  cmds.append('cd ~/inkblot && sudo rake install')
+end
+
+# Run the commands on the remote device
+Net::SSH.start(host, 'pi') do |ssh|
+  cmds.each do |com|
+    Timer.start
+    channel = ssh.open_channel do |chan|
+      puts "Running `#{com.yellow}`"
+      puts
+
+      chan.exec(com) do |ch, success|
+        raise 'Could not execute command' unless success
+
+        # Show output on our device
+        ch.on_data { |_c, data| $stdout.print data.to_s.light_black }
+        ch.on_extended_data { |_c, _type, data| $stderr.print data.to_s.light_black }
+
+        ch.on_close do
+          Timer.stop
+          puts ['Finished '.green.bold, "(#{Timer.duration.bold})"].join
+          puts
+        end
+      end
+    end
+
+    channel.wait
+  end
+end

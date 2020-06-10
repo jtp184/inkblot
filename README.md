@@ -30,6 +30,8 @@ Inkblot.button_pinout # => Defaults to [5, 6, 13, 19]
 Inkblot.button_pinout = [6, 11, 12, 14] # Uses different pins
 ```
 
+For help setting up your pi for use with this gem, check out the [RASPI_SETUP](https://jtp184.github.io/inkblot/files/RASPI_SETUP_md.html) instructions.
+
 ## Usage
 
 ### Documentation
