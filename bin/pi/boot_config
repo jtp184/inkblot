@@ -53,7 +53,7 @@ if File.exist?(config_path)
              .transform_keys(&:to_sym)
 
   # Uncomment the line if it needs to be
-  unless line[:commented]
+  if line[:commented]
     new_conf = conf.map do |ln|
       next ln unless ln.match?(srch)
 
