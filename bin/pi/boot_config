@@ -1,0 +1,81 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'fileutils'
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org/'
+
+  gem 'colorize'
+  gem 'tty-prompt'
+end
+
+# Set up the prompt for user input
+prompt = TTY::Prompt.new(
+  interrupt: -> { puts 'x'.light_black; puts 'Goodbye'.red; abort }
+)
+
+# Set some user ease defaults for OSes
+os_defaults = case Gem.platforms.last.os
+              when 'darwin'
+                '/Volumes/boot'
+              when 'linux'
+                '/mnt/boot'
+              else
+                'E/'
+              end
+
+# Get the boot path
+boot_path = [prompt.ask('Path to /boot drive:', default: os_defaults)]
+boot_path = boot_path.map { |x| Pathname.new(x) }.first
+
+# Abort if it is nonexistent
+unless boot_path.exist?
+  puts "ERROR: Path #{boot_path} does not exist".red
+  abort
+end
+
+# Create ssh file
+FileUtils.touch(boot_path.join('ssh'))
+puts 'Enabled SSH'.cyan
+
+# Locate config file
+config_path = boot_path.join('config.txt')
+
+# If it exists, check to see if SPI is commented out
+if File.exist?(config_path)
+  conf = File.read(config_path).split("\n")
+  srch = /^(?<commented>#)?(?<param>dtparam=spi=on)$/
+  line = conf.find { |x| x.match? srch }
+             .match(srch)
+             .named_captures
+             .transform_keys(&:to_sym)
+
+  # Uncomment the line if it needs to be
+  if line[:commented]
+    new_conf = conf.map do |ln|
+      next ln unless ln.match?(srch)
+
+      line[:param]
+    end
+
+    File.open(config_path, 'w+') { |c| c << new_conf.join("\n") }
+  end
+else
+  # Generate an empty config text if none exists
+  File.open(config_path, 'w+') { |c| c << "dtparam=spi=on\n" }
+end
+
+puts 'Enabled SPI'.cyan
+
+# Copy WPA Supplicant if it exists
+if File.exist?('wpa_supplicant.conf')
+  FileUtils.cp('./wpa_supplicant.conf', boot_path.to_s)
+  puts 'Copied WPA Supplicant'.cyan
+else
+  puts 'No WPA Supplicant was found, please run bin/pi/wpa_config'.yellow
+end
+
+# Report success
+puts 'Boot volume configured successfully'.green

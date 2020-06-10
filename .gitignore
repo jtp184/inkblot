@@ -13,3 +13,4 @@
 # Gem specific
 .raspi-hostname
 spec/examples.txt
+wpa_supplicant.conf

@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org/'
+
+  gem 'colorize'
+  gem 'tty-prompt'
+end
+
+prompt = TTY::Prompt.new
+host_ask = ["What is your Pi's hostname?", { default: 'raspberrypi.local' }]
+# Ensure hostname is present, prompt if not
+rpi = if File.exist?('.raspi-hostname')
+        File.read('.raspi-hostname')
+      else
+        prompt.ask(*host_ask).tap do |answ|
+          File.open('.raspi-hostname', 'w+') do |f|
+            f << answ
+          end
+        end
+      end
+
+# Connect directly or run a command
+if ARGV.empty?
+  exec("ssh pi@#{rpi} -o StrictHostKeyChecking=no")
+else
+  exec("ssh pi@#{rpi} -o StrictHostKeyChecking=no #{ARGV.join(' ')}")
+end
