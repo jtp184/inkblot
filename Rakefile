@@ -43,7 +43,7 @@ end
 task :bump do
   repo = Git.open('.')
   version_file = './lib/inkblot/version.rb'
-  matcher = /VERSION = "(.*)"\.freeze/
+  matcher = /VERSION = '(.*)'\.freeze/
 
   file_contents = File.read(version_file)
 
