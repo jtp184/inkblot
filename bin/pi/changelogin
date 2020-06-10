@@ -29,15 +29,14 @@ data[:current_hostname] = if File.exist?('.raspi-hostname')
 
 # Check if we're changing hostname, get the new hostname if so
 if prompt.yes?('Change hostname?')
-  puts
   data[:hostname_change?] = true
   data[:new_hostname] = prompt.ask('New Hostname for pi:')
   data[:hostname_cmd] = "sudo hostnamectl set-hostname #{data.new_hostname}"
+  puts
 end
 
 # Check if we're changing password, get current and new password if so
 if prompt.yes?('Change password?')
-  puts
   data[:password_change?] = true
 
   data[:current_password] = prompt.mask('Current password for pi:')
@@ -47,11 +46,12 @@ if prompt.yes?('Change password?')
     puts 'ERROR: Same password entered for current and new'.red
     abort
   end
+
+  puts
 end
 
-puts
-
 data[:restart?] = true if prompt.yes?('Restart afterwards?')
+puts
 
 # Run the commands on the remote device
 Net::SSH.start(data.current_hostname, 'pi') do |ssh|
