@@ -17,21 +17,27 @@ prompt = TTY::Prompt.new(
   interrupt: -> { puts 'x'.light_black; puts 'Goodbye'.red; abort }
 )
 
+# Store our data in a struct for flexible DSL
 data = OpenStruct.new
 
+# Get current hostname, or assume it's the default
 data[:current_hostname] = if File.exist?('.raspi-hostname')
                             File.read('.raspi-hostname')
                           else
                             'raspberrypi.local'
                           end
 
+# Check if we're changing hostname, get the new hostname if so
 if prompt.yes?('Change hostname?')
+  puts
   data[:hostname_change?] = true
   data[:new_hostname] = prompt.ask('New Hostname for pi:')
   data[:hostname_cmd] = "sudo hostnamectl set-hostname #{data.new_hostname}"
 end
 
+# Check if we're changing password, get current and new password if so
 if prompt.yes?('Change password?')
+  puts
   data[:password_change?] = true
 
   data[:current_password] = prompt.mask('Current password for pi:')
@@ -43,10 +49,13 @@ if prompt.yes?('Change password?')
   end
 end
 
+puts
+
 data[:restart?] = true if prompt.yes?('Restart afterwards?')
 
 # Run the commands on the remote device
 Net::SSH.start(data.current_hostname, 'pi') do |ssh|
+  # If we're changing the hostname, run the command and save the new name
   if data.hostname_change?
     ssh.exec!(data[:hostname_cmd])
     File.open('.raspi-hostname', 'w+') { |f| f << (data[:new_hostname] + '.local') }
@@ -54,6 +63,7 @@ Net::SSH.start(data.current_hostname, 'pi') do |ssh|
     puts 'Hostname changed'.cyan
   end
 
+  # If we're changing the password, interact with the passwd prompt
   if data.password_change?
     ssh.open_channel do |channel|
       channel.exec('passwd') do |_ch, success|
