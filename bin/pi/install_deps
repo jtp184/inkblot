@@ -8,8 +8,27 @@ gemfile do
 
   gem 'colorize'
   gem 'tty-prompt'
-  gem 'pry'
+  gem 'duration'
   gem 'net-ssh'
+end
+
+# Simple timer class
+class Timer
+  class << self
+    def start
+      @stop = nil
+      @start = Time.now
+    end
+
+    def stop
+      @stop = Time.now
+    end
+
+    def duration
+      dur = Duration.new(@stop - @start).to_s
+      dur.empty? ? '0 seconds' : dur
+    end
+  end
 end
 
 # Set up the prompt for user input
@@ -80,6 +99,7 @@ end
 # Run the commands on the remote device
 Net::SSH.start(host, 'pi') do |ssh|
   cmds.each do |com|
+    Timer.start
     channel = ssh.open_channel do |chan|
       puts "Running `#{com.yellow}`"
       puts
@@ -92,7 +112,8 @@ Net::SSH.start(host, 'pi') do |ssh|
         ch.on_extended_data { |_c, _type, data| $stderr.print data.to_s.light_black }
 
         ch.on_close do
-          puts 'Finished'.green.bold
+          Timer.stop
+          puts ["Finished ".green.bold, "(#{Timer.duration})"].join
           puts
         end
       end
