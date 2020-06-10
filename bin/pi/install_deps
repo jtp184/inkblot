@@ -41,34 +41,63 @@ tasks = prompt.multi_select('What should be installed?', ic.values)
 # Empty array of commands to run
 cmds = []
 
-# Build the system level install command
-apt_cmd = +'sudo apt-get install '
+if %i[ruby image_magick nodejs].any? { |t| tasks.include?(t) }
+  # Updated our apt repos
+  cmds << 'sudo apt-get update'
+  # Build the system level install command
+  apt_cmd = +'sudo apt-get install '
 
-# Determine what to install
-apt_cmd << 'ruby-full ' if tasks.include?(:ruby)
-apt_cmd << 'imagemagick ' if tasks.include?(:image_magick)
-apt_cmd << 'nodejs npm ' if tasks.include?(:nodejs)
-apt_cmd << '-y'
+  # Determine what to install
+  apt_cmd << 'ruby-full ' if tasks.include?(:ruby)
+  apt_cmd << 'imagemagick ' if tasks.include?(:image_magick)
+  apt_cmd << 'nodejs npm ' if tasks.include?(:nodejs)
+  apt_cmd << '-y'
 
-# Add the command unless we aren't installing any
-cmds.append(apt_cmd) unless tasks.none? { |t| ic.keys.first(3).include?(t) }
+  cmds.append(apt_cmd)
+end
 
-# Clone the repo if requested
-if tasks.include?(:inkblot)
-  cmds.append('git clone https://github.com/jtp184/inkblot.git ~/')
-  cmds.append('cd ~/inkblot && rake install')
+# Install ruby deps
+if tasks.include?(:ruby)
+  cmds.append('sudo gem install bundler')
+  cmds.append('sudo gem install rake')
 end
 
 # Make sure to install puppeteer globally
 if tasks.include?(:nodejs)
   cmds.append("echo 'prefix = ${HOME}/lib/npm' > ~/.npmrc")
+  cmds.append(%(echo "export NODE_PATH = ${HOME}/lib/npm/lib/node_modules" > ~/.bashrc))
   cmds.append('npm install -g puppeteer')
+end
+
+# Clone the repo if requested
+if tasks.include?(:inkblot)
+  cmds.append('rm -rf ~/inkblot')
+  cmds.append('git clone https://github.com/jtp184/inkblot.git ~/inkblot')
+  cmds.append('cd ~/inkblot && bundle')
+  cmds.append('cd ~/inkblot && sudo rake install')
 end
 
 # Run the commands on the remote device
 Net::SSH.start(host, 'pi') do |ssh|
   cmds.each do |com|
-    puts "Running `#{com.yellow}`"
-    ssh.exec!(com)
+    channel = ssh.open_channel do |chan|
+      puts "Running `#{com.yellow}`"
+      puts
+
+      chan.exec(com) do |ch, success|
+        raise 'Could not execute command' unless success
+
+        # Show output on our device
+        ch.on_data { |_c, data| $stdout.print data.to_s.light_black }
+        ch.on_extended_data { |_c, _type, data| $stderr.print data.to_s.light_black }
+
+        ch.on_close do
+          puts 'Finished'.green.bold
+          puts
+        end
+      end
+    end
+
+    channel.wait
   end
 end
