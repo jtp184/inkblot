@@ -81,7 +81,7 @@ cmds.append('sudo gem install bundler rake') if tasks.include?(:ruby)
 # Make sure to install puppeteer globally
 if tasks.include?(:nodejs)
   cmds.append("echo 'prefix = ${HOME}/lib/npm' > ~/.npmrc")
-  cmds.append(%(echo "export NODE_PATH = ${HOME}/lib/npm/lib/node_modules" > ~/.bashrc))
+  cmds.append(%(echo "export NODE_PATH=${HOME}/lib/npm/lib/node_modules" >> ~/.bashrc))
   cmds.append('npm install -g puppeteer')
 end
 
