@@ -126,7 +126,7 @@ end</td>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-new-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-new-source'><span class="ruby-comment"># File bin/pi/wpa_config, line 34</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">opts</span> = {})&#x000A;  <span class="ruby-ivar">@networks</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:networks</span>, [])&#x000A;  <span class="ruby-ivar">@country_code</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:country_code</span>, <span class="ruby-string">&#39;US&#39;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-new-source'><span class="ruby-comment"># File bin/pi/wpa_config, line 36</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">opts</span> = {})&#x000A;  <span class="ruby-ivar">@networks</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:networks</span>, [])&#x000A;  <span class="ruby-ivar">@country_code</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:country_code</span>, <span class="ruby-string">&#39;US&#39;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <h2>Public Instance methods</h2>
@@ -146,7 +146,7 @@ end</td>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-prioritize_networks-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-prioritize_networks-source'><span class="ruby-comment"># File bin/pi/wpa_config, line 45</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">prioritize_networks</span>&#x000A;  <span class="ruby-identifier">networks</span>.<span class="ruby-identifier">each_with_index</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">n</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">n</span>.<span class="ruby-identifier">priority</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span> }&#x000A;  <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-prioritize_networks-source'><span class="ruby-comment"># File bin/pi/wpa_config, line 47</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">prioritize_networks</span>&#x000A;  <span class="ruby-identifier">networks</span>.<span class="ruby-identifier">each_with_index</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">n</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">n</span>.<span class="ruby-identifier">priority</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span> }&#x000A;  <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-to_s'>
@@ -165,7 +165,7 @@ end</td>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-to_s-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-to_s-source'><span class="ruby-comment"># File bin/pi/wpa_config, line 40</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_s</span>&#x000A;  <span class="ruby-identifier">build</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-to_s-source'><span class="ruby-comment"># File bin/pi/wpa_config, line 42</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_s</span>&#x000A;  <span class="ruby-identifier">build</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <h2>Private Instance methods</h2>
@@ -185,7 +185,7 @@ end</td>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-build-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-build-source'><span class="ruby-comment"># File bin/pi/wpa_config, line 54</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">build</span>&#x000A;  <span class="ruby-identifier">str</span> = <span class="ruby-string">+&#39;&#39;</span>&#x000A;  <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">preamble</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span>)&#x000A;  <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot;\n&quot;</span>&#x000A;  <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;country=#{country_code}&quot;</span>&#x000A;  <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot;\n&quot;</span>&#x000A;  <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot;\n&quot;</span>&#x000A;  <span class="ruby-identifier">str</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">networks</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_s</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n\n&quot;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-build-source'><span class="ruby-comment"># File bin/pi/wpa_config, line 56</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">build</span>&#x000A;  <span class="ruby-identifier">str</span> = <span class="ruby-string">+&#39;&#39;</span>&#x000A;  <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">preamble</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span>)&#x000A;  <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot;\n&quot;</span>&#x000A;  <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;country=#{country_code}&quot;</span>&#x000A;  <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot;\n&quot;</span>&#x000A;  <span class="ruby-identifier">str</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot;\n&quot;</span>&#x000A;  <span class="ruby-identifier">str</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">networks</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_s</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n\n&quot;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-preamble'>
@@ -204,7 +204,7 @@ end</td>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-preamble-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-preamble-source'><span class="ruby-comment"># File bin/pi/wpa_config, line 65</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">preamble</span>&#x000A;  [&#x000A;    <span class="ruby-string">&#39;ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev&#39;</span>,&#x000A;    <span class="ruby-string">&#39;update_config=1&#39;</span>&#x000A;  ]&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-preamble-source'><span class="ruby-comment"># File bin/pi/wpa_config, line 67</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">preamble</span>&#x000A;  [&#x000A;    <span class="ruby-string">&#39;ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev&#39;</span>,&#x000A;    <span class="ruby-string">&#39;update_config=1&#39;</span>&#x000A;  ]&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>
