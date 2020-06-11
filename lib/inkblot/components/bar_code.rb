@@ -26,18 +26,17 @@ module Inkblot
                         ''
                       else
                         m = +' '
-                        if dta.margin_top
-                          m << "margin-top: #{dta.margin_top}%; "
-                        end
-
-                        if dta.margin_left
-                          m << "margin-left: #{dta.margin_left}%;"
-                        end
+                        m << "margin-top: #{dta.margin_top}%; " if dta.margin_top
+                        m << "margin-left: #{dta.margin_left}%;"if dta.margin_left
 
                         m
                       end
 
-        dta.data_url = Converters::DataUrlConverter.call(input: generate_code.to_png(height: 60))
+        dta.data_url = Converters::DataUrlConverter.call(
+          input: generate_code.to_png(height: 60),
+          format: :binary,
+          filetype: 'png'
+        )
 
         dta.to_h
       end
