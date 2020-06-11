@@ -5,10 +5,16 @@ module Inkblot
       module ButtonMap
         # The methods to add to the class
         module ClassMethods
+          # Takes in each symbol +btns+ and saves it for later
           def def_button_methods(*btns)
-            @button_methods = btns
+            @button_methods = if btns.one?
+                                Array(btns.first).first
+                              else
+                                btns
+                              end
           end
 
+          # Returns button methods gleaned from def_button_methods
           def defined_button_methods
             @button_methods
           end
