@@ -39,45 +39,18 @@ class StockTicker
     end
   end
 
-  # Defines the button actions for the reporter
+  # Defines the button actions for the reporter by returning method objects
   # - 1: Refresh
   # - 2: Next stock
   # - 3: Week of Historical data
   # - 4: Exit
   def button_actions
-    return @button_actions if @button_actions
-
-    @button_actions = []
-
-    @button_actions << proc do
-      self.refresh
-
-      Inkblot::Display.again
-    end
-
-    @button_actions << proc do
-      if current_page == (page_count - 1)
-        self.current_page = 0
-      else
-        self.next_page
-      end
-
-      Inkblot::Display.again
-    end
-
-    @button_actions << proc do
-      if state == :current
-        self.state = :historical 
-      elsif state == :historical
-        self.state = :current
-      end
-
-      Inkblot::Display.again
-    end
-
-    @button_actions << proc do
-      raise IndexError, 'Cancel button was pressed'
-    end
+    @button_actions ||= %i[
+      refresh_screen
+      cycle_pages
+      toggle_state
+      exit_program
+    ].map { |m| method(m) }
   end
 
   # Fetch api data and return self
@@ -89,6 +62,40 @@ class StockTicker
   # Returns the latest report, fetching if none exists
   def latest_report
     @latest_report || fetch_api_data
+  end
+
+  # Refreshes and redisplays the screen. Key1 action
+  def refresh_screen
+    refresh
+    
+    Inkblot::Display.again
+  end
+
+  # Loops through pages and redisplays the screen. Key2 action
+  def cycle_pages
+    if current_page == (page_count - 1)
+      self.current_page = 0
+    else
+      next_page
+    end
+
+    Inkblot::Display.again
+  end
+
+  # Changes state from :current to :historical and back. Key3 action
+  def toggle_state
+    if state == :current
+      self.state = :historical
+    elsif state == :historical
+      self.state = :current
+    end
+
+    Inkblot::Display.again
+  end
+
+  # Raises an IndexError. Key4 action
+  def exit_program
+    raise IndexError, 'Cancel button was pressed'
   end
 
   private
