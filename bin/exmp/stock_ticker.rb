@@ -50,8 +50,8 @@ class StockTicker
 
     @button_actions = []
 
-    @button_actions << proc { next_page }
     @button_actions << proc { prev_page }
+    @button_actions << proc { next_page }
 
     @button_actions << proc do
       if state == :current
