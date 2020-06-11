@@ -180,7 +180,7 @@ class StockTicker
 end
 
 #=== For Displaying on the EPD ===##
-# Inkblot::Buttons.init unless Inkblot::Buttons.ready?
+Inkblot::Buttons.init unless Inkblot::Buttons.ready?
 
 @t = StockTicker.new(symbols: %w[AAPL FB])
 # binding.pry
