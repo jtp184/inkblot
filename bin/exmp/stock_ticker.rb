@@ -204,7 +204,7 @@ Inkblot::Buttons.init unless Inkblot::Buttons.ready?
 
 begin
   Inkblot::Display.show(@t)
-  Inkblot::Buttons.get_press
+  loop { Inkblot::Buttons.get_press }
 rescue IndexError
   Inkblot::Display.clear
   Inkblot::Buttons.release
