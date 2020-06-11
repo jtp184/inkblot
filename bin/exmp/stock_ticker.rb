@@ -41,17 +41,27 @@ class StockTicker
   end
 
   # Defines the button actions for the reporter
-  # - 1: Next Stock
-  # - 2: Previous Stock
-  # - 3: Overview (TODO)
-  # - 4: Abort display
+  # - 1: Refresh
+  # - 2: Next stock
+  # - 3: Week of Historical data
+  # - 4: Exit
   def button_actions
     return @button_actions if @button_actions
 
     @button_actions = []
 
-    @button_actions << proc { self.prev_page }
-    @button_actions << proc { self.next_page }
+    @button_actions << proc do
+      self.refresh
+      Inkblot::Display.again
+    end
+
+    @button_actions << proc do
+      if current_page == (page_count - 1)
+        self.current_page = 0
+      else
+        self.next_page
+      end
+    end
 
     @button_actions << proc do
       if state == :current
@@ -187,18 +197,9 @@ Inkblot::Buttons.init unless Inkblot::Buttons.ready?
 @t = StockTicker.new(symbols: %w[AAPL FB])
 # binding.pry
 
-refresh_time = 30
-
 begin
-  loop do
-    Inkblot::Display.show(@t)
-    Inkblot::Buttons.get_press(refresh_time)
-
-    @t.refresh
-    puts Time.now, @t.state, @t.current_page
-
-    puts
-  end
+  Inkblot::Display.show(@t)
+  Inkblot::Buttons.get_press
 rescue IndexError
   Inkblot::Display.clear
   Inkblot::Buttons.release
