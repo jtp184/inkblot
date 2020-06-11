@@ -118,8 +118,8 @@ class StockTicker
   # Generates an IconGrid for the given report
   def chart_for(rpt)
     Inkblot::Components::IconGrid.new do |ig|
-      tl.div_height = :full
-      tl.div_width = 95
+      ig.div_height = :full
+      ig.div_width = 95
 
       
       ig.icons = rpt.last(7).reverse.map do |tup|
