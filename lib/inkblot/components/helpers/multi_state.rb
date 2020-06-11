@@ -11,9 +11,9 @@ module Inkblot
             @states = sts
           end
 
-          # Set the default state directly to +st+
-          def default_state(st)
-            @default_state_value = st
+          # Set the default state directly to +sta+
+          def default_state(sta)
+            @default_state_value = sta
           end
 
           # Returns the value set by default state, or the first state
@@ -43,11 +43,11 @@ module Inkblot
           @states ||= self.class.states
         end
 
-        # Sets the current state to +st+ if it exists within the states
-        def state=(st)
-          raise ArgumentError, 'Not a valid state' unless states.include?(st)
+        # Sets the current state to +sta+ if it exists within the states
+        def state=(sta)
+          raise ArgumentError, 'Not a valid state' unless states.include?(sta)
 
-          @state = st
+          @state = sta
         end
 
         # Holds a hash of states and their content
@@ -57,20 +57,19 @@ module Inkblot
           @state_content = states.map { |s| [s, nil] }.to_h
         end
 
-        # Convinience method. If +st+ is given it returns the data for
+        # Convinience method. If +sta+ is given it returns the data for
         # that state, and if not it uses the current state. Providing a block
         # sets the content into the array instead of retrieving it
-        def content_for_state(st = nil)
-          if !st.nil? && !states.include?(st)
-            raise ArgumentError, 'Not a valid state'
-          end
+        def content_for_state(sta = nil)
+          non_present = !sta.nil? && !states.include?(sta)
+          raise ArgumentError, 'Not a valid state' if non_present
 
-          st ||= state
+          sta ||= state
 
           if block_given?
-            state_content[st] = yield
+            state_content[sta] = yield
           else
-            state_content[st]
+            state_content[sta]
           end
         end
       end

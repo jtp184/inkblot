@@ -43,6 +43,10 @@ Inkblot::GPIO
 <ol>
 <li><a href="#method-c-gpio_state">gpio_state</a></li>
 </ol>
+<h3>Private Class</h3>
+<ol>
+<li><a href="#method-c-map_pin">map_pin</a></li>
+</ol>
 </div>
 <div id='context'>
 </div>
@@ -59,19 +63,35 @@ Inkblot::GPIO
 <a name='method-c-gpio_state'></a>
 <div class='synopsis'>
 <span class='name'>gpio_state</span>
-<span class='arguments'>(*pn)</span>
+<span class='arguments'>(*pin)</span>
 
 </div>
 <div class='description'>
-
-<p>Uses the raspi-gpio tool to get pin state for one or more pins <code>pn</code></p>
 
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-gpio_state-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-gpio_state-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 7</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">gpio_state</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">pn</span>)&#x000A;  <span class="ruby-identifier">cmd</span> = <span class="ruby-node">`raspi-gpio get #{pn.join(&#39;,&#39;)}`</span>&#x000A;  <span class="ruby-identifier">pt</span> = <span class="ruby-regexp">/GPIO (?&lt;pin&gt;\d*): level=(?&lt;level&gt;\w*) fsel=(?&lt;fsel&gt;\w*)(?: alt=(?&lt;alt&gt;\d))? func=(?&lt;func&gt;\w*)(?: pull=(?&lt;pull&gt;\w*))?/</span>&#x000A;  <span class="ruby-identifier">st</span> = <span class="ruby-identifier">cmd</span>.<span class="ruby-identifier">lines</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">pt</span>) }&#x000A;          .<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:named_captures</span>)&#x000A;          .<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>) }&#x000A;&#x000A;  <span class="ruby-identifier">st</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">nt</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-node">%i[pin level fsel]</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">d</span><span class="ruby-operator">|</span> <span class="ruby-identifier">nt</span>[<span class="ruby-identifier">d</span>] = <span class="ruby-identifier">nt</span>[<span class="ruby-identifier">d</span>].<span class="ruby-identifier">to_i</span> }&#x000A;    <span class="ruby-identifier">nt</span>[<span class="ruby-value">:direction</span>] = <span class="ruby-keyword">case</span> <span class="ruby-identifier">nt</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:func</span>)&#x000A;                     <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;INPUT&#39;</span>&#x000A;                       <span class="ruby-value">:in</span>&#x000A;                     <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;OUTPUT&#39;</span>&#x000A;                       <span class="ruby-value">:out</span>&#x000A;                     <span class="ruby-keyword">end</span>&#x000A;&#x000A;    <span class="ruby-identifier">nt</span>[<span class="ruby-value">:pull</span>] = <span class="ruby-keyword">case</span> <span class="ruby-identifier">nt</span>[<span class="ruby-value">:pull</span>]&#x000A;                <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;UP&#39;</span>&#x000A;                  <span class="ruby-value">:up</span>&#x000A;                <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;DOWN&#39;</span>&#x000A;                  <span class="ruby-value">:down</span>&#x000A;                <span class="ruby-keyword">when</span> <span class="ruby-keyword">nil</span>&#x000A;                  <span class="ruby-value">:unknown</span>&#x000A;                <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">st</span>.<span class="ruby-identifier">one?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">st</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">st</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-gpio_state-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 8</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">gpio_state</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">pin</span>)&#x000A;  <span class="ruby-identifier">cmd</span> = <span class="ruby-node">`raspi-gpio get #{pin.join(&#39;,&#39;)}`</span>&#x000A;  <span class="ruby-identifier">pt</span> = <span class="ruby-regexp">/GPIO (?&lt;pin&gt;\d*): level=(?&lt;level&gt;\w*) fsel=(?&lt;fsel&gt;\w*)(?: alt=(?&lt;alt&gt;\d))? func=(?&lt;func&gt;\w*)(?: pull=(?&lt;pull&gt;\w*))?/</span>&#x000A;&#x000A;  <span class="ruby-identifier">st</span> = <span class="ruby-identifier">cmd</span>.<span class="ruby-identifier">lines</span>&#x000A;          .<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">pt</span>) }&#x000A;          .<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:named_captures</span>)&#x000A;          .<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>) }&#x000A;          .<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">map_pin</span>(<span class="ruby-identifier">x</span>) }&#x000A;&#x000A;  <span class="ruby-identifier">st</span>.<span class="ruby-identifier">one?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">st</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">st</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<h2>Private Class methods</h2>
+<div class='method private-class' id='method-method-c-map_pin'>
+<a name='method-c-map_pin'></a>
+<div class='synopsis'>
+<span class='name'>map_pin</span>
+<span class='arguments'>(pin_st)</span>
+
+</div>
+<div class='description'>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-map_pin-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-map_pin-source'><span class="ruby-comment"># File lib/inkblot/gpio.rb, line 23</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">map_pin</span>(<span class="ruby-identifier">pin_st</span>)&#x000A;  <span class="ruby-identifier">pin_st</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">nt</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-node">%i[pin level fsel]</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">d</span><span class="ruby-operator">|</span> <span class="ruby-identifier">nt</span>[<span class="ruby-identifier">d</span>] = <span class="ruby-identifier">nt</span>[<span class="ruby-identifier">d</span>].<span class="ruby-identifier">to_i</span> }&#x000A;    <span class="ruby-identifier">nt</span>[<span class="ruby-value">:direction</span>] = <span class="ruby-keyword">case</span> <span class="ruby-identifier">nt</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:func</span>)&#x000A;                     <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;INPUT&#39;</span>&#x000A;                       <span class="ruby-value">:in</span>&#x000A;                     <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;OUTPUT&#39;</span>&#x000A;                       <span class="ruby-value">:out</span>&#x000A;                     <span class="ruby-keyword">end</span>&#x000A;&#x000A;    <span class="ruby-identifier">nt</span>[<span class="ruby-value">:pull</span>] = <span class="ruby-keyword">case</span> <span class="ruby-identifier">nt</span>[<span class="ruby-value">:pull</span>]&#x000A;                <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;UP&#39;</span>&#x000A;                  <span class="ruby-value">:up</span>&#x000A;                <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;DOWN&#39;</span>&#x000A;                  <span class="ruby-value">:down</span>&#x000A;                <span class="ruby-keyword">when</span> <span class="ruby-keyword">nil</span>&#x000A;                  <span class="ruby-value">:unknown</span>&#x000A;                <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>

@@ -30,19 +30,22 @@ module Inkblot
         end
       end
 
+      # The TTY::Command instance to puppeteer through
+      def self.shell
+        @shell ||= TTY::Command.new(printer: :null)
+      end
+
       private
 
       # Constructs the command and passes the input to the vendor/puppeteer.js
       # script for processing. Returns a base64 encoded string
       def puppeteer
-        @@cmd ||= TTY::Command.new(printer: :null)
-
         cmd = +'node '
         cmd << Inkblot.vendor_path('puppeteer.js') << ' '
         cmd << Inkblot.screen_size[:width].to_s << ' '
         cmd << Inkblot.screen_size[:height].to_s << ' '
 
-        b64, _err = @@cmd.run(cmd, in: input)
+        b64, _err = self.class.shell.run(cmd, in: input)
         b64
       end
     end

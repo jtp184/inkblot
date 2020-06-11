@@ -87,19 +87,19 @@ Inkblot::Components::Helpers::MultiState
 <a name='method-i-content_for_state'></a>
 <div class='synopsis'>
 <span class='name'>content_for_state</span>
-<span class='arguments'>(st = nil)</span>
+<span class='arguments'>(sta = nil)</span>
 
 </div>
 <div class='description'>
 
-<p>Convinience method. If <code>st</code> is given it returns the data for that state, and if not it uses the current state. Providing a block sets the content into the array instead of retrieving it</p>
+<p>Convinience method. If <code>sta</code> is given it returns the data for that state, and if not it uses the current state. Providing a block sets the content into the array instead of retrieving it</p>
 
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-content_for_state-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-content_for_state-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/multi_state.rb, line 63</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">content_for_state</span>(<span class="ruby-identifier">st</span> = <span class="ruby-keyword">nil</span>)&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">st</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">states</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">st</span>)&#x000A;    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&#39;Not a valid state&#39;</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">st</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">state</span>&#x000A;&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>&#x000A;    <span class="ruby-identifier">state_content</span>[<span class="ruby-identifier">st</span>] = <span class="ruby-keyword">yield</span>&#x000A;  <span class="ruby-keyword">else</span>&#x000A;    <span class="ruby-identifier">state_content</span>[<span class="ruby-identifier">st</span>]&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-content_for_state-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/multi_state.rb, line 63</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">content_for_state</span>(<span class="ruby-identifier">sta</span> = <span class="ruby-keyword">nil</span>)&#x000A;  <span class="ruby-identifier">non_present</span> = <span class="ruby-operator">!</span><span class="ruby-identifier">sta</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">states</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">sta</span>)&#x000A;  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&#39;Not a valid state&#39;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">non_present</span>&#x000A;&#x000A;  <span class="ruby-identifier">sta</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">state</span>&#x000A;&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>&#x000A;    <span class="ruby-identifier">state_content</span>[<span class="ruby-identifier">sta</span>] = <span class="ruby-keyword">yield</span>&#x000A;  <span class="ruby-keyword">else</span>&#x000A;    <span class="ruby-identifier">state_content</span>[<span class="ruby-identifier">sta</span>]&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-state'>
@@ -125,19 +125,19 @@ Inkblot::Components::Helpers::MultiState
 <a name='method-i-state-3D'></a>
 <div class='synopsis'>
 <span class='name'>state=</span>
-<span class='arguments'>(st)</span>
+<span class='arguments'>(sta)</span>
 
 </div>
 <div class='description'>
 
-<p>Sets the current state to <code>st</code> if it exists within the states</p>
+<p>Sets the current state to <code>sta</code> if it exists within the states</p>
 
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-state-3D-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-state-3D-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/multi_state.rb, line 47</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">state=</span>(<span class="ruby-identifier">st</span>)&#x000A;  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&#39;Not a valid state&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">states</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">st</span>)&#x000A;&#x000A;  <span class="ruby-ivar">@state</span> = <span class="ruby-identifier">st</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-state-3D-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/multi_state.rb, line 47</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">state=</span>(<span class="ruby-identifier">sta</span>)&#x000A;  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&#39;Not a valid state&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">states</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">sta</span>)&#x000A;&#x000A;  <span class="ruby-ivar">@state</span> = <span class="ruby-identifier">sta</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-state_content'>

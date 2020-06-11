@@ -41,12 +41,12 @@ module Inkblot
         def material_icon_sym(icn)
           ic = Icons.codepoints[icn]
 
-          if ic
-            mi = -'Material Icons'
-            options[:gfonts] ||= [mi]
-            options[:gfonts] << mi unless options[:gfonts].include?(mi)
-            ic
-          end
+          return unless ic
+
+          mi = -'Material Icons'
+          options[:gfonts] ||= [mi]
+          options[:gfonts] << mi unless options[:gfonts].include?(mi)
+          ic
         end
 
         # Handles the work of converting user input into display logic.

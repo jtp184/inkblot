@@ -6,8 +6,8 @@ module Inkblot
         # The methods to add to the class
         module ClassMethods
           # Sets the starting page to +pg+
-          def start_page(pg)
-            @starting_page = pg
+          def start_page(pag)
+            @starting_page = pag
           end
 
           # Defaults the starting page to 0 if unset
@@ -43,7 +43,7 @@ module Inkblot
         end
 
         # Invokes the pagination method, sets the page count with its result
-        def paginate(over=nil)
+        def paginate(over = nil)
           @page_count ||= over || send(self.class.paginate_with_method)
         end
 

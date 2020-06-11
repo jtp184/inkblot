@@ -72,8 +72,8 @@ module Inkblot
       end
 
       # Get the choices for the current page, and return the one at index +ix+
-      def choice(ix)
-        items[to_display.options[:choices][ix]]
+      def choice(indx)
+        items[to_display.options[:choices][indx]]
       end
 
       # True if the state is answered or canceled
@@ -95,24 +95,34 @@ module Inkblot
 
         dx = items.each_with_index.to_h
 
+        scroll_content(pg, dx) && select_content(pg, dx)
+
+        pg.each_slice(4).count
+      end
+
+      # Method for scroll content
+      def scroll_content(pages, indx)
         content_for_state(:scroll) do
-          pg.each_slice(4).map do |page|
+          pages.each_slice(4).map do |page|
             IconPane.new do |pane|
               pane.icons = :select
               pane.div_height = pane.div_width = :full
-              pane.choices = page.map { |g| dx[g] }
+              pane.choices = page.map { |g| indx[g] }
               pane.frame_contents = TableList.new do |lst|
                 lst.items = page.map(&:to_s)
               end
             end
           end
         end
+      end
 
+      # Method for select content
+      def select_content(pages, indx)
         content_for_state(:select) do
-          pg.each_slice(4).map do |page|
+          pages.each_slice(4).map do |page|
             IconPane.new do |pane|
               pane.div_height = pane.div_width = :full
-              pane.choices = page.map { |g| dx[g] }
+              pane.choices = page.map { |g| indx[g] }
               pane.icons = pane.choices.map { |ch| ch.nil? ? :times : :rarr }
               pane.frame_contents = TableList.new do |lst|
                 lst.items = page.map(&:to_s)
@@ -120,8 +130,6 @@ module Inkblot
             end
           end
         end
-
-        pg.each_slice(4).count
       end
     end
   end

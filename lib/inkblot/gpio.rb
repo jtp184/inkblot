@@ -4,33 +4,42 @@ module Inkblot
   # Handles reading pin data from the board for button input
   module GPIO
     # Uses the raspi-gpio tool to get pin state for one or more pins +pn+
-    def self.gpio_state(*pn)
-      cmd = `raspi-gpio get #{pn.join(',')}`
-      pt = /GPIO (?<pin>\d*): level=(?<level>\w*) fsel=(?<fsel>\w*)(?: alt=(?<alt>\d))? func=(?<func>\w*)(?: pull=(?<pull>\w*))?/
-      st = cmd.lines.map { |x| x.match(pt) }
-              .map(&:named_captures)
-              .map { |x| x.transform_keys(&:to_sym) }
+    class << self
+      def gpio_state(*pin)
+        cmd = `raspi-gpio get #{pin.join(',')}`
+        pt = /GPIO (?<pin>\d*): level=(?<level>\w*) fsel=(?<fsel>\w*)(?: alt=(?<alt>\d))? func=(?<func>\w*)(?: pull=(?<pull>\w*))?/
 
-      st.each do |nt|
-        %i[pin level fsel].each { |d| nt[d] = nt[d].to_i }
-        nt[:direction] = case nt.delete(:func)
-                         when 'INPUT'
-                           :in
-                         when 'OUTPUT'
-                           :out
-                         end
+        st = cmd.lines
+                .map { |x| x.match(pt) }
+                .map(&:named_captures)
+                .map { |x| x.transform_keys(&:to_sym) }
+                .map { |x| map_pin(x) }
 
-        nt[:pull] = case nt[:pull]
-                    when 'UP'
-                      :up
-                    when 'DOWN'
-                      :down
-                    when nil
-                      :unknown
-                    end
+        st.one? ? st.first : st
       end
 
-      st.one? ? st.first : st
+      private
+
+      def map_pin(pin_st)
+        pin_st.each do |nt|
+          %i[pin level fsel].each { |d| nt[d] = nt[d].to_i }
+          nt[:direction] = case nt.delete(:func)
+                           when 'INPUT'
+                             :in
+                           when 'OUTPUT'
+                             :out
+                           end
+
+          nt[:pull] = case nt[:pull]
+                      when 'UP'
+                        :up
+                      when 'DOWN'
+                        :down
+                      when nil
+                        :unknown
+                      end
+        end
+      end
     end
 
     # Individual pins are controlled by instances of this class
@@ -45,10 +54,10 @@ module Inkblot
       attr_reader :pull
 
       # Takes in an integer +pn+ for which GPIO pin we are monitoring
-      def initialize(pn)
-        @id = pn
+      def initialize(pin)
+        @id = pin
         @exported = File.exist?(gpio_pin_value_path)
-        st = GPIO.gpio_state(pn)
+        st = GPIO.gpio_state(pin)
         @direction = st[:direction]
         @pull = st[:pull]
       end
@@ -57,7 +66,7 @@ module Inkblot
       def on?
         return false unless @exported
 
-        cat(gpio_pin_value_path).to_i == 0
+        cat(gpio_pin_value_path).to_i.zero?
       end
 
       # Returns true if the pin is exported and reading high
@@ -97,30 +106,34 @@ module Inkblot
       # Sets the direction using the pin path direction file
       def direction=(dir)
         raise ArgumentError unless %i[in out].include?(dir)
-        return self if direction == dir
 
-        echo(id, gpio_pin_path, 'direction')
-        @direction = GPIO.gpio_state(id)[:direction]
+        unless direction == dir
+          echo(id, gpio_pin_path, 'direction')
+          @direction = GPIO.gpio_state(id)[:direction]
+        end
+
         self
       end
 
       # Sets the pull using the raspi-gpio tool
-      def pull=(pl)
-        raise ArgumentError unless %i[up down].include?(pl)
-        return self if pull == pl
+      def pull=(pul)
+        raise ArgumentError unless %i[up down].include?(pul)
+        
+        unless pull == pul
+          cmd = 'raspi-gpio set '
+          cmd << id.to_s
+          cmd << ' p'
+          cmd << case pl
+                 when :up
+                   'u'
+                 when :down
+                   'd'
+                 end
 
-        cmd = 'raspi-gpio set '
-        cmd << id.to_s
-        cmd << ' p'
-        cmd << case pl
-               when :up
-                 'u'
-               when :down
-                 'd'
-               end
+          system(cmd)
+          @pull = GPIO.gpio_state(id)[:pull]
+        end
 
-        system(cmd)
-        @pull = GPIO.gpio_state(id)[:pull]
         self
       end
 

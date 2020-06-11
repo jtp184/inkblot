@@ -14,11 +14,11 @@ module Inkblot
         @options = topts
         kopts.each_pair { |k, v| instance_variable_set(:"@#{k}", v) }
 
-        if block_given?
-          o = OpenStruct.new(@options)
-          yield o
-          @options = o.to_h
-        end
+        return unless block_given?
+
+        o = OpenStruct.new(@options)
+        yield o
+        @options = o.to_h
       end
 
       # Creates a new basic component by joining the fragment maps
@@ -59,21 +59,23 @@ module Inkblot
         @template ||= File.read(template_full_path)
       end
 
+      class << self
+        # The HTML head/body wrapper start snippet
+        def start_component_template
+          @start_component_template ||= File.read(
+            Inkblot.vendor_path('templates', 'startComponent.html.erb')
+          )
+        end
+
+        # The HTML head/body wrapper end snippet
+        def end_component_template
+          @end_component_template ||= File.read(
+            Inkblot.vendor_path('templates', 'endComponent.html.erb')
+          )
+        end
+      end
+
       private
-
-      # The HTML head/body wrapper start snippet
-      def self.start_component_template
-        @start_component_template ||= File.read(
-          Inkblot.vendor_path('templates', 'startComponent.html.erb')
-        )
-      end
-
-      # The HTML head/body wrapper end snippet
-      def self.end_component_template
-        @end_component_template ||= File.read(
-          Inkblot.vendor_path('templates', 'endComponent.html.erb')
-        )
-      end
 
       # Generic access to a height setting method
       def get_height(dta)

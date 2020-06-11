@@ -43,6 +43,10 @@ Superclass:
 </div>
 <div id='method-list'>
 <h2>Methods</h2>
+<h3>Public Class</h3>
+<ol>
+<li><a href="#method-c-shell">shell</a></li>
+</ol>
 <h3>Public Instance</h3>
 <ol>
 <li><a href="#method-i-convert">convert</a></li>
@@ -59,6 +63,26 @@ Superclass:
 </div>
 <div id='section'>
 <div id='methods'>
+<h2>Public Class methods</h2>
+<div class='method public-class' id='method-method-c-shell'>
+<a name='method-c-shell'></a>
+<div class='synopsis'>
+<span class='name'>shell</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>The TTY::Command instance to puppeteer through</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-shell-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-shell-source'><span class="ruby-comment"># File lib/inkblot/converters/html_converter.rb, line 34</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">shell</span>&#x000A;  <span class="ruby-ivar">@shell</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">TTY</span><span class="ruby-operator">::</span><span class="ruby-constant">Command</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">printer:</span> <span class="ruby-value">:null</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
 <h2>Public Instance methods</h2>
 <div class='method public-instance' id='method-method-i-convert'>
 <a name='method-i-convert'></a>
@@ -153,7 +177,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-puppeteer-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-puppeteer-source'><span class="ruby-comment"># File lib/inkblot/converters/html_converter.rb, line 37</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">puppeteer</span>&#x000A;  <span class="ruby-identifier">@@cmd</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">TTY</span><span class="ruby-operator">::</span><span class="ruby-constant">Command</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">printer:</span> <span class="ruby-value">:null</span>)&#x000A;&#x000A;  <span class="ruby-identifier">cmd</span> = <span class="ruby-string">+&#39;node &#39;</span>&#x000A;  <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>(<span class="ruby-string">&#39;puppeteer.js&#39;</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39; &#39;</span>&#x000A;  <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">screen_size</span>[<span class="ruby-value">:width</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39; &#39;</span>&#x000A;  <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">screen_size</span>[<span class="ruby-value">:height</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39; &#39;</span>&#x000A;&#x000A;  <span class="ruby-identifier">b64</span>, <span class="ruby-identifier">_err</span> = <span class="ruby-identifier">@@cmd</span>.<span class="ruby-identifier">run</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-value">in:</span> <span class="ruby-identifier">input</span>)&#x000A;  <span class="ruby-identifier">b64</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-puppeteer-source'><span class="ruby-comment"># File lib/inkblot/converters/html_converter.rb, line 42</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">puppeteer</span>&#x000A;  <span class="ruby-identifier">cmd</span> = <span class="ruby-string">+&#39;node &#39;</span>&#x000A;  <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>(<span class="ruby-string">&#39;puppeteer.js&#39;</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39; &#39;</span>&#x000A;  <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">screen_size</span>[<span class="ruby-value">:width</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39; &#39;</span>&#x000A;  <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">screen_size</span>[<span class="ruby-value">:height</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39; &#39;</span>&#x000A;&#x000A;  <span class="ruby-identifier">b64</span>, <span class="ruby-identifier">_err</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">shell</span>.<span class="ruby-identifier">run</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-value">in:</span> <span class="ruby-identifier">input</span>)&#x000A;  <span class="ruby-identifier">b64</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>

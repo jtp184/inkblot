@@ -6,10 +6,7 @@ module Inkblot
       # Creates default items if none exist
       def initialize(*args)
         super
-
-        if !options.key?(:items)
-          options[:items] = Array.new(rows) { |x| "Key #{x}" }
-        end
+        options[:items] ||= Array.new(rows) { |x| "Key #{x}" }
       end
 
       # Sugar to get to the items
@@ -49,7 +46,7 @@ module Inkblot
             Array.new(rows - items.count, default_opt)
           ].reduce(&:+)
         elsif iz[ta, Array]
-          ta += Array.new(rows - ta.count, default_opt)
+          ta + Array.new(rows - ta.count, default_opt)
         end
       end
 
@@ -63,10 +60,10 @@ module Inkblot
       # Sets height, width, and border size, passes along text_align and font_size
       def computed
         dta = OpenStruct.new
-        
+
         get_height(dta)
         get_width(dta)
-        
+
         dta.border_size = options.fetch(:border_size, 0)
         dta.font_size = font_size
         dta.text_align = text_align

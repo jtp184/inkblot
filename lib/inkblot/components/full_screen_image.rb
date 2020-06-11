@@ -9,8 +9,9 @@ module Inkblot
       # whose key is within IMG_SOURCES
       def initialize(*args)
         super
-        unless options.keys.any? { |k| IMG_SOURCES.include?(k) }
-          raise ArgumentError
+
+        raise ArgumentError unless options.keys.any? do |k|
+          IMG_SOURCES.include?(k)
         end
       end
 
