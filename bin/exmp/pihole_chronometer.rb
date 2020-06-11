@@ -11,7 +11,9 @@ module Inkblot
       # Returns a simple text
       def to_display
         Inkblot::Components::SimpleText.new do |st|
+          st.fullscreen = true
           st.text = @chronometer[:ads_blocked_today].to_s
+          st.size = 40
         end
       end
 
