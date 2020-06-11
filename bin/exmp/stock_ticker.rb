@@ -127,23 +127,7 @@ class StockTicker
       ig.div_height = :full
       ig.div_width = 95
 
-      
-      ig.icons = rpt.last(7).reverse.map do |tup|
-        Inkblot::Components::Component.new do |cp|
-          cp.body = +""
-
-          cp.body << %(<div><span style="font-size: 10pt;">)
-          cp.body << '<em>'
-          cp.body << tup[:label]
-          cp.body << '</em>'
-          cp.body << '</span>'
-          cp.body << '<br>'
-          cp.body << %(<span style="font-size: 12pt;">)
-          cp.body << '$' << tup[:close].to_s
-          cp.body << '</span>'
-          cp.body << '</div>'
-        end
-      end
+      ig.icons = chart_data(rpt)
 
       lbl = Inkblot::Components::Component.new(
         body: %(<div><span>#{symbols[current_page]}</span></div>)
@@ -182,8 +166,8 @@ class StockTicker
   # Fields to include for the chart responses, and their transforms
   def chart_fields
     {
-      "close" => :close,
-      "label" => :label
+      'label' => :label,
+      'close' => :close
     }
   end
 
@@ -199,6 +183,29 @@ class StockTicker
       'high' => :high,
       'low' => :low
     }
+  end
+
+  # Takes in the +chart+ and converts it into basic Components
+  def chart_data(chart)
+    temp = <<~DOC
+      <div>
+        <span style="font-size: 10pt;">
+          <em>
+            %s
+          </em>
+        </span>
+        <br>
+        <span style="font-size: 12pt;">
+          $%s
+        </span>
+      </div>
+    DOC
+
+    chart.last(7).reverse.map do |tup|
+      Inkblot::Components::Component.new do |cp|
+        cp.body = (temp % tup.values).gsub(/\s{2,}/, '')
+      end
+    end
   end
 end
 
