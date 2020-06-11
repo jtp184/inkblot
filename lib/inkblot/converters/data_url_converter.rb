@@ -8,6 +8,7 @@ module Inkblot
       FORMATS = %i[path file binary base64].freeze
       # Matches base64 strings for guessing
       BASE64_MATCHER = %r'((?:[-A-Za-z0-9+/=]|=[^=]|=){3,})$'.freeze
+      # Matches Data URL string beginnings
       DATA_URL_MATCHER = %r{^data:image/(\w+);base64,(.*)}.freeze
 
       # Takes in additional +opts+ for filetype and base64

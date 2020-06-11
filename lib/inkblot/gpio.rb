@@ -3,8 +3,8 @@ require 'pathname'
 module Inkblot
   # Handles reading pin data from the board for button input
   module GPIO
-    # Uses the raspi-gpio tool to get pin state for one or more pins +pn+
     class << self
+    # Uses the raspi-gpio tool to get pin state for one or more pins +pin+
       def gpio_state(*pin)
         cmd = `raspi-gpio get #{pin.join(',')}`
         pt = /GPIO (?<pin>\d*): level=(?<level>\w*) fsel=(?<fsel>\w*)(?: alt=(?<alt>\d))? func=(?<func>\w*)(?: pull=(?<pull>\w*))?/
@@ -20,6 +20,7 @@ module Inkblot
 
       private
 
+      # Maps the state from +pin_st+ to useful values
       def map_pin(pin_st)
         pin_st.each do |nt|
           %i[pin level fsel].each { |d| nt[d] = nt[d].to_i }
