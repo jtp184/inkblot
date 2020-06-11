@@ -1,5 +1,3 @@
-require_relative 'helpers/icons'
-
 module Inkblot
   module Components
     # Displays a grid of content, either icons or other components

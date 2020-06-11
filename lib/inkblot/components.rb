@@ -1,3 +1,4 @@
+require 'inkblot/components/helpers'
 require 'inkblot/components/component'
 require 'inkblot/components/simple_text'
 require 'inkblot/components/bar_code'
