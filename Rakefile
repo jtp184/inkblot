@@ -6,17 +6,21 @@ require 'psych'
 
 RSpec::Core::RakeTask.new(:spec)
 
+RDOC_EXCLUDE = %w[
+  bin/setup
+  bin/console
+  tmp
+  docs
+  vendor/waveshare_epd
+  coverage
+  spec
+  wpa_supplicant.conf
+].freeze
+
 task default: :spec
 
 task :docs do
-  rd_exclude = %w[
-    bin
-    tmp
-    vendor/waveshare_epd
-    coverage
-    spec
-    wpa_supplicant.conf
-  ].map { |r| "--exclude=#{r}" }.join(' ')
+  rd_exclude = RDOC_EXCLUDE.map { |r| "--exclude=#{r}" }.join(' ')
 
   sh "rdoc --output=docs --format=hanna --all --main=README.md #{rd_exclude}"
 end
