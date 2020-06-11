@@ -33,7 +33,7 @@ module Inkblot
                       end
 
         dta.data_url = Converters::DataUrlConverter.call(
-          input: generate_code.to_png(height: 60), 
+          input: generate_code.to_png(height: 60),
           format: :binary,
           filetype: 'png'
         )
