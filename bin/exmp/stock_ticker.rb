@@ -12,6 +12,7 @@ require 'pry'
 class StockTicker
   include Inkblot::Components::Helpers::Paginated
   include Inkblot::Components::Helpers::MultiState
+  include JSON
 
   # The Base URL for the IEX api
   API_URL = 'https://sandbox.iexapis.com/stable/stock/market/batch'
@@ -20,7 +21,7 @@ class StockTicker
   attr_reader :symbols
 
   # Defines states
-  def_states :symbol, :overview
+  def_states :current, :historical
 
   # Set the instance variables to the +opts+, get API key from ENV if present
   def initialize(opts = {})
@@ -31,12 +32,12 @@ class StockTicker
 
   # Generates a table for the report designated by the current page
   def to_display
-  	case state
-  	when :symbol
-	    table_for(latest_report.values[current_page])
-	  when :overview
-	  	stock_overview
-	  end
+    case state
+    when :current
+      table_for(latest_report.values[current_page][:quote])
+    when :historical
+      chart_for(latest_report.values[current_page][:chart])
+    end
   end
 
   # Defines the button actions for the reporter
@@ -52,10 +53,16 @@ class StockTicker
     @button_actions << proc { next_page }
     @button_actions << proc { prev_page }
 
-    @button_actions << proc {}
+    @button_actions << proc do
+      if state == :current
+        state = :historical 
+      elsif state == :historical
+        state = :current
+      end
+    end
 
     @button_actions << proc do
-    	raise IndexError, 'Cancel button was pressed'
+      raise IndexError, 'Cancel button was pressed'
     end
   end
 
@@ -84,32 +91,74 @@ class StockTicker
       tl.items << "$#{rpt[:latest_price]}"
 
       pt = %i[open high low].map { |pr| "$#{rpt[pr]}" }
-                            .join("  /  ")
+                            .join('  /  ')
 
       tl.items << pt
       tl.items << "#{(rpt[:change_percent] * 100).round(3)}%"
     end
   end
 
-  def stock_overview; end
+  # Generates an IconGrid for the given report
+  def chart_for(rpt)
+    Inkblot::Components::IconGrid.new do |ig|
+      ig.fullscreen = true
+      
+      ig.icons = rpt.last(7).reverse.map do |tup|
+        Inkblot::Components::Component.new do |cp|
+          cp.body = +""
+
+          cp.body << %(<div><span style="font-size: 10pt;">)
+          cp.body << '<em>'
+          cp.body << tup[:label]
+          cp.body << '</em>'
+          cp.body << '</span>'
+          cp.body << '<br>'
+          cp.body << %(<span style="font-size: 12pt;">)
+          cp.body << '$' << tup[:close].to_s
+          cp.body << '</span>'
+          cp.body << '</div>'
+        end
+      end
+
+      lbl = Inkblot::Components::Component.new(
+        body: %(<div><span>#{symbols[current_page]}</span></div>)
+      )
+
+      ig.icons.unshift(lbl)
+    end
+  end
 
   # Fetches and manipulates API data into report format
   def fetch_api_data
     addr = URI(API_URL)
     addr.query = URI.encode_www_form(form_params.transform_keys(&:to_s))
 
-    @latest_report = JSON.parse(Net::HTTP.get(addr))
-                         .transform_values! { |qt| qt['quote'] }
-                         .transform_values! { |qt| qt.slice(*quote_fields.keys) }
-                         .transform_values! { |v| v.transform_keys { |j| quote_fields[j] } }
+    @latest_report = JSON.parse(Net::HTTP.get(addr)).transform_values! do |js|
+      qf = js['quote'].slice(*quote_fields.keys)
+                      .transform_keys { |j| quote_fields[j] }
+
+      cf = js['chart'].map do |cd|
+        cd.slice(*chart_fields.keys).transform_keys { |j| chart_fields[j] }
+      end
+
+      { quote: qf, chart: cf }
+    end
   end
 
   # The query params for the API request
   def form_params
     {
       symbols: @symbols.map(&:to_s).join(','),
-      types: 'quote',
+      types: 'quote,chart',
       token: @api_key
+    }
+  end
+
+  # Fields to include for the chart responses, and their transforms
+  def chart_fields
+    {
+      "close" => :close,
+      "label" => :label
     }
   end
 
@@ -128,10 +177,10 @@ class StockTicker
   end
 end
 
-
 #=== For Displaying on the EPD ===##
-Inkblot::Buttons.init unless Inkblot::Buttons.ready?
-@t = StockTicker.new(symbols: ['AAPL', 'FB'])
+# Inkblot::Buttons.init unless Inkblot::Buttons.ready?
+
+@t = StockTicker.new(symbols: %w[AAPL FB])
 # binding.pry
 
 refresh_time = 30
