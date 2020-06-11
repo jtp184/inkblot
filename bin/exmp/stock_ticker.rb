@@ -52,6 +52,7 @@ class StockTicker
 
     @button_actions << proc do
       self.refresh
+      
       Inkblot::Display.again
     end
 
@@ -61,6 +62,8 @@ class StockTicker
       else
         self.next_page
       end
+      
+      Inkblot::Display.again
     end
 
     @button_actions << proc do
@@ -69,6 +72,8 @@ class StockTicker
       elsif state == :historical
         self.state = :current
       end
+      
+      Inkblot::Display.again
     end
 
     @button_actions << proc do
