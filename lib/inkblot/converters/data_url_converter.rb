@@ -7,7 +7,8 @@ module Inkblot
       # Possible source formats
       FORMATS = %i[path file binary base64].freeze
       # Matches base64 strings for guessing
-      BASE64_MATCHER = %r'[^-A-Za-z0-9+/=]|=[^=]|={3,}$'.freeze
+      BASE64_MATCHER = %r'((?:[-A-Za-z0-9+/=]|=[^=]|=){3,})$'.freeze
+      DATA_URL_MATCHER = %r{^data:image/(\w+);base64,(.*)}.freeze
 
       # Takes in additional +opts+ for filetype and base64
       def initialize(opts = {})
@@ -27,11 +28,17 @@ module Inkblot
       def infer_format
         izza = ->(ip) { input.is_a?(ip) }
 
+        b64 = proc do
+          [BASE64_MATCHER, DATA_URL_MATCHER].any? { |r| input.match?(r) }
+        end
+
+        pathn = -> { input.ascii_only? && Pathname.new(input).exist? }
+
         if izza[File] || izza[Tempfile]
           :file
-        elsif izza[String] && input.ascii_only? && Pathname.new(input).exist?
+        elsif izza[String] && pathn.call
           :path
-        elsif izza[String] && input.valid_encoding? && input.match?(BASE64_MATCHER)
+        elsif izza[String] && input.valid_encoding? && b64.call
           :base64
         else
           :binary
@@ -46,7 +53,10 @@ module Inkblot
         when :path
           File.extname(input).gsub(/^\./, '')
         when :base64
-          input.match(%r{data:image/(\w+);base64})[1]
+          if input =~ DATA_URL_MATCHER
+            Regexp.last_match[1]
+            @input = Regexp.last_match[2]
+          end
         else
           'png'
         end
