@@ -3,7 +3,6 @@
 require 'inkblot'
 require 'net/http'
 require 'json'
-require 'pry'
 
 # You'll need an IEXCloud API key: https://iexcloud.io/cloud-login#/register
 # You can run this example with `IEX_CLOUD_API_KEY="aa_0123456789abcdeffedcba9876543210" ruby bin/exmp/stock_ticker.rb`
@@ -200,7 +199,6 @@ end
 Inkblot::Buttons.init unless Inkblot::Buttons.ready?
 
 @t = StockTicker.new(symbols: %w[AAPL FB])
-# binding.pry
 
 begin
   Inkblot::Display.show(@t)
