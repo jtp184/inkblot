@@ -50,14 +50,14 @@ class StockTicker
 
     @button_actions = []
 
-    @button_actions << proc { prev_page }
-    @button_actions << proc { next_page }
+    @button_actions << proc { self.prev_page }
+    @button_actions << proc { self.next_page }
 
     @button_actions << proc do
       if state == :current
-        state = :historical 
+        self.state = :historical 
       elsif state == :historical
-        state = :current
+        self.state = :current
       end
     end
 
