@@ -9,6 +9,9 @@ RSpec::Core::RakeTask.new(:spec)
 RDOC_EXCLUDE = %w[
   bin/setup
   bin/console
+  Gemfile
+  Gemfile.lock
+  Rakefile
   tmp
   docs
   vendor/waveshare_epd

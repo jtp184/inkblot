@@ -1,4 +1,4 @@
-Wed, 10 Jun 2020 19:59:14 -0700
+Wed, 10 Jun 2020 20:00:56 -0700
 ./RASPI_SETUP.md	Wed, 10 Jun 2020 16:43:54 -0700
 ./bin/exmp/stock_ticker.rb	Wed, 10 Jun 2020 19:55:45 -0700
 ./bin/exmp/weather_reporter.rb	Sat, 30 May 2020 16:44:52 -0700
@@ -8,7 +8,6 @@ Wed, 10 Jun 2020 19:59:14 -0700
 ./bin/pi/boot_config	Wed, 10 Jun 2020 16:43:54 -0700
 ./bin/pi/changelogin	Wed, 10 Jun 2020 16:43:54 -0700
 ./README.md	Wed, 10 Jun 2020 16:43:54 -0700
-./Rakefile	Wed, 10 Jun 2020 19:55:34 -0700
 ./lib/inkblot/components.rb	Fri, 29 May 2020 13:28:12 -0700
 ./lib/inkblot/converters.rb	Fri, 29 May 2020 02:30:59 -0700
 ./lib/inkblot/gpio.rb	Thu, 04 Jun 2020 01:02:45 -0700
@@ -33,8 +32,6 @@ Wed, 10 Jun 2020 19:59:14 -0700
 ./lib/inkblot/display.rb	Fri, 29 May 2020 02:05:29 -0700
 ./lib/inkblot/version.rb	Tue, 09 Jun 2020 22:41:52 -0700
 ./lib/inkblot.rb	Wed, 10 Jun 2020 16:43:54 -0700
-./Gemfile	Thu, 04 Jun 2020 03:52:15 -0700
-./Gemfile.lock	Tue, 09 Jun 2020 22:41:49 -0700
 ./vendor/qrtest.bmp	Thu, 02 Apr 2020 15:37:35 -0700
 ./vendor/clear.py	Thu, 02 Apr 2020 15:37:35 -0700
 ./vendor/display.py	Thu, 02 Apr 2020 15:37:35 -0700
