@@ -82,7 +82,7 @@ class StockTicker
   # Generate a TableList for a given report
   def table_for(rpt)
     Inkblot::Components::TableList.new do |tl|
-      tl.div_height = full
+      tl.div_height = :full
       tl.div_width = 95
 
       tl.font_size = [30, 18, 12, 18]
