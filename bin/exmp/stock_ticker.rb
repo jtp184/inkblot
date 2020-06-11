@@ -13,6 +13,7 @@ module Inkblot
     class StockTicker
       include Inkblot::Components::Helpers::Paginated
       include Inkblot::Components::Helpers::MultiState
+      include Inkblot::Components::Helpers::ButtonMap
       include JSON
 
       # The Base URL for the IEX api
@@ -23,6 +24,16 @@ module Inkblot
 
       # Defines states
       def_states :current, :historical
+
+      # Defines the button actions for the reporter by returning method objects
+      # - 1: Refresh
+      # - 2: Next stock
+      # - 3: Week of Historical data
+      # - 4: Exit
+      def_button_methods :refresh_screen,
+                         :cycle_pages,
+                         :toggle_state,
+                         :exit_program
 
       # Set the instance variables to the +opts+, get API key from ENV if present
       def initialize(opts = {})
@@ -41,20 +52,6 @@ module Inkblot
         end
       end
 
-      # Defines the button actions for the reporter by returning method objects
-      # - 1: Refresh
-      # - 2: Next stock
-      # - 3: Week of Historical data
-      # - 4: Exit
-      def button_actions
-        @button_actions ||= %i[
-          refresh_screen
-          cycle_pages
-          toggle_state
-          exit_program
-        ].map { |m| method(m) }
-      end
-
       # Fetch api data and return self
       def refresh
         fetch_api_data
@@ -69,7 +66,7 @@ module Inkblot
       # Refreshes and redisplays the screen. Key1 action
       def refresh_screen
         refresh
-        
+
         Inkblot::Display.again
       end
 

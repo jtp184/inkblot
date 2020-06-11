@@ -1,6 +1,3 @@
-require_relative 'helpers/multi_state'
-require_relative 'helpers/paginated'
-
 module Inkblot
   module Components
     # Allows displaying a variable length list of options

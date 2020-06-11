@@ -1,5 +1,3 @@
-require_relative 'helpers/icons'
-
 module Inkblot
   module Components
     # Displays two panes, one on the left with icons,
