@@ -30,7 +30,7 @@ Rakefile
 </div>
 <div class='last-update'>
 Last Update:
-<span class='datetime'>2020-06-09 22:41:08 -0700</span>
+<span class='datetime'>2020-06-10 19:55:34 -0700</span>
 </div>
 </div>
 <div id='content'>
@@ -40,11 +40,17 @@ Last Update:
 
 <p>RSpec::Core::RakeTask.new(:spec)</p>
 
+<p>RDOC_EXCLUDE = %w[</p>
+
+<pre class="ruby"><span class="ruby-identifier">bin</span><span class="ruby-operator">/</span><span class="ruby-identifier">setup</span>&#x000A;<span class="ruby-identifier">bin</span><span class="ruby-operator">/</span><span class="ruby-identifier">console</span>&#x000A;<span class="ruby-identifier">tmp</span>&#x000A;<span class="ruby-identifier">docs</span>&#x000A;<span class="ruby-identifier">vendor</span><span class="ruby-operator">/</span><span class="ruby-identifier">waveshare_epd</span>&#x000A;<span class="ruby-identifier">coverage</span>&#x000A;<span class="ruby-identifier">spec</span>&#x000A;<span class="ruby-identifier">wpa_supplicant</span>.<span class="ruby-identifier">conf</span></pre>
+
+<p>].freeze</p>
+
 <p>task default: :spec</p>
 
 <p>task :docs do</p>
 
-<pre class="ruby"><span class="ruby-identifier">rd_exclude</span> = <span class="ruby-node">%w[&#x000A;  bin&#x000A;  tmp&#x000A;  vendor/waveshare_epd&#x000A;  coverage&#x000A;  spec&#x000A;  wpa_supplicant.conf&#x000A;]</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;--exclude=#{r}&quot;</span> }.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39; &#39;</span>)&#x000A;&#x000A;<span class="ruby-identifier">sh</span> <span class="ruby-node">&quot;rdoc --output=docs --format=hanna --all --main=README.md #{rd_exclude}&quot;</span></pre>
+<pre class="ruby"><span class="ruby-identifier">rd_exclude</span> = <span class="ruby-constant">RDOC_EXCLUDE</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;--exclude=#{r}&quot;</span> }.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39; &#39;</span>)&#x000A;&#x000A;<span class="ruby-identifier">sh</span> <span class="ruby-node">&quot;rdoc --output=docs --format=hanna --all --main=README.md #{rd_exclude}&quot;</span></pre>
 
 <p>end</p>
 

@@ -15,15 +15,18 @@ end
 # Simple timer class
 class Timer
   class << self
+    # Starts the timer, removes old stop
     def start
       @stop = nil
       @start = Time.now
     end
 
+    # Stops the timer
     def stop
       @stop = Time.now
     end
 
+    # Emits the duration recorded
     def duration
       dur = Duration.new(@stop - @start).to_s
       dur.empty? ? '0 seconds' : dur

@@ -164,7 +164,7 @@ Inkblot::Components::Helpers::Paginated
 <a name='method-i-paginate'></a>
 <div class='synopsis'>
 <span class='name'>paginate</span>
-<span class='arguments'>()</span>
+<span class='arguments'>(over=nil)</span>
 
 </div>
 <div class='description'>
@@ -176,7 +176,7 @@ Inkblot::Components::Helpers::Paginated
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-paginate-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-paginate-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/paginated.rb, line 46</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">paginate</span>&#x000A;  <span class="ruby-ivar">@page_count</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">send</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">paginate_with_method</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-paginate-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/paginated.rb, line 46</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">paginate</span>(<span class="ruby-identifier">over</span>=<span class="ruby-keyword">nil</span>)&#x000A;  <span class="ruby-ivar">@page_count</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">over</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">send</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">paginate_with_method</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-prev_page'>
