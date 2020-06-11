@@ -191,7 +191,7 @@ begin
     Inkblot::Buttons.get_press(refresh_time)
 
     @t.refresh
-    puts Time.now, @t.state, @t.current_page, @t.latest_report
+    puts Time.now, @t.state, @t.current_page
 
     puts
   end
