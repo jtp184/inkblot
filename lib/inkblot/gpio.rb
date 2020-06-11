@@ -4,7 +4,7 @@ module Inkblot
   # Handles reading pin data from the board for button input
   module GPIO
     class << self
-    # Uses the raspi-gpio tool to get pin state for one or more pins +pin+
+      # Uses the raspi-gpio tool to get pin state for one or more pins +pin+
       def gpio_state(*pin)
         cmd = `raspi-gpio get #{pin.join(',')}`
         pt = /GPIO (?<pin>\d*): level=(?<level>\w*) fsel=(?<fsel>\w*)(?: alt=(?<alt>\d))? func=(?<func>\w*)(?: pull=(?<pull>\w*))?/
