@@ -18,7 +18,7 @@ module Inkblot
       def button_actions
         return @button_actions if @button_actions
 
-        @button_actions = Array.new(3, method(refresh))
+        @button_actions = Array.new(3, method(:refresh))
         @button_actions << proc do
           raise IndexError, 'Cancel button was pressed'
         end
