@@ -17,6 +17,7 @@ module Inkblot
         end
       end
 
+      # Top 3 refresh, last one exists
       def button_actions
         return @button_actions if @button_actions
 
@@ -26,6 +27,7 @@ module Inkblot
         end
       end
 
+      # Read the chronometer
       def refresh
         read_chronometer
         self
