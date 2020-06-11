@@ -28,6 +28,12 @@ task :docs do
   sh "rdoc --output=docs --format=hanna --all --main=README.md #{rd_exclude}"
 end
 
+task :doc_check do
+  rd_exclude = RDOC_EXCLUDE.map { |r| "--exclude=#{r}" }.join(' ')
+
+  sh "rdoc -C --output=docs --format=hanna --all --main=README.md #{rd_exclude}"
+end
+
 task :codepoints do
   codepoints_uri = 'https://raw.githubusercontent.com/google'
   codepoints_uri << '/material-design-icons/master/iconfont/codepoints'
