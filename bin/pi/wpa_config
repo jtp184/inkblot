@@ -17,7 +17,7 @@ prompt = TTY::Prompt.new(
 
 # Captures multiple wifi network setups and the country code, generates the
 # file via its to_s method
-class WifiConfig
+class Inkblot::Pi::WifiConfig
   # Stores the Wifi Credentials the user passes in
   WifiCredentials = Struct.new(:ssid, :password, :priority) do
     def to_s
@@ -71,7 +71,7 @@ class WifiConfig
 end
 
 # Create the config holder
-@conf = WifiConfig.new(
+@conf = Inkblot::Pi::WifiConfig.new(
   country_code: prompt.ask('Country Code:', default: 'US')
 )
 
@@ -88,7 +88,7 @@ end
   puts
 
   # Add the credentials to the config
-  @conf.networks << WifiConfig::WifiCredentials.new(
+  @conf.networks << Inkblot::Pi::WifiConfig::WifiCredentials.new(
     cred[:ssid],
     cred[:password]
   )

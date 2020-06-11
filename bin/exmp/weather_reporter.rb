@@ -7,7 +7,7 @@ require 'net/http'
 # You can run this example with `OPEN_WEATHER_MAP_API_KEY="0123456789ABCDEFFEDCBA9876543210" ruby bin/exmp/weather_reporter.rb`
 
 # Can fetch weather from OpenWeatherMap and display it to the EPD
-class WeatherReporter
+class Inkblot::Examples::WeatherReporter
   # The URL to OWM's API
   API_URL = 'https://api.openweathermap.org/data/2.5/weather'
 
@@ -156,7 +156,7 @@ end
 
 ##=== For Displaying on the EPD ===##
 Inkblot::Buttons.init unless Inkblot::Buttons.ready?
-@w = WeatherReporter.new(zip_code: '90210')
+@w = Inkblot::Examples::WeatherReporter.new(zip_code: '90210')
 
 refresh_time = 15 * 60
 

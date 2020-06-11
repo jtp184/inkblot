@@ -1,10 +1,12 @@
-Wed, 10 Jun 2020 20:00:56 -0700
+Wed, 10 Jun 2020 20:08:03 -0700
 ./RASPI_SETUP.md	Wed, 10 Jun 2020 16:43:54 -0700
-./bin/exmp/stock_ticker.rb	Wed, 10 Jun 2020 19:55:45 -0700
-./bin/exmp/weather_reporter.rb	Sat, 30 May 2020 16:44:52 -0700
-./bin/pi/wpa_config	Wed, 10 Jun 2020 16:43:54 -0700
+./bin/exmp/stock_ticker.rb	Wed, 10 Jun 2020 20:03:36 -0700
+./bin/exmp/examples.rb	Wed, 10 Jun 2020 20:07:45 -0700
+./bin/exmp/weather_reporter.rb	Wed, 10 Jun 2020 20:03:49 -0700
+./bin/pi/wpa_config	Wed, 10 Jun 2020 20:05:02 -0700
 ./bin/pi/ssh	Wed, 10 Jun 2020 16:43:54 -0700
-./bin/pi/install_deps	Wed, 10 Jun 2020 19:57:52 -0700
+./bin/pi/pi.rb	Wed, 10 Jun 2020 20:07:53 -0700
+./bin/pi/install_deps	Wed, 10 Jun 2020 20:07:04 -0700
 ./bin/pi/boot_config	Wed, 10 Jun 2020 16:43:54 -0700
 ./bin/pi/changelogin	Wed, 10 Jun 2020 16:43:54 -0700
 ./README.md	Wed, 10 Jun 2020 16:43:54 -0700

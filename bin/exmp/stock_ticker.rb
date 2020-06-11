@@ -8,7 +8,7 @@ require 'json'
 # You can run this example with `IEX_CLOUD_API_KEY="aa_0123456789abcdeffedcba9876543210" ruby bin/exmp/stock_ticker.rb`
 
 # Can fetch stock quotes from IEXCloud and display them to the EPD
-class StockTicker
+class Inkblot::Examples::StockTicker
   include Inkblot::Components::Helpers::Paginated
   include Inkblot::Components::Helpers::MultiState
   include JSON
@@ -212,7 +212,7 @@ end
 #=== For Displaying on the EPD ===##
 Inkblot::Buttons.init unless Inkblot::Buttons.ready?
 
-@t = StockTicker.new(symbols: %w[AAPL FB])
+@t = Inkblot::Examples::StockTicker.new(symbols: %w[AAPL FB])
 
 begin
   Inkblot::Display.show(@t)

@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+<head>
+<title>Inkblot::Pi::CmdTimer</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<link href='../../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<script type='text/javascript'>
+  function popupCode(url) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+  
+  function toggleCode(id) {
+    var code = document.getElementById(id)
+  
+    code.style.display = code.style.display != 'block' ? 'block' : 'none'
+    return true
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+</script>
+</head>
+<body class='page'>
+<div class='class' id='wrapper'>
+<div class='header'>
+<h1 class='name'><span class='type'>class</span>
+Inkblot::Pi::CmdTimer
+</h1>
+<ol class='paths'>
+<li>
+<a href="../../../files/bin/pi/install_deps.html">bin/pi/install_deps</a>
+</li>
+</ol>
+<div class='parent'>
+Superclass:
+<strong>Object</strong>
+</div>
+</div>
+<div id='content'>
+<div id='text'>
+<div id='description'>
+<p>Simple timer class</p>
+</div>
+<div id='method-list'>
+<h2>Methods</h2>
+<h3>Public Class</h3>
+<ol>
+<li><a href="#method-c-duration">duration</a></li>
+<li><a href="#method-c-start">start</a></li>
+<li><a href="#method-c-stop">stop</a></li>
+</ol>
+</div>
+<div id='context'>
+</div>
+<div id='section'>
+<div id='methods'>
+<h2>Public Class methods</h2>
+<div class='method public-class' id='method-method-c-duration'>
+<a name='method-c-duration'></a>
+<div class='synopsis'>
+<span class='name'>duration</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Emits the duration recorded</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-duration-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-duration-source'><span class="ruby-comment"># File bin/pi/install_deps, line 30</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">duration</span>&#x000A;  <span class="ruby-identifier">dur</span> = <span class="ruby-constant">Duration</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@stop</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@start</span>).<span class="ruby-identifier">to_s</span>&#x000A;  <span class="ruby-identifier">dur</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">?</span> <span class="ruby-string">&#39;0 seconds&#39;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">dur</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-class' id='method-method-c-start'>
+<a name='method-c-start'></a>
+<div class='synopsis'>
+<span class='name'>start</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Starts the timer, removes old stop</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-start-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-start-source'><span class="ruby-comment"># File bin/pi/install_deps, line 19</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">start</span>&#x000A;  <span class="ruby-ivar">@stop</span> = <span class="ruby-keyword">nil</span>&#x000A;  <span class="ruby-ivar">@start</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-class' id='method-method-c-stop'>
+<a name='method-c-stop'></a>
+<div class='synopsis'>
+<span class='name'>stop</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Stops the timer</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-stop-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-stop-source'><span class="ruby-comment"># File bin/pi/install_deps, line 25</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">stop</span>&#x000A;  <span class="ruby-ivar">@stop</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div id='footer-push'></div>
+</div>
+<div id='footer'>
+<a href="https://github.com/rdoc/hanna-nouveau"><strong>Hanna Nouveau</strong> RDoc template</a>
+</div>
+</body>
+</html>

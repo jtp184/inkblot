@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+<head>
+<title>Inkblot::Examples::WeatherReporter</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<link href='../../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<script type='text/javascript'>
+  function popupCode(url) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+  
+  function toggleCode(id) {
+    var code = document.getElementById(id)
+  
+    code.style.display = code.style.display != 'block' ? 'block' : 'none'
+    return true
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+</script>
+</head>
+<body class='page'>
+<div class='class' id='wrapper'>
+<div class='header'>
+<h1 class='name'><span class='type'>class</span>
+Inkblot::Examples::WeatherReporter
+</h1>
+<ol class='paths'>
+<li>
+<a href="../../../files/bin/exmp/weather_reporter_rb.html">bin/exmp/weather_reporter.rb</a>
+</li>
+</ol>
+<div class='parent'>
+Superclass:
+<strong>Object</strong>
+</div>
+</div>
+<div id='content'>
+<div id='text'>
+<div id='description'>
+<p>Can fetch weather from OpenWeatherMap and display it to the EPD</p>
+</div>
+<div id='method-list'>
+<h2>Methods</h2>
+<h3>Public Class</h3>
+<ol>
+<li><a href="#method-c-new">new</a></li>
+</ol>
+<h3>Public Instance</h3>
+<ol>
+<li><a href="#method-i-button_actions">button_actions</a></li>
+<li><a href="#method-i-latest_report">latest_report</a></li>
+<li><a href="#method-i-refresh">refresh</a></li>
+<li><a href="#method-i-to_display">to_display</a></li>
+</ol>
+<h3>Private Instance</h3>
+<ol>
+<li><a href="#method-i-compass_dir">compass_dir</a></li>
+<li><a href="#method-i-fetch_api_data">fetch_api_data</a></li>
+<li><a href="#method-i-form_params">form_params</a></li>
+<li><a href="#method-i-location_args">location_args</a></li>
+<li><a href="#method-i-swap_units">swap_units</a></li>
+<li><a href="#method-i-weather_icon">weather_icon</a></li>
+</ol>
+</div>
+<div id='context'>
+</div>
+<div id='section'>
+<div id='constants-list'>
+<h2>Constants</h2>
+<div class='name-list'>
+<table summary='Constants'>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>API_URL</td>
+<td>=</td>
+<td class='context-item-value'>'https://api.openweathermap.org/data/2.5/weather'</td>
+<td>&nbsp;</td>
+<td class='context-item-desc'>
+<p>The URL to OWM&#39;s API</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div id='methods'>
+<h2>Public Class methods</h2>
+<div class='method public-class' id='method-method-c-new'>
+<a name='method-c-new'></a>
+<div class='synopsis'>
+<span class='name'>new</span>
+<span class='arguments'>(opts = {})</span>
+
+</div>
+<div class='description'>
+
+<p>Takes in <code>opts</code> which are set as ivars</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-new-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-new-source'><span class="ruby-comment"># File bin/exmp/weather_reporter.rb, line 15</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">opts</span> = {})&#x000A;  <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">each_pair</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-value">:&quot;@#{k}&quot;</span>, <span class="ruby-identifier">v</span>) }&#x000A;  <span class="ruby-ivar">@api_key</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;OPEN_WEATHER_MAP_API_KEY&#39;</span>]&#x000A;  <span class="ruby-ivar">@units</span> <span class="ruby-operator">||=</span> <span class="ruby-string">&#39;imperial&#39;</span>&#x000A;  <span class="ruby-ivar">@disp</span> <span class="ruby-operator">||=</span> <span class="ruby-value">:temp</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<h2>Public Instance methods</h2>
+<div class='method public-instance' id='method-method-i-button_actions'>
+<a name='method-i-button_actions'></a>
+<div class='synopsis'>
+<span class='name'>button_actions</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Defines the button actions for the reporter</p>
+<ul><li>
+<p>1: noop to refresh display</p>
+</li><li>
+<p>2: Swap units c/f</p>
+</li><li>
+<p>3: Swap temp / conditions</p>
+</li><li>
+<p>4: Abort display</p>
+</li></ul>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-button_actions-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-button_actions-source'><span class="ruby-comment"># File bin/exmp/weather_reporter.rb, line 43</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">button_actions</span>&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@button_actions</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@button_actions</span>&#x000A;&#x000A;  <span class="ruby-ivar">@button_actions</span> = [<span class="ruby-identifier">proc</span> {}]&#x000A;&#x000A;  <span class="ruby-ivar">@button_actions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">proc</span> <span class="ruby-keyword">do</span>&#x000A;    <span class="ruby-ivar">@units</span> = <span class="ruby-identifier">swap_units</span>(<span class="ruby-ivar">@units</span> <span class="ruby-operator">||</span> <span class="ruby-string">&#39;imperial&#39;</span>)&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-ivar">@button_actions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">proc</span> <span class="ruby-keyword">do</span>&#x000A;    <span class="ruby-ivar">@disp</span> = <span class="ruby-ivar">@disp</span> <span class="ruby-operator">==</span> <span class="ruby-value">:temp</span> <span class="ruby-operator">?</span> <span class="ruby-value">:desc</span> <span class="ruby-operator">:</span> <span class="ruby-value">:temp</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-ivar">@button_actions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">proc</span> <span class="ruby-keyword">do</span>&#x000A;    <span class="ruby-identifier">raise</span> <span class="ruby-constant">IndexError</span>, <span class="ruby-string">&#39;Cancel button was pressed&#39;</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-latest_report'>
+<a name='method-i-latest_report'></a>
+<div class='synopsis'>
+<span class='name'>latest_report</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Most recently pulled info</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-latest_report-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-latest_report-source'><span class="ruby-comment"># File bin/exmp/weather_reporter.rb, line 68</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">latest_report</span>&#x000A;  <span class="ruby-ivar">@latest_report</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">fetch_api_data</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-refresh'>
+<a name='method-i-refresh'></a>
+<div class='synopsis'>
+<span class='name'>refresh</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Fetch the api data and return this object</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-refresh-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-refresh-source'><span class="ruby-comment"># File bin/exmp/weather_reporter.rb, line 62</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">refresh</span>&#x000A;  <span class="ruby-identifier">fetch_api_data</span>&#x000A;  <span class="ruby-keyword">self</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-instance' id='method-method-i-to_display'>
+<a name='method-i-to_display'></a>
+<div class='synopsis'>
+<span class='name'>to_display</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Composes and emits an IconPane component with weather data</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-to_display-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-to_display-source'><span class="ruby-comment"># File bin/exmp/weather_reporter.rb, line 23</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_display</span>&#x000A;  <span class="ruby-identifier">api</span> = <span class="ruby-identifier">latest_report</span>&#x000A;&#x000A;  <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Components</span><span class="ruby-operator">::</span><span class="ruby-constant">IconPane</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ic</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">ic</span>.<span class="ruby-identifier">fullscreen</span> = <span class="ruby-identifier">ic</span>.<span class="ruby-identifier">fixed_height</span> = <span class="ruby-keyword">true</span>&#x000A;&#x000A;    <span class="ruby-identifier">ic</span>.<span class="ruby-identifier">icons</span> = [<span class="ruby-identifier">api</span>[<span class="ruby-value">:icon</span>], <span class="ruby-value">:&quot;#8203&quot;</span>, <span class="ruby-identifier">api</span>[<span class="ruby-value">:wind_speed</span>], <span class="ruby-identifier">api</span>[<span class="ruby-value">:wind_dir</span>]]&#x000A;&#x000A;    <span class="ruby-identifier">ic</span>.<span class="ruby-identifier">frame_contents</span> = <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Components</span><span class="ruby-operator">::</span><span class="ruby-constant">SimpleText</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">st</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-identifier">st</span>.<span class="ruby-identifier">text</span> = <span class="ruby-identifier">api</span>[<span class="ruby-ivar">@disp</span>]&#x000A;      <span class="ruby-identifier">st</span>.<span class="ruby-identifier">size</span> = <span class="ruby-value">60</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@disp</span> <span class="ruby-operator">==</span> <span class="ruby-value">:temp</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<h2>Private Instance methods</h2>
+<div class='method private-instance' id='method-method-i-compass_dir'>
+<a name='method-i-compass_dir'></a>
+<div class='synopsis'>
+<span class='name'>compass_dir</span>
+<span class='arguments'>(deg)</span>
+
+</div>
+<div class='description'>
+
+<p>Takes in degrees <code>deg</code> and returns an arrow pointing that way</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-compass_dir-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-compass_dir-source'><span class="ruby-comment"># File bin/exmp/weather_reporter.rb, line 104</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">compass_dir</span>(<span class="ruby-identifier">deg</span>)&#x000A;  <span class="ruby-keyword">case</span> <span class="ruby-identifier">deg</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">45</span>&#x000A;    <span class="ruby-value">:uarr</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">46</span><span class="ruby-operator">..</span><span class="ruby-value">90</span>&#x000A;    <span class="ruby-value">:nearr</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">91</span><span class="ruby-operator">..</span><span class="ruby-value">135</span>&#x000A;    <span class="ruby-value">:rarr</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">136</span><span class="ruby-operator">..</span><span class="ruby-value">180</span>&#x000A;    <span class="ruby-value">:searr</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">181</span><span class="ruby-operator">..</span><span class="ruby-value">225</span>&#x000A;    <span class="ruby-value">:darr</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">226</span><span class="ruby-operator">..</span><span class="ruby-value">270</span>&#x000A;    <span class="ruby-value">:swarr</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">271</span><span class="ruby-operator">..</span><span class="ruby-value">315</span>&#x000A;    <span class="ruby-value">:larr</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">316</span><span class="ruby-operator">..</span><span class="ruby-value">360</span>&#x000A;    <span class="ruby-value">:nwarr</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method private-instance' id='method-method-i-fetch_api_data'>
+<a name='method-i-fetch_api_data'></a>
+<div class='synopsis'>
+<span class='name'>fetch_api_data</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Retrieves JSON payload of API data and converts it into a simplified hash</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-fetch_api_data-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-fetch_api_data-source'><span class="ruby-comment"># File bin/exmp/weather_reporter.rb, line 136</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">fetch_api_data</span>&#x000A;  <span class="ruby-identifier">addr</span> = <span class="ruby-constant">URI</span>(<span class="ruby-constant">API_URL</span>)&#x000A;  <span class="ruby-identifier">addr</span>.<span class="ruby-identifier">query</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">encode_www_form</span>(<span class="ruby-identifier">form_params</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_s</span>))&#x000A;&#x000A;  <span class="ruby-identifier">data</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">addr</span>))&#x000A;&#x000A;  <span class="ruby-ivar">@latest_report</span> = {&#x000A;    <span class="ruby-value">temp:</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">&#39;main&#39;</span>][<span class="ruby-string">&#39;temp&#39;</span>].<span class="ruby-identifier">round</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39;&amp;deg;&#39;</span>,&#x000A;    <span class="ruby-value">desc:</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">&#39;weather&#39;</span>][<span class="ruby-value">0</span>][<span class="ruby-string">&#39;description&#39;</span>],&#x000A;    <span class="ruby-value">icon:</span> <span class="ruby-identifier">weather_icon</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">&#39;weather&#39;</span>][<span class="ruby-value">0</span>][<span class="ruby-string">&#39;icon&#39;</span>][<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">-2</span>].<span class="ruby-identifier">to_i</span>),&#x000A;    <span class="ruby-value">wind_speed:</span> <span class="ruby-identifier">data</span>[<span class="ruby-string">&#39;wind&#39;</span>][<span class="ruby-string">&#39;speed&#39;</span>].<span class="ruby-identifier">floor</span>,&#x000A;    <span class="ruby-value">wind_dir:</span> <span class="ruby-identifier">compass_dir</span>(<span class="ruby-identifier">data</span>[<span class="ruby-string">&#39;wind&#39;</span>][<span class="ruby-string">&#39;deg&#39;</span>])&#x000A;  }&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method private-instance' id='method-method-i-form_params'>
+<a name='method-i-form_params'></a>
+<div class='synopsis'>
+<span class='name'>form_params</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Composes the form params out of the location args, units, and api_key</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-form_params-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-form_params-source'><span class="ruby-comment"># File bin/exmp/weather_reporter.rb, line 152</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">form_params</span>&#x000A;  <span class="ruby-identifier">location_args</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-value">units:</span> <span class="ruby-ivar">@units</span>, <span class="ruby-value">appid:</span> <span class="ruby-ivar">@api_key</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method private-instance' id='method-method-i-location_args'>
+<a name='method-i-location_args'></a>
+<div class='synopsis'>
+<span class='name'>location_args</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Return the given location parameter in order of specificity</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-location_args-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-location_args-source'><span class="ruby-comment"># File bin/exmp/weather_reporter.rb, line 75</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">location_args</span>&#x000A;  <span class="ruby-keyword">return</span> { <span class="ruby-value">id:</span> <span class="ruby-ivar">@city_id</span> } <span class="ruby-keyword">if</span> <span class="ruby-ivar">@city_id</span>&#x000A;  <span class="ruby-keyword">return</span> { <span class="ruby-value">q:</span> <span class="ruby-ivar">@query</span> } <span class="ruby-keyword">if</span> <span class="ruby-ivar">@query</span>&#x000A;  <span class="ruby-keyword">return</span> { <span class="ruby-value">zip:</span> <span class="ruby-ivar">@zip_code</span> } <span class="ruby-keyword">if</span> <span class="ruby-ivar">@zip_code</span>&#x000A;  <span class="ruby-keyword">return</span> { <span class="ruby-value">lat:</span> <span class="ruby-ivar">@latitude</span>, <span class="ruby-value">lon:</span> <span class="ruby-ivar">@longitude</span> } <span class="ruby-keyword">if</span> <span class="ruby-ivar">@latitude</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@longitude</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method private-instance' id='method-method-i-swap_units'>
+<a name='method-i-swap_units'></a>
+<div class='synopsis'>
+<span class='name'>swap_units</span>
+<span class='arguments'>(unit)</span>
+
+</div>
+<div class='description'>
+
+<p>Flips imperial and metric</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-swap_units-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-swap_units-source'><span class="ruby-comment"># File bin/exmp/weather_reporter.rb, line 126</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">swap_units</span>(<span class="ruby-identifier">unit</span>)&#x000A;  <span class="ruby-keyword">case</span> <span class="ruby-identifier">unit</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;imperial&#39;</span>&#x000A;    <span class="ruby-string">&#39;metric&#39;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;metric&#39;</span>&#x000A;    <span class="ruby-string">&#39;imperial&#39;</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method private-instance' id='method-method-i-weather_icon'>
+<a name='method-i-weather_icon'></a>
+<div class='synopsis'>
+<span class='name'>weather_icon</span>
+<span class='arguments'>(icn)</span>
+
+</div>
+<div class='description'>
+
+<p>Takes in the OWM icon number <code>icn</code> and picks an HTML symbol based on it</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-weather_icon-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-i-weather_icon-source'><span class="ruby-comment"># File bin/exmp/weather_reporter.rb, line 83</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">weather_icon</span>(<span class="ruby-identifier">icn</span>)&#x000A;  <span class="ruby-keyword">case</span> <span class="ruby-identifier">icn</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">1</span>&#x000A;    <span class="ruby-comment"># Sunny</span>&#x000A;    <span class="ruby-value">:&quot;#9728&quot;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">2</span>, <span class="ruby-value">3</span>, <span class="ruby-value">4</span>&#x000A;    <span class="ruby-comment"># Cloudy</span>&#x000A;    <span class="ruby-value">:&quot;#9729&quot;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">9</span>, <span class="ruby-value">10</span>, <span class="ruby-value">11</span>&#x000A;    <span class="ruby-comment"># Rainy</span>&#x000A;    <span class="ruby-value">:&quot;#9730&quot;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">13</span>&#x000A;    <span class="ruby-comment"># Snowy</span>&#x000A;    <span class="ruby-value">:&quot;#9731&quot;</span>&#x000A;  <span class="ruby-keyword">when</span> <span class="ruby-value">50</span>&#x000A;    <span class="ruby-comment"># Foggy</span>&#x000A;    <span class="ruby-value">:&quot;#9729&quot;</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div id='footer-push'></div>
+</div>
+<div id='footer'>
+<a href="https://github.com/rdoc/hanna-nouveau"><strong>Hanna Nouveau</strong> RDoc template</a>
+</div>
+</body>
+</html>

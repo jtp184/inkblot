@@ -13,7 +13,7 @@ gemfile do
 end
 
 # Simple timer class
-class Timer
+class Inkblot::Pi::CmdTimer
   class << self
     # Starts the timer, removes old stop
     def start
@@ -99,7 +99,7 @@ end
 # Run the commands on the remote device
 Net::SSH.start(host, 'pi') do |ssh|
   cmds.each do |com|
-    Timer.start
+    Inkblot::Pi::CmdTimer.start
     channel = ssh.open_channel do |chan|
       puts "Running `#{com.yellow}`"
       puts
@@ -112,8 +112,9 @@ Net::SSH.start(host, 'pi') do |ssh|
         ch.on_extended_data { |_c, _type, data| $stderr.print data.to_s.light_black }
 
         ch.on_close do
-          Timer.stop
-          puts ['Finished '.green.bold, "(#{Timer.duration.bold})"].join
+          Inkblot::Pi::CmdTimer.stop
+          tim = Inkblot::Pi::CmdTimer.duration.bold
+          puts ['Finished '.green.bold, "(#{tim})"].join
           puts
         end
       end
