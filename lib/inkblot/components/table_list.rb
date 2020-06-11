@@ -28,7 +28,7 @@ module Inkblot
             Array.new(rows - items.count, default_opt)
           ].reduce(&:+)
         elsif iz[fs, Array]
-          fs += Array.new(rows - fs.count, default_opt)
+          fs + Array.new(rows - fs.count, default_opt)
         end
       end
 
