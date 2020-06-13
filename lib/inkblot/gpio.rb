@@ -125,7 +125,7 @@ module Inkblot
           cmd = 'raspi-gpio set '
           cmd << id.to_s
           cmd << ' p'
-          cmd << case pl
+          cmd << case pul
                  when :up
                    'u'
                  when :down
