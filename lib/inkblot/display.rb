@@ -1,6 +1,6 @@
 module Inkblot
   # Singleton class for the e-Paper display
-  module Display
+  class Display
     class << self
       # Set each time display is written to, represents what is being displayed
       attr_reader :current
