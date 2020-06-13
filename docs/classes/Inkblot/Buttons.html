@@ -69,7 +69,10 @@ Superclass:
 </div>
 <div class='description'>
 
-<p>Gets input from the buttons. Blocks until a pin reads as on or the timeout elapses. If timeout is nil, will block forever until it recieves a press, and then return the index of the button. If not nil, will return the index or nil if no button was pressed.</p>
+<p>Gets input from the buttons. Blocks until a pin reads as on or the timeout
+elapses. If timeout is nil, will block forever until it recieves a press,
+and then return the index of the button. If not nil, will return the index
+or nil if no button was pressed.</p>
 
 </div>
 <div class='source'>
@@ -88,7 +91,8 @@ Superclass:
 </div>
 <div class='description'>
 
-<p>Takes in a <code>btn_ct</code> integer for how many simultaneous buttons to watch for, and passes <code>timeout</code>, returns an array</p>
+<p>Takes in a <code>btn_ct</code> integer for how many simultaneous buttons to
+watch for, and passes <code>timeout</code>, returns an array</p>
 
 </div>
 <div class='source'>
@@ -107,7 +111,11 @@ Superclass:
 </div>
 <div class='description'>
 
-<p>Passes the <code>timeout</code> to <a href="Buttons.html#method-c-get_input"><code>get_input</code></a>, and calls the associated proc on the object that is <a href="Display.html#attribute-c-current"><code>Display.current</code></a>, with some guard clauses</p>
+<p>Passes the <code>timeout</code> to <a
+href="Buttons.html#method-c-get_input">::get_input</a>, and calls the
+associated proc on the object that is <a
+href="Display.html#attribute-c-current">Inkblot::Display.current</a>, with
+some guard clauses</p>
 
 </div>
 <div class='source'>
@@ -126,7 +134,8 @@ Superclass:
 </div>
 <div class='description'>
 
-<p>Loops for <code>timefr</code> seconds collecting the status of the pins. Yields that status to a block if given, and returns the collection</p>
+<p>Loops for <code>timefr</code> seconds collecting the status of the pins.
+Yields that status to a block if given, and returns the collection</p>
 
 </div>
 <div class='source'>
@@ -164,7 +173,8 @@ Superclass:
 </div>
 <div class='description'>
 
-<p>Creates new <a href="GPIO/Pin.html"><code>GPIO::Pin</code></a> objects from the BUTTON_PINOUT</p>
+<p>Creates new <a href="GPIO/Pin.html">GPIO::Pin</a> objects from the
+BUTTON_PINOUT</p>
 
 </div>
 <div class='source'>

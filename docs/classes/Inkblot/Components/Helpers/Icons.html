@@ -65,7 +65,8 @@ Inkblot::Components::Helpers::Icons
 </div>
 <div class='description'>
 
-<p>Keeps a hash of codepoints mapping friendly names of icons to their HTML symbol representation. Reads from a YAML file</p>
+<p>Keeps a hash of codepoints mapping friendly names of icons to their HTML
+symbol representation. Reads from a YAML file</p>
 
 </div>
 <div class='source'>
@@ -104,7 +105,8 @@ Inkblot::Components::Helpers::Icons
 </div>
 <div class='description'>
 
-<p>Takes in the symbol <code>icn</code> and converts it into a material icon or a basic HTML symbol if it isn&#39;t a material icon</p>
+<p>Takes in the symbol <code>icn</code> and converts it into a material icon
+or a basic HTML symbol if it isn&#39;t a material icon</p>
 
 </div>
 <div class='source'>
@@ -123,14 +125,15 @@ Inkblot::Components::Helpers::Icons
 </div>
 <div class='description'>
 
-<p>Instance method that translates a symbol <code>icn</code> into its codepoint</p>
+<p>Instance method that translates a symbol <code>icn</code> into its
+codepoint</p>
 
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-material_icon_sym-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-material_icon_sym-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/icons.rb, line 41</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">material_icon_sym</span>(<span class="ruby-identifier">icn</span>)&#x000A;  <span class="ruby-identifier">ic</span> = <span class="ruby-constant">Icons</span>.<span class="ruby-identifier">codepoints</span>[<span class="ruby-identifier">icn</span>]&#x000A;&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ic</span>&#x000A;&#x000A;  <span class="ruby-identifier">mi</span> = <span class="ruby-string">-&#39;Material Icons&#39;</span>&#x000A;  <span class="ruby-identifier">options</span>[<span class="ruby-value">:gfonts</span>] <span class="ruby-operator">||=</span> [<span class="ruby-identifier">mi</span>]&#x000A;  <span class="ruby-identifier">options</span>[<span class="ruby-value">:gfonts</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mi</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:gfonts</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">mi</span>)&#x000A;  <span class="ruby-identifier">ic</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-material_icon_sym-source'><span class="ruby-comment"># File lib/inkblot/components/helpers/icons.rb, line 41</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">material_icon_sym</span>(<span class="ruby-identifier">icn</span>)&#x000A;  <span class="ruby-identifier">ic</span> = <span class="ruby-constant">Icons</span>.<span class="ruby-identifier">codepoints</span>[<span class="ruby-identifier">icn</span>]&#x000A;&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ic</span>&#x000A;&#x000A;  <span class="ruby-identifier">mi</span> = <span class="ruby-operator">-</span><span class="ruby-string">&#39;Material Icons&#39;</span>&#x000A;  <span class="ruby-identifier">options</span>[<span class="ruby-value">:gfonts</span>] <span class="ruby-operator">||=</span> [<span class="ruby-identifier">mi</span>]&#x000A;  <span class="ruby-identifier">options</span>[<span class="ruby-value">:gfonts</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mi</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:gfonts</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">mi</span>)&#x000A;  <span class="ruby-identifier">ic</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-instance' id='method-method-i-replace_icon_groups'>
@@ -146,7 +149,8 @@ Inkblot::Components::Helpers::Icons
 <ul><li>
 <p>If no icons is given uses the default</p>
 </li><li>
-<p>If a single symbol is given, uses the <a href="Icons.html#method-c-icon_groups"><code>icon_groups</code></a></p>
+<p>If a single symbol is given, uses the <a
+href="Icons.html#method-c-icon_groups">::icon_groups</a></p>
 </li><li>
 <p>If an array is given, runs sym args through html_sym</p>
 </li><li>

@@ -103,7 +103,8 @@ Superclass:
 </div>
 <div class='description'>
 
-<p>Creates a new basic component by joining the fragment maps of <code>args</code></p>
+<p>Creates a new basic component by joining the fragment maps of
+<code>args</code></p>
 
 </div>
 <div class='source'>
@@ -141,7 +142,8 @@ Superclass:
 </div>
 <div class='description'>
 
-<p>Takes in options for building the component either throungh <code>opts</code> or by yielding an OpenStruct to a block.</p>
+<p>Takes in options for building the component either throungh
+<code>opts</code> or by yielding an OpenStruct to a block.</p>
 
 </div>
 <div class='source'>
@@ -180,7 +182,8 @@ Superclass:
 </div>
 <div class='description'>
 
-<p>Returns a new HtmlConverter with the result of <a href="Component.html#method-i-to_html"><code>to_html</code></a></p>
+<p>Returns a new HtmlConverter with the result of <a
+href="Component.html#method-i-to_html">to_html</a></p>
 
 </div>
 <div class='source'>
@@ -295,7 +298,8 @@ Superclass:
 </div>
 <div class='description'>
 
-<p>Generates HTML from the ERB template. Adds the start / end component blocks if <code>wrap</code> is true</p>
+<p>Generates HTML from the ERB template. Adds the start / end component blocks
+if <code>wrap</code> is true</p>
 
 </div>
 <div class='source'>
@@ -314,7 +318,8 @@ Superclass:
 </div>
 <div class='description'>
 
-<p>Allows for virtual attributes passed to templates. Child classes should override with code to create these values and return them as a hash</p>
+<p>Allows for virtual attributes passed to templates. Child classes should
+override with code to create these values and return them as a hash</p>
 
 </div>
 <div class='source'>
@@ -333,7 +338,8 @@ Superclass:
 </div>
 <div class='description'>
 
-<p>Merges together the <code>options</code> and results for <code>computed</code>, for use in the erb template</p>
+<p>Merges together the <code>options</code> and results for
+<code>computed</code>, for use in the erb template</p>
 
 </div>
 <div class='source'>
@@ -435,7 +441,7 @@ Superclass:
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-i-template_filename-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-i-template_filename-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 134</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">template_filename</span>&#x000A;  <span class="ruby-ivar">@template_filename</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;::&#39;</span>).<span class="ruby-identifier">last</span> <span class="ruby-operator">+</span> <span class="ruby-string">-&#39;.html.erb&#39;</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-i-template_filename-source'><span class="ruby-comment"># File lib/inkblot/components/component.rb, line 134</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">template_filename</span>&#x000A;  <span class="ruby-ivar">@template_filename</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;::&#39;</span>).<span class="ruby-identifier">last</span> <span class="ruby-operator">+</span> <span class="ruby-operator">-</span><span class="ruby-string">&#39;.html.erb&#39;</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method private-instance' id='method-method-i-template_full_path'>
@@ -447,7 +453,8 @@ Superclass:
 </div>
 <div class='description'>
 
-<p>The resolved path to the template file, broken out so both parts can be overridden</p>
+<p>The resolved path to the template file, broken out so both parts can be
+overridden</p>
 
 </div>
 <div class='source'>
