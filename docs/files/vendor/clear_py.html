@@ -36,11 +36,13 @@ Last Update:
 <div id='content'>
 <div id='text'>
 <div id='description'>
-<p>#!/usr/bin/python # -*- coding:utf-8 -*- import sys import os</p>
+<p>#!/usr/bin/python import sys import os</p>
 
-<p># The path to the gem library, passed in from ruby gpath = <a href="1">sys.argv</a></p>
+<p># The path to the gem library, passed in from ruby gpath = <a
+href="1">sys.argv</a></p>
 
-<p># Compose the path to the support library for the eink screen libdir = gpath + “/waveshare_epd”</p>
+<p># Compose the path to the support library for the eink screen libdir =
+gpath + “/waveshare_epd”</p>
 
 <p># Add it to the path if os.path.exists(libdir):</p>
 
@@ -48,7 +50,8 @@ Last Update:
 
 <p>import logging</p>
 
-<p>from waveshare_epd import epd2in7 import time from PIL import Image,ImageDraw,ImageFont import traceback</p>
+<p>from waveshare_epd import epd2in7 import time from PIL import
+Image,ImageDraw,ImageFont import traceback</p>
 
 <p># Initialize the screen epd = epd2in7.EPD() epd.init()</p>
 

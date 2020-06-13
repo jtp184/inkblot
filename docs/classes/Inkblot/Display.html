@@ -23,7 +23,7 @@
 <body class='page'>
 <div class='class' id='wrapper'>
 <div class='header'>
-<h1 class='name'><span class='type'>module</span>
+<h1 class='name'><span class='type'>class</span>
 Inkblot::Display
 </h1>
 <ol class='paths'>
@@ -31,6 +31,10 @@ Inkblot::Display
 <a href="../../files/lib/inkblot/display_rb.html">lib/inkblot/display.rb</a>
 </li>
 </ol>
+<div class='parent'>
+Superclass:
+<strong>Object</strong>
+</div>
 </div>
 <div id='content'>
 <div id='text'>
@@ -110,14 +114,17 @@ Inkblot::Display
 </div>
 <div class='description'>
 
-<p>Disambiguation function to take in an <code>obj</code> and try to display it. In order of resolution:</p>
+<p>Disambiguation function to take in an <code>obj</code> and try to display
+it. In order of resolution:</p>
 <ul><li>
-<p>Anything that responds to <code>to_display</code> will have that method called,</p>
+<p>Anything that responds to <code>to_display</code> will have that method
+called,</p>
 </li></ul>
 
 <p>and the result sent back to call</p>
 <ul><li>
-<p>Any <a href="Components/Component.html"><code>Components::Component</code></a> will be passed to an HtmlConverter and displayed</p>
+<p>Any <a href="Components/Component.html">Components::Component</a> will be
+passed to an HtmlConverter and displayed</p>
 </li><li>
 <p>Any Converter will have its output displayed by path</p>
 </li><li>
@@ -125,7 +132,9 @@ Inkblot::Display
 </li><li>
 <p>Any string which is an existing path on system will be displayed</p>
 </li><li>
-<p>Any string will be passed to a <a href="Components/SimpleText.html"><code>Components::SimpleText</code></a> component, which will be passed to call</p>
+<p>Any string will be passed to a <a
+href="Components/SimpleText.html">Components::SimpleText</a> component,
+which will be passed to call</p>
 </li><li>
 <p>Anything else raises an ArgumentError</p>
 </li></ul>
@@ -206,7 +215,8 @@ Inkblot::Display
 </div>
 <div class='description'>
 
-<p>Aspect ratio of the screen, from <a href="../Inkblot.html#method-c-screen_size"><code>Inkblot.screen_size</code></a></p>
+<p>Aspect ratio of the screen, from <a
+href="../Inkblot.html#method-c-screen_size">Inkblot.screen_size</a></p>
 
 </div>
 <div class='source'>
@@ -245,7 +255,8 @@ Inkblot::Display
 </div>
 <div class='description'>
 
-<p>Takes in an image <code>img</code> to display on the device. Can be a File, filepath string, or a Converter subclass</p>
+<p>Takes in an image <code>img</code> to display on the device. Can be a File,
+filepath string, or a Converter subclass</p>
 
 </div>
 <div class='source'>
@@ -264,14 +275,15 @@ Inkblot::Display
 </div>
 <div class='description'>
 
-<p>Create a python script string. <code>skript</code> is the script&#39;s name subsequent strings are treated as arguments</p>
+<p>Create a python script string. <code>skript</code> is the script&#39;s name
+subsequent strings are treated as arguments</p>
 
 </div>
 <div class='source'>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-pyscript-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-pyscript-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 86</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">pyscript</span>(<span class="ruby-identifier">skript</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)&#x000A;  <span class="ruby-identifier">cmd</span> = <span class="ruby-string">&#39;python &#39;</span>&#x000A;  <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>(<span class="ruby-node">&quot;#{skript}.py&quot;</span>)&#x000A;  <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39; &#39;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>&#x000A;&#x000A;  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">empty?</span>&#x000A;    <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39; &#39;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">arg</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">cmd</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-pyscript-source'><span class="ruby-comment"># File lib/inkblot/display.rb, line 86</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">pyscript</span>(<span class="ruby-identifier">skript</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)&#x000A;  <span class="ruby-identifier">cmd</span> = <span class="ruby-string">&#39;python &#39;</span>&#x000A;  <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>(<span class="ruby-node">&quot;#{skript}.py&quot;</span>)&#x000A;  <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39; &#39;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">vendor_path</span>&#x000A;&#x000A;  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">empty?</span>&#x000A;    <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39; &#39;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">arg</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">cmd</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>

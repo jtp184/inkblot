@@ -38,31 +38,46 @@ Last Update:
 <div id='description'>
 <h1 id="label-Setting+up+Raspberry+Pi">Setting up Raspberry Pi<span><a href="#label-Setting+up+Raspberry+Pi">&para;</a> <a href="#top">&uarr;</a></span></h1>
 
-<p>This is a simple start guide to setting up Raspberry Pi for use with inkblot</p>
+<p>This is a simple start guide to setting up Raspberry Pi for use with
+inkblot</p>
 
 <h2 id="label-Flashing">Flashing<span><a href="#label-Flashing">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<p>See the <a href="https://www.raspberrypi.org/documentation/installation/installing-images/README.md">Raspberry Pi Documentation</a> for details on downloading images and flashing them to cards.</p>
+<p>See the <a
+href="https://www.raspberrypi.org/documentation/installation/installing-images/README.md">Raspberry
+Pi Documentation</a> for details on downloading images and flashing them to
+cards.</p>
 
 <h2 id="label-Wifi+setup">Wifi setup<span><a href="#label-Wifi+setup">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<p>Run <code>bin/pi/wpa_config</code> to enter wifi credentials. This will save a <code>wpa_supplicant.conf</code> file. You can also create one manually if you&#39;d like.</p>
+<p>Run <code>bin/pi/wpa_config</code> to enter wifi credentials. This will
+save a <code>wpa_supplicant.conf</code> file. You can also create one
+manually if you&#39;d like.</p>
 
 <h2 id="label-Boot+Config">Boot Config<span><a href="#label-Boot+Config">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<p>Ensure that the boot volume is mounted. Run <code>bin/pi/boot_config</code>, which will set SSH and SPI settings, and copy your <code>wpa_supplicant.conf</code> file.</p>
+<p>Ensure that the boot volume is mounted. Run
+<code>bin/pi/boot_config</code>, which will set SSH and SPI settings, and
+copy your <code>wpa_supplicant.conf</code> file.</p>
 
 <h2 id="label-Handshaking">Handshaking<span><a href="#label-Handshaking">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<p>Insert the card into the Raspberry Pi and power it on. Run <code>bin/pi/ssh</code>, which will connect to the Raspberry pi for the first time and save a configuration file. If a password is requested, it is “<code>raspberry</code>”. You&#39;ll want to also run <code>ssh-copy-id pi@raspberrypi.local</code> to set up keys.</p>
+<p>Insert the card into the Raspberry Pi and power it on. Run
+<code>bin/pi/ssh</code>, which will connect to the Raspberry pi for the
+first time and save a configuration file. If a password is requested, it is
+“<code>raspberry</code>”. You&#39;ll want to also run <code>ssh-copy-id&#x000A;pi@raspberrypi.local</code> to set up keys.</p>
 
 <h2 id="label-Login+setup">Login setup<span><a href="#label-Login+setup">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<p>Run <code>bin/pi/changelogin</code>. This will allow you to change your pi&#39;s hostname on the network, and change the password. After rebooting, run <code>bin/pi/ssh</code> again to confirm it worked.</p>
+<p>Run <code>bin/pi/changelogin</code>. This will allow you to change your
+pi&#39;s hostname on the network, and change the password. After rebooting,
+run <code>bin/pi/ssh</code> again to confirm it worked.</p>
 
 <h2 id="label-Installing+Dependencies">Installing Dependencies<span><a href="#label-Installing+Dependencies">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<p>Run <code>bin/pi/install_deps</code>. You can install various needed dependencies remotely with this script, including Ruby, NodeJS/NPM, ImageMagick, and the gem itself.</p>
+<p>Run <code>bin/pi/install_deps</code>. You can install various needed
+dependencies remotely with this script, including Ruby, NodeJS/NPM,
+ImageMagick, and the gem itself.</p>
 </div>
 <div id='context'>
 </div>

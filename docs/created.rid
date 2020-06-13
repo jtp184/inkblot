@@ -1,4 +1,4 @@
-Thu, 11 Jun 2020 13:05:22 -0700
+Sat, 13 Jun 2020 15:12:40 -0700
 ./RASPI_SETUP.md	Wed, 10 Jun 2020 16:43:54 -0700
 ./bin/exmp/pihole_chronometer.rb	Wed, 10 Jun 2020 22:23:54 -0700
 ./bin/exmp/stock_ticker.rb	Thu, 11 Jun 2020 02:25:51 -0700
@@ -7,13 +7,13 @@ Thu, 11 Jun 2020 13:05:22 -0700
 ./bin/pi/wpa_config	Thu, 11 Jun 2020 12:58:32 -0700
 ./bin/pi/ssh	Wed, 10 Jun 2020 16:43:54 -0700
 ./bin/pi/pi.rb	Wed, 10 Jun 2020 20:07:53 -0700
-./bin/pi/install_deps	Thu, 11 Jun 2020 03:22:30 -0700
+./bin/pi/install_deps	Sat, 13 Jun 2020 13:33:00 -0700
 ./bin/pi/boot_config	Wed, 10 Jun 2020 16:43:54 -0700
-./bin/pi/changelogin	Wed, 10 Jun 2020 23:56:59 -0700
+./bin/pi/changelogin	Fri, 12 Jun 2020 18:58:43 -0700
 ./README.md	Wed, 10 Jun 2020 21:07:49 -0700
 ./lib/inkblot/components.rb	Thu, 11 Jun 2020 02:25:51 -0700
 ./lib/inkblot/converters.rb	Fri, 29 May 2020 02:30:59 -0700
-./lib/inkblot/gpio.rb	Thu, 11 Jun 2020 00:40:25 -0700
+./lib/inkblot/gpio.rb	Sat, 13 Jun 2020 14:26:36 -0700
 ./lib/inkblot/buttons.rb	Thu, 04 Jun 2020 01:02:45 -0700
 ./lib/inkblot/converters/html_converter.rb	Thu, 11 Jun 2020 00:25:41 -0700
 ./lib/inkblot/converters/converter.rb	Fri, 29 May 2020 02:30:09 -0700
@@ -28,12 +28,12 @@ Thu, 11 Jun 2020 13:05:22 -0700
 ./lib/inkblot/components/simple_text.rb	Thu, 04 Jun 2020 01:02:45 -0700
 ./lib/inkblot/components/icon_pane.rb	Thu, 11 Jun 2020 02:25:51 -0700
 ./lib/inkblot/components/table_list.rb	Thu, 11 Jun 2020 00:41:30 -0700
-./lib/inkblot/components/bar_code.rb	Thu, 11 Jun 2020 00:02:31 -0700
+./lib/inkblot/components/bar_code.rb	Fri, 12 Jun 2020 18:13:30 -0700
 ./lib/inkblot/components/helpers/icons.rb	Thu, 11 Jun 2020 00:16:34 -0700
 ./lib/inkblot/components/helpers/button_map.rb	Thu, 11 Jun 2020 02:25:51 -0700
 ./lib/inkblot/components/helpers/multi_state.rb	Thu, 11 Jun 2020 00:21:56 -0700
 ./lib/inkblot/components/helpers/paginated.rb	Thu, 11 Jun 2020 00:18:13 -0700
-./lib/inkblot/display.rb	Thu, 11 Jun 2020 00:29:33 -0700
+./lib/inkblot/display.rb	Sat, 13 Jun 2020 15:10:55 -0700
 ./lib/inkblot/version.rb	Tue, 09 Jun 2020 22:41:52 -0700
 ./lib/inkblot.rb	Wed, 10 Jun 2020 16:43:54 -0700
 ./vendor/qrtest.bmp	Thu, 02 Apr 2020 15:37:35 -0700
@@ -49,7 +49,7 @@ Thu, 11 Jun 2020 13:05:22 -0700
 ./vendor/templates/startComponent.html.erb	Thu, 02 Apr 2020 15:37:35 -0700
 ./vendor/templates/IconGrid.html.erb	Fri, 29 May 2020 13:28:12 -0700
 ./vendor/templates/Component.html.erb	Thu, 02 Apr 2020 15:37:35 -0700
-./vendor/templates/TableList.html.erb	Wed, 10 Jun 2020 19:55:45 -0700
+./vendor/templates/TableList.html.erb	Sat, 13 Jun 2020 14:47:28 -0700
 ./vendor/templates/QrCode.html.erb	Sun, 17 May 2020 17:46:56 -0700
 ./vendor/codepoints.yml	Wed, 27 May 2020 17:16:36 -0700
 ./pkg/inkblot-0.1.0.gem	Thu, 11 Jun 2020 03:06:42 -0700
