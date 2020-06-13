@@ -22,24 +22,25 @@ module Inkblot
 
       # Maps the state from +pin_st+ to useful values
       def map_pin(pin_st)
-        pin_st.each do |nt|
-          %i[pin level fsel].each { |d| nt[d] = nt[d].to_i }
-          nt[:direction] = case nt.delete(:func)
-                           when 'INPUT'
-                             :in
-                           when 'OUTPUT'
-                             :out
-                           end
+        %i[pin level fsel].each { |d| pin_st[d] = pin_st[d].to_i }
 
-          nt[:pull] = case nt[:pull]
-                      when 'UP'
-                        :up
-                      when 'DOWN'
-                        :down
-                      when nil
-                        :unknown
-                      end
-        end
+        pin_st[:direction] = case pin_st.delete(:func)
+                             when 'INPUT'
+                               :in
+                             when 'OUTPUT'
+                               :out
+                             end
+
+        pin_st[:pull] = case pin_st[:pull]
+                        when 'UP'
+                          :up
+                        when 'DOWN'
+                          :down
+                        when nil
+                          :unknown
+                        end
+
+        pin_st
       end
     end
 
