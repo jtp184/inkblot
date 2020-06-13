@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'bundler/inline'
+require 'optparse'
 
 gemfile do
   source 'https://rubygems.org/'
@@ -15,6 +16,16 @@ end
 prompt = TTY::Prompt.new(
   interrupt: -> { puts 'x'.light_black; puts 'Goodbye'.red; abort }
 )
+
+@flags = Hash.new(false)
+
+OptionParser.new do |opts|
+  opts.banner = 'Usage: install_deps [options]'
+
+  opts.on('-v', '--[no-]verbose', 'Print output of commands') do |v|
+    @flags[:verbose] = v
+  end
+end.parse!
 
 @durationizer = proc do |var|
   secs  = var.to_int
@@ -106,8 +117,10 @@ Net::SSH.start(host, 'pi') do |ssh|
         raise 'Could not execute command' unless success
 
         # Show output on our device
-        ch.on_data { |_c, data| $stdout.print data.to_s.light_black }
-        ch.on_extended_data { |_c, _type, data| $stderr.print data.to_s.light_black }
+        if @flags[:verbose]
+          ch.on_data { |_c, data| $stdout.print data.to_s.light_black }
+          ch.on_extended_data { |_c, _type, data| $stderr.print data.to_s.light_black }
+        end
 
         ch.on_close do
           tim = @durationizer[Time.now - @timer]
