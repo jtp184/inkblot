@@ -89,7 +89,7 @@ module Inkblot
         cmd << ' ' << Inkblot.vendor_path
 
         unless args.nil? || args.empty?
-          args[0..].each do |arg|
+          args[0..-1].each do |arg|
             cmd << ' ' << arg
           end
         end
