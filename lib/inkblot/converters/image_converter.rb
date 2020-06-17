@@ -26,7 +26,7 @@ module Inkblot
         end
 
         resize(img_file)
-        mono2(img_file)
+        mono(img_file)
         img_file
       end
 
@@ -40,12 +40,12 @@ module Inkblot
 
       private
 
-      # 2Channel monochrome conversion of image
-      def mono2(img)
+      # Monochromatic representation of image
+      def mono(img)
         MiniMagick::Tool::Convert.new do |m|
           m << img.path
-          m.depth(1)
-          m.monochrome
+          m.colorspace('Gray')
+          m.depth(Inkblot.color_depth)
           m << ('bmp3:' << img.path)
         end
       end
