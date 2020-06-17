@@ -30,7 +30,7 @@ README.md
 </div>
 <div class='last-update'>
 Last Update:
-<span class='datetime'>2020-06-10 21:07:49 -0700</span>
+<span class='datetime'>2020-06-17 01:05:11 -0700</span>
 </div>
 </div>
 <div id='content'>
@@ -88,6 +88,13 @@ href="../classes/Inkblot.html">Inkblot</a> is to add a
 <code>#to_display</code> method on your object which returns a component.</p>
 
 <pre class="ruby"><span class="ruby-keyword">class</span> <span class="ruby-constant">SomethingToShow</span>&#x000A;  <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">smth</span>)&#x000A;    <span class="ruby-ivar">@something</span> = <span class="ruby-identifier">smth</span>.<span class="ruby-identifier">to_s</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_display</span>&#x000A;    <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Components</span><span class="ruby-operator">::</span><span class="ruby-constant">SimpleText</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">text:</span> <span class="ruby-ivar">@something</span>)&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span>&#x000A;&#x000A;<span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Display</span>.<span class="ruby-identifier">show</span>(<span class="ruby-constant">SomethingToShow</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;Cinnamon Buns&quot;</span>))</pre>
+
+<h4 id="label-Color+Depth">Color Depth<span><a href="#label-Color+Depth">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<p>The EPD can operate in 1-deep and 4-deep color modes, with an accessor on
+the module to swap between them.</p>
+
+<pre class="ruby"><span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">color_depth</span> <span class="ruby-comment"># =&gt; Defaults to 1</span>&#x000A;&#x000A;<span class="ruby-constant">Inkblot</span>.<span class="ruby-identifier">color_depth</span> = <span class="ruby-value">4</span> <span class="ruby-comment"># For Init_4Gray</span></pre>
 
 <h3 id="label-Buttons">Buttons<span><a href="#label-Buttons">&para;</a> <a href="#top">&uarr;</a></span></h3>
 

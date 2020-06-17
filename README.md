@@ -78,6 +78,17 @@ end
 
 Inkblot::Display.show(SomethingToShow.new("Cinnamon Buns"))
 ```
+
+#### Color Depth
+
+The EPD can operate in 1-deep and 4-deep color modes, with an accessor on the module to swap between them.
+
+```ruby
+Inkblot.color_depth # => Defaults to 1
+
+Inkblot.color_depth = 4 # For Init_4Gray
+```
+
 ### Buttons
 
 The `Buttons` class deals with input from the HAT buttons. The buttons communicate over the Pi's GPIO pins, and can be used for a broad variety of inputs.
