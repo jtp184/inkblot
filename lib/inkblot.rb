@@ -8,6 +8,7 @@ require 'inkblot/components'
 # Ruby gem for interacting with waveshare e-Paper display
 module Inkblot
 
+  # The possible color depths for rendering images with.
   COLOR_DEPTH = [1, 4].freeze
 
   class << self
