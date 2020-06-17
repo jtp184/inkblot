@@ -148,6 +148,8 @@ bin/exmp/weather_reporter.rb`</p>
 <ol>
 <li><a href="#method-c-button_pinout">button_pinout</a></li>
 <li><a href="#attribute-c-button_pinout">button_pinout</a></li>
+<li><a href="#method-c-color_depth">color_depth</a></li>
+<li><a href="#method-c-color_depth-3D">color_depth=</a></li>
 <li><a href="#method-c-screen_size">screen_size</a></li>
 <li><a href="#attribute-c-screen_size">screen_size</a></li>
 <li><a href="#method-c-vendor_path">vendor_path</a></li>
@@ -172,6 +174,22 @@ bin/exmp/weather_reporter.rb`</p>
 </ol>
 </div>
 <div id='section'>
+<div id='constants-list'>
+<h2>Constants</h2>
+<div class='name-list'>
+<table summary='Constants'>
+<tr class='top-aligned-row context-row'>
+<td class='context-item-name'>COLOR_DEPTH</td>
+<td>=</td>
+<td class='context-item-value'>[1, 4].freeze</td>
+<td>&nbsp;</td>
+<td class='context-item-desc'>
+<p>The possible color depths for rendering images with.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
 <div id='attribute-list'>
 <h2 class='section-bar'>Attributes</h2>
 <div class='name-list'>
@@ -215,7 +233,45 @@ bin/exmp/weather_reporter.rb`</p>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-button_pinout-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-button_pinout-source'><span class="ruby-comment"># File lib/inkblot.rb, line 41</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">button_pinout</span>&#x000A;  <span class="ruby-ivar">@button_pinout</span> <span class="ruby-operator">||=</span> [<span class="ruby-value">5</span>, <span class="ruby-value">6</span>, <span class="ruby-value">13</span>, <span class="ruby-value">19</span>].<span class="ruby-identifier">freeze</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-button_pinout-source'><span class="ruby-comment"># File lib/inkblot.rb, line 45</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">button_pinout</span>&#x000A;  <span class="ruby-ivar">@button_pinout</span> <span class="ruby-operator">||=</span> [<span class="ruby-value">5</span>, <span class="ruby-value">6</span>, <span class="ruby-value">13</span>, <span class="ruby-value">19</span>].<span class="ruby-identifier">freeze</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-class' id='method-method-c-color_depth'>
+<a name='method-c-color_depth'></a>
+<div class='synopsis'>
+<span class='name'>color_depth</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>Whether we use 2-bit or 4-bit color</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-color_depth-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-color_depth-source'><span class="ruby-comment"># File lib/inkblot.rb, line 50</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">color_depth</span>&#x000A;  <span class="ruby-ivar">@color_depth</span> <span class="ruby-operator">||=</span> <span class="ruby-value">1</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-class' id='method-method-c-color_depth-3D'>
+<a name='method-c-color_depth-3D'></a>
+<div class='synopsis'>
+<span class='name'>color_depth=</span>
+<span class='arguments'>(new_depth)</span>
+
+</div>
+<div class='description'>
+
+<p>Sets the <code>new_depth</code> if it&#39;s in range</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-color_depth-3D-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-color_depth-3D-source'><span class="ruby-comment"># File lib/inkblot.rb, line 55</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">color_depth=</span>(<span class="ruby-identifier">new_depth</span>)&#x000A;  <span class="ruby-keyword">unless</span> <span class="ruby-constant">COLOR_DEPTH</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">new_depth</span>)&#x000A;    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Unsupported depth &#39;#{new_depth}&#39;&quot;</span> &#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-ivar">@color_depth</span> = <span class="ruby-identifier">new_depth</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-class' id='method-method-c-screen_size'>
@@ -234,7 +290,7 @@ bin/exmp/weather_reporter.rb`</p>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-screen_size-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-screen_size-source'><span class="ruby-comment"># File lib/inkblot.rb, line 30</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">screen_size</span>&#x000A;  <span class="ruby-ivar">@screen_size</span> <span class="ruby-operator">||=</span> {&#x000A;    <span class="ruby-value">width:</span> <span class="ruby-value">264</span>,&#x000A;    <span class="ruby-value">height:</span> <span class="ruby-value">176</span>&#x000A;  }&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-screen_size-source'><span class="ruby-comment"># File lib/inkblot.rb, line 34</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">screen_size</span>&#x000A;  <span class="ruby-ivar">@screen_size</span> <span class="ruby-operator">||=</span> {&#x000A;    <span class="ruby-value">width:</span> <span class="ruby-value">264</span>,&#x000A;    <span class="ruby-value">height:</span> <span class="ruby-value">176</span>&#x000A;  }&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <div class='method public-class' id='method-method-c-vendor_path'>
@@ -255,7 +311,7 @@ appended, joins them to the base with &#39;/&#39;</p>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-vendor_path-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-vendor_path-source'><span class="ruby-comment"># File lib/inkblot.rb, line 14</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">vendor_path</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">paths</span>)&#x000A;  <span class="ruby-ivar">@vendor_path</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">locate_gem_folder</span>).<span class="ruby-identifier">tap</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">str</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39;/gems&#39;</span>&#x000A;    <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;/inkblot-#{Inkblot::VERSION}&quot;</span>&#x000A;    <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39;/vendor&#39;</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@vendor_path</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">empty?</span>&#x000A;&#x000A;  [<span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@vendor_path</span>)].<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">paths</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;/&#39;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-vendor_path-source'><span class="ruby-comment"># File lib/inkblot.rb, line 18</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">vendor_path</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">paths</span>)&#x000A;  <span class="ruby-ivar">@vendor_path</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">locate_gem_folder</span>).<span class="ruby-identifier">tap</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">str</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39;/gems&#39;</span>&#x000A;    <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;/inkblot-#{Inkblot::VERSION}&quot;</span>&#x000A;    <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39;/vendor&#39;</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@vendor_path</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">empty?</span>&#x000A;&#x000A;  [<span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@vendor_path</span>)].<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">paths</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;/&#39;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <h2>Private Class methods</h2>
@@ -275,7 +331,7 @@ appended, joins them to the base with &#39;/&#39;</p>
 <a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-locate_gem_folder-source&#39;); return false'>
 [show source]
 </a>
-<pre id='method-c-locate_gem_folder-source'><span class="ruby-comment"># File lib/inkblot.rb, line 48</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">locate_gem_folder</span>&#x000A;  <span class="ruby-identifier">looks</span>, <span class="ruby-identifier">_nopes</span> = <span class="ruby-constant">Gem</span>.<span class="ruby-identifier">path</span>.<span class="ruby-identifier">partition</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">pth</span><span class="ruby-operator">|</span> <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">pth</span>) }&#x000A;&#x000A;  <span class="ruby-identifier">has_them</span>, <span class="ruby-identifier">_doesnt</span> = <span class="ruby-identifier">looks</span>.<span class="ruby-identifier">partition</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pth</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">entries</span>(<span class="ruby-identifier">pth</span>).<span class="ruby-identifier">include?</span>(<span class="ruby-string">&#39;gems&#39;</span>)&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">has_them</span>.<span class="ruby-identifier">first</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+<pre id='method-c-locate_gem_folder-source'><span class="ruby-comment"># File lib/inkblot.rb, line 66</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">locate_gem_folder</span>&#x000A;  <span class="ruby-identifier">looks</span>, <span class="ruby-identifier">_nopes</span> = <span class="ruby-constant">Gem</span>.<span class="ruby-identifier">path</span>.<span class="ruby-identifier">partition</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">pth</span><span class="ruby-operator">|</span> <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">pth</span>) }&#x000A;&#x000A;  <span class="ruby-identifier">has_them</span>, <span class="ruby-identifier">_doesnt</span> = <span class="ruby-identifier">looks</span>.<span class="ruby-identifier">partition</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pth</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">entries</span>(<span class="ruby-identifier">pth</span>).<span class="ruby-identifier">include?</span>(<span class="ruby-string">&#39;gems&#39;</span>)&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">has_them</span>.<span class="ruby-identifier">first</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 </div>

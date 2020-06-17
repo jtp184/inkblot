@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+<head>
+<title>display_4gray.py</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<link href='../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+<script type='text/javascript'>
+  function popupCode(url) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+  
+  function toggleCode(id) {
+    var code = document.getElementById(id)
+  
+    code.style.display = code.style.display != 'block' ? 'block' : 'none'
+    return true
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+</script>
+</head>
+<body class='page'>
+<div class='file' id='wrapper'>
+<div class='header'>
+<h1 class='name'>display_4gray.py
+</h1>
+<div class='paths'>
+vendor/display_4gray.py
+</div>
+<div class='last-update'>
+Last Update:
+<span class='datetime'>2020-06-16 23:19:06 -0700</span>
+</div>
+</div>
+<div id='content'>
+<div id='text'>
+<div id='description'>
+<p>#!/usr/bin/python import sys import os</p>
+
+<p># The path to the gem library, passed in from ruby gpath = <a
+href="1">sys.argv</a> # The path to the image to display passed in from
+ruby imgpath = <a href="2">sys.argv</a></p>
+
+<p># Compose the path to the support library for the eink screen libdir =
+gpath + “/waveshare_epd”</p>
+
+<p># Add it to the path if os.path.exists(libdir):</p>
+
+<pre class="ruby"><span class="ruby-identifier">sys</span>.<span class="ruby-identifier">path</span>.<span class="ruby-identifier">append</span>(<span class="ruby-identifier">libdir</span>)</pre>
+
+<p>import logging</p>
+
+<p>from waveshare_epd import epd2in7 import time from PIL import
+Image,ImageDraw,ImageFont import traceback</p>
+
+<p># Initialize the screen epd = epd2in7.EPD() epd.init() epd.Init_4Gray()</p>
+
+<p># Open the provided image print imgpath image = Image.open(imgpath)</p>
+
+<p># Print it to the display epd.display_4Gray(epd.getbuffer_4Gray(image))</p>
+
+<p># Power down display epd.sleep()</p>
+
+<p>exit()</p>
+</div>
+<div id='context'>
+</div>
+
+</div>
+</div>
+
+<div id='footer-push'></div>
+</div>
+<div id='footer'>
+<a href="https://github.com/rdoc/hanna-nouveau"><strong>Hanna Nouveau</strong> RDoc template</a>
+</div>
+</body>
+</html>
