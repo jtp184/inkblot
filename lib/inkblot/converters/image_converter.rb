@@ -30,6 +30,14 @@ module Inkblot
         img_file
       end
 
+      # Saves the converted image permanently to path. 
+      # Converts if this has not been done
+      def save(path)
+        File.open(path, 'w+b') do |f|
+          f << File.read(output.path)
+        end
+      end
+
       private
 
       # 2Channel monochrome conversion of image
