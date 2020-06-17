@@ -76,7 +76,8 @@ module Inkblot
       private
 
       # Takes in an image +img+ to display on the device.
-      # Can be a File, filepath string, or a Converter subclass
+      # Can be a File, filepath string, or a Converter subclass.
+      # Automatically switches display script based on color depth 
       def image(img)
         disp_script = case Inkblot.color_depth
                       when 1
