@@ -29,7 +29,7 @@ if Gem.platforms.last.os == 'linux'
   Buttons.init unless Buttons.ready?
 end
 
-Inkblot.color_depth = 4 # 1
+Inkblot.color_depth = 1 # 4
 
 ### EXAMPLE COMPONENTS
 
@@ -78,8 +78,6 @@ end
   sc.fullscreen = true
   sc.items = (1..10).map { |x| "Option #{x}" }
 end
-
-@c = Converters::ImageConverter.new(input: 'tmp/cim.png')
 
 # Example button interaction scroll loop
 def test_scroll
