@@ -78,7 +78,14 @@ module Inkblot
       # Takes in an image +img+ to display on the device.
       # Can be a File, filepath string, or a Converter subclass
       def image(img)
-        `#{pyscript('display', img)}`
+        disp_script = case Inkblot.color_depth
+                      when 1
+                        'display'
+                      when 4
+                        'display_4gray'
+                      end
+
+        `#{pyscript(disp_script, img)}`
       end
 
       # Create a python script string. +skript+ is the script's name
