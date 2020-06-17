@@ -29,6 +29,8 @@ if Gem.platforms.last.os == 'linux'
   Buttons.init unless Buttons.ready?
 end
 
+Inkblot.color_depth = 1 # 4
+
 ### EXAMPLE COMPONENTS
 
 ## SimpleText

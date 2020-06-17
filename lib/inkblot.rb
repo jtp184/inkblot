@@ -7,6 +7,9 @@ require 'inkblot/components'
 
 # Ruby gem for interacting with waveshare e-Paper display
 module Inkblot
+
+  COLOR_DEPTH = [1, 4].freeze
+
   class << self
     # Returns the path to the vendor directory for this gem, to access non-ruby
     # assets like python code and html templates.
@@ -40,6 +43,20 @@ module Inkblot
     # Which pins are assigned to which of the four buttons, from top down
     def button_pinout
       @button_pinout ||= [5, 6, 13, 19].freeze
+    end
+
+    # Whether we use 2-bit or 4-bit color
+    def color_depth
+      @color_depth ||= 1
+    end
+
+    # Sets the +new_depth+ if it's in range
+    def color_depth=(new_depth)
+      unless COLOR_DEPTH.include?(new_depth)
+        raise ArgumentError, "Unsupported depth '#{new_depth}'" 
+      end
+
+      @color_depth = new_depth
     end
 
     private
