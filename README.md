@@ -20,7 +20,7 @@ cd inkblot
 rake install
 ```
 
-For help setting up your pi for use with this gem, check out the [RASPI_SETUP](https://jtp184.github.io/inkblot/files/RASPI_SETUP_md.html) instructions.
+For help setting up your pi for use with this gem, check out the [RASPI_SETUP](https://github.com/jtp184/inkblot/blob/master/RASPI_SETUP.md) instructions.
 
 ## Hardware
 
