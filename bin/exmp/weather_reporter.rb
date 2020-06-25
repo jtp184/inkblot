@@ -159,8 +159,8 @@ end
 
 class Inkblot::Examples::WeatherReporter
   class << self
+    # For Displaying on the EPD
     def run
-      # For Displaying on the EPD
       Inkblot::Buttons.init unless Inkblot::Buttons.ready?
       @w = Inkblot::Examples::WeatherReporter.new(zip_code: '90210')
 
