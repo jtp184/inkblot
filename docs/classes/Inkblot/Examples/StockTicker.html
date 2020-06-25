@@ -39,13 +39,19 @@ Superclass:
 <div id='content'>
 <div id='text'>
 <div id='description'>
-<p>Can fetch stock quotes from IEXCloud and display them to the EPD</p>
+<p>Can fetch stock quotes from IEXCloud and display them to the EPD.
+You&#39;ll need an IEXCloud API key: `<a
+href="https://iexcloud.io/cloud-login#/register">iexcloud.io/cloud-login#/register</a>`.
+You can run this example with 
+`IEX_CLOUD_API_KEY=“aa_0123456789abcdeffedcba9876543210” ruby
+bin/exmp/stock_ticker.rb`</p>
 </div>
 <div id='method-list'>
 <h2>Methods</h2>
 <h3>Public Class</h3>
 <ol>
 <li><a href="#method-c-new">new</a></li>
+<li><a href="#method-c-run">run</a></li>
 </ol>
 <h3>Public Instance</h3>
 <ol>
@@ -133,6 +139,23 @@ if present</p>
 [show source]
 </a>
 <pre id='method-c-new-source'><span class="ruby-comment"># File bin/exmp/stock_ticker.rb, line 38</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">opts</span> = {})&#x000A;  <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">each_pair</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-value">:&quot;@#{k}&quot;</span>, <span class="ruby-identifier">v</span>) }&#x000A;  <span class="ruby-ivar">@api_key</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;IEX_CLOUD_API_KEY&#39;</span>]&#x000A;  <span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">symbols</span>.<span class="ruby-identifier">count</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
+<div class='method public-class' id='method-method-c-run'>
+<a name='method-c-run'></a>
+<div class='synopsis'>
+<span class='name'>run</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-run-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-run-source'><span class="ruby-comment"># File bin/exmp/stock_ticker.rb, line 214</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run</span>&#x000A;  <span class="ruby-comment"># For Displaying on the EPD</span>&#x000A;  <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Buttons</span>.<span class="ruby-identifier">init</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Buttons</span>.<span class="ruby-identifier">ready?</span>&#x000A;&#x000A;  <span class="ruby-ivar">@t</span> = <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Examples</span><span class="ruby-operator">::</span><span class="ruby-constant">StockTicker</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">symbols:</span> <span class="ruby-node">%w[AAPL FB]</span>)&#x000A;&#x000A;  <span class="ruby-keyword">begin</span>&#x000A;    <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Display</span>.<span class="ruby-identifier">show</span>(<span class="ruby-ivar">@t</span>)&#x000A;    <span class="ruby-identifier">loop</span> { <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Buttons</span>.<span class="ruby-identifier">get_press</span> }&#x000A;  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">IndexError</span>&#x000A;    <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Display</span>.<span class="ruby-identifier">clear</span>&#x000A;    <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Buttons</span>.<span class="ruby-identifier">release</span>&#x000A;    <span class="ruby-identifier">exit</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
 </div>
 </div>
 <h2>Public Instance methods</h2>
@@ -279,8 +302,7 @@ if present</p>
 </div>
 <div class='description'>
 
-<p>Takes in the <code>chart</code> and converts it into basic <a
-href="../Components.html">Components</a></p>
+<p>Takes in the <code>chart</code> and converts it into basic Components</p>
 
 </div>
 <div class='source'>

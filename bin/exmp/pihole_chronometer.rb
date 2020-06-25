@@ -44,19 +44,27 @@ module Inkblot
   end
 end
 
-#=== For Displaying on the EPD ===##
-Inkblot::Buttons.init unless Inkblot::Buttons.ready?
+class Inkblot::Examples::PiholeChronometer
+  class << self
+    # For Displaying on the EPD
+    def run
+      Inkblot::Buttons.init unless Inkblot::Buttons.ready?
 
-@c = Inkblot::Examples::PiholeChronometer.new.refresh
+      @c = Inkblot::Examples::PiholeChronometer.new.refresh
 
-refresh_time = 60 * 60
+      refresh_time = 60 * 60
 
-begin
-  loop do
-    Inkblot::Display.show(@c)
-    Inkblot::Buttons.get_press(refresh_time)
+      begin
+        loop do
+          Inkblot::Display.show(@c)
+          Inkblot::Buttons.get_press(refresh_time)
+        end
+      rescue IndexError
+        Inkblot::Display.clear
+        Inkblot::Buttons.release
+      end
+    end
   end
-rescue IndexError
-  Inkblot::Display.clear
-  Inkblot::Buttons.release
 end
+
+Inkblot::Examples::PiholeChronometer.run

@@ -3,12 +3,11 @@
 require 'inkblot'
 require 'net/http'
 
-# You'll need an OpenWeatherMap API key: https://home.openweathermap.org/users/sign_up
-# You can run this example with `OPEN_WEATHER_MAP_API_KEY="0123456789ABCDEFFEDCBA9876543210" ruby bin/exmp/weather_reporter.rb`
-
 module Inkblot
   module Examples
     # Can fetch weather from OpenWeatherMap and display it to the EPD
+    # You'll need an OpenWeatherMap API key: https://home.openweathermap.org/users/sign_up
+    # You can run this example with `OPEN_WEATHER_MAP_API_KEY="0123456789ABCDEFFEDCBA9876543210" ruby bin/exmp/weather_reporter.rb`
     class WeatherReporter
       # The URL to OWM's API
       API_URL = 'https://api.openweathermap.org/data/2.5/weather'
@@ -158,24 +157,32 @@ module Inkblot
   end
 end
 
-##=== For Displaying on the EPD ===##
-Inkblot::Buttons.init unless Inkblot::Buttons.ready?
-@w = Inkblot::Examples::WeatherReporter.new(zip_code: '90210')
+class Inkblot::Examples::WeatherReporter
+  class << self
+    def run
+      # For Displaying on the EPD
+      Inkblot::Buttons.init unless Inkblot::Buttons.ready?
+      @w = Inkblot::Examples::WeatherReporter.new(zip_code: '90210')
 
-refresh_time = 15 * 60
+      refresh_time = 15 * 60
 
-begin
-  loop do
-    Inkblot::Display.show(@w)
-    Inkblot::Buttons.get_press(refresh_time)
+      begin
+        loop do
+          Inkblot::Display.show(@w)
+          Inkblot::Buttons.get_press(refresh_time)
 
-    @w.refresh
+          @w.refresh
 
-    puts
-    puts Time.now, @w.latest_report
+          puts
+          puts Time.now, @w.latest_report
+        end
+      rescue IndexError
+        Inkblot::Display.clear
+        Inkblot::Buttons.release
+        exit
+      end
+    end
   end
-rescue IndexError
-  Inkblot::Display.clear
-  Inkblot::Buttons.release
-  exit
 end
+
+Inkblot::Examples::WeatherReporter.run

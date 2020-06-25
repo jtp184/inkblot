@@ -4,12 +4,12 @@ require 'inkblot'
 require 'net/http'
 require 'json'
 
-# You'll need an IEXCloud API key: https://iexcloud.io/cloud-login#/register
-# You can run this example with `IEX_CLOUD_API_KEY="aa_0123456789abcdeffedcba9876543210" ruby bin/exmp/stock_ticker.rb`
-
 module Inkblot
   module Examples
-    # Can fetch stock quotes from IEXCloud and display them to the EPD
+    # Can fetch stock quotes from IEXCloud and display them to the EPD.
+    # You'll need an IEXCloud API key: `https://iexcloud.io/cloud-login#/register`.
+    # You can run this example with 
+    # `IEX_CLOUD_API_KEY="aa_0123456789abcdeffedcba9876543210" ruby bin/exmp/stock_ticker.rb`
     class StockTicker
       include Inkblot::Components::Helpers::Paginated
       include Inkblot::Components::Helpers::MultiState
@@ -210,16 +210,24 @@ module Inkblot
   end
 end
 
-#=== For Displaying on the EPD ===##
-Inkblot::Buttons.init unless Inkblot::Buttons.ready?
+class Inkblot::Examples::StockTicker
+  class << self
+    def run
+      # For Displaying on the EPD
+      Inkblot::Buttons.init unless Inkblot::Buttons.ready?
 
-@t = Inkblot::Examples::StockTicker.new(symbols: %w[AAPL FB])
+      @t = Inkblot::Examples::StockTicker.new(symbols: %w[AAPL FB])
 
-begin
-  Inkblot::Display.show(@t)
-  loop { Inkblot::Buttons.get_press }
-rescue IndexError
-  Inkblot::Display.clear
-  Inkblot::Buttons.release
-  exit
+      begin
+        Inkblot::Display.show(@t)
+        loop { Inkblot::Buttons.get_press }
+      rescue IndexError
+        Inkblot::Display.clear
+        Inkblot::Buttons.release
+        exit
+      end
+    end
+  end
 end
+
+Inkblot::Examples::StockTicker.run

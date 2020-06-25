@@ -39,10 +39,14 @@ Superclass:
 <div id='content'>
 <div id='text'>
 <div id='description'>
-<p><a href="../Display.html">Display</a> Pihole stats</p>
+<p>Display Pihole stats</p>
 </div>
 <div id='method-list'>
 <h2>Methods</h2>
+<h3>Public Class</h3>
+<ol>
+<li><a href="#method-c-run">run</a></li>
+</ol>
 <h3>Public Instance</h3>
 <ol>
 <li><a href="#method-i-button_actions">button_actions</a></li>
@@ -58,6 +62,26 @@ Superclass:
 </div>
 <div id='section'>
 <div id='methods'>
+<h2>Public Class methods</h2>
+<div class='method public-class' id='method-method-c-run'>
+<a name='method-c-run'></a>
+<div class='synopsis'>
+<span class='name'>run</span>
+<span class='arguments'>()</span>
+
+</div>
+<div class='description'>
+
+<p>For Displaying on the EPD</p>
+
+</div>
+<div class='source'>
+<a class='source-toggle' href='#' onclick='toggleCode(&#39;method-c-run-source&#39;); return false'>
+[show source]
+</a>
+<pre id='method-c-run-source'><span class="ruby-comment"># File bin/exmp/pihole_chronometer.rb, line 49</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run</span>&#x000A;  <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Buttons</span>.<span class="ruby-identifier">init</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Buttons</span>.<span class="ruby-identifier">ready?</span>&#x000A;&#x000A;  <span class="ruby-ivar">@c</span> = <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Examples</span><span class="ruby-operator">::</span><span class="ruby-constant">PiholeChronometer</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">refresh</span>&#x000A;&#x000A;  <span class="ruby-identifier">refresh_time</span> = <span class="ruby-value">60</span> <span class="ruby-operator">*</span> <span class="ruby-value">60</span>&#x000A;&#x000A;  <span class="ruby-keyword">begin</span>&#x000A;    <span class="ruby-identifier">loop</span> <span class="ruby-keyword">do</span>&#x000A;      <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Display</span>.<span class="ruby-identifier">show</span>(<span class="ruby-ivar">@c</span>)&#x000A;      <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Buttons</span>.<span class="ruby-identifier">get_press</span>(<span class="ruby-identifier">refresh_time</span>)&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">IndexError</span>&#x000A;    <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Display</span>.<span class="ruby-identifier">clear</span>&#x000A;    <span class="ruby-constant">Inkblot</span><span class="ruby-operator">::</span><span class="ruby-constant">Buttons</span>.<span class="ruby-identifier">release</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+</div>
+</div>
 <h2>Public Instance methods</h2>
 <div class='method public-instance' id='method-method-i-button_actions'>
 <a name='method-i-button_actions'></a>
