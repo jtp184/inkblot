@@ -54,16 +54,16 @@ if prompt.yes?('Change password?')
   puts
 end
 
-data[:restart?] = true if prompt.yes?('Restart afterwards?')
+data[:restart?] = prompt.yes?('Restart afterwards?')
 puts
 
 # Run the commands on the remote device
 Net::SSH.start(data.current_hostname, 'pi') do |ssh|
   # If we're changing the hostname, run the command and save the new name
   if data.hostname_change?
-    data[:hostname_cmds].each { |cmd| ssh.exec!(cmd) }
+    data.hostname_cmds.each { |cmd| ssh.exec!(cmd) }
 
-    File.open('.raspi-hostname', 'w+') { |f| f << (data[:new_hostname] + '.local') }
+    File.open('.raspi-hostname', 'w+') { |f| f << (data.new_hostname + '.local') }
 
     puts 'Hostname changed'.cyan
   end
