@@ -25,7 +25,7 @@ rpi = if File.exist?('.raspi-hostname')
 
 # Connect directly or run a command
 if ARGV.empty?
-  exec("ssh pi@#{rpi} -o StrictHostKeyChecking=no")
+  exec("ssh pi@#{rpi}")
 else
-  exec("ssh pi@#{rpi} -o StrictHostKeyChecking=no #{ARGV.join(' ')}")
+  exec("ssh pi@#{rpi} #{ARGV.join(' ')}")
 end
