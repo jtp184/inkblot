@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'awesome_print', '~> 1.8.0'
-  spec.add_development_dependency 'git', '~> 1.5.0'
+  spec.add_development_dependency 'git', '~> 1.11.0'
   spec.add_development_dependency 'hirb', '~> 0.7.3'
   spec.add_development_dependency 'pry', '~> 0.12.2'
   spec.add_development_dependency 'rspec', '~> 3.0'
